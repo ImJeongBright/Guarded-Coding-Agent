@@ -1,0 +1,15 @@
+test_child_file_size_limit_stops_at_32_mib (test_sandbox_edges.SandboxEdgeTests.test_child_file_size_limit_stops_at_32_mib) ... ok
+test_clean_environment_has_no_inherited_secret (test_sandbox_edges.SandboxEdgeTests.test_clean_environment_has_no_inherited_secret) ... ok
+test_compiler_with_explicit_sdk (test_sandbox_edges.SandboxEdgeTests.test_compiler_with_explicit_sdk) ... ok
+test_mcp_malformed_and_preinitialize_no_execution (test_sandbox_edges.SandboxEdgeTests.test_mcp_malformed_and_preinitialize_no_execution) ... ok
+test_output_is_bounded (test_sandbox_edges.SandboxEdgeTests.test_output_is_bounded) ... ok
+test_runtime_hardlink_escape_denied (test_sandbox_edges.SandboxEdgeTests.test_runtime_hardlink_escape_denied) ... ok
+test_runtime_symlink_escape_denied (test_sandbox_edges.SandboxEdgeTests.test_runtime_symlink_escape_denied) ... ok
+test_selected_python_runtime_is_read_only_and_keeps_secret_boundary (test_sandbox_edges.SandboxEdgeTests.test_selected_python_runtime_is_read_only_and_keeps_secret_boundary) ... ok
+test_shell_git_metadata_denied (test_sandbox_edges.SandboxEdgeTests.test_shell_git_metadata_denied) ... ok
+test_system_volume_alias_outside_read_denied (test_sandbox_edges.SandboxEdgeTests.test_system_volume_alias_outside_read_denied) ... ok
+
+----------------------------------------------------------------------
+Ran 10 tests in 1.749s
+
+OK

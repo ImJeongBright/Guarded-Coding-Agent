@@ -1,5 +1,13 @@
 # Roadmap
 
+## 2026-10-06 핵심 개발 마감
+
+[005](exec/005-final-failure-injection.md)에서 macOS CI group/workflow, 결과 audit 손실의
+오류 전달·세션 차단, controller SIGKILL 한계 재현과 현재 177개 full 회귀를 완료했다.
+보존 M1/M2의 build와 22/33개 프로젝트 테스트도 재실행했다. [최종 판정](FINAL-VERDICT.md)에
+검증한 범위와 operator recovery 조건을 정리했다. 핵심 개발은 이 범위에서 마감하며,
+Stage 07의 실제 사람 1–2주 관찰과 미지원 workload는 미완료로 남긴다.
+
 ## 2026-10-04 실행 상태
 
 Stage 00~05 구현과 최종 회귀 101개 완료. Stage 06은 실제 Codex CLI 0.160.0에서

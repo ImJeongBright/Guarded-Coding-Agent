@@ -1,0 +1,23 @@
+test_deny_then_approval_then_allow_precedence (test_core.CoreTests.test_deny_then_approval_then_allow_precedence) ... ok
+test_digest_deterministic_and_argument_bound (test_core.CoreTests.test_digest_deterministic_and_argument_bound) ... ok
+test_strict_schema (test_core.CoreTests.test_strict_schema) ... ok
+test_unknown_operation (test_core.CoreTests.test_unknown_operation) ... ok
+test_unknown_tool_fails_closed (test_core.CoreTests.test_unknown_tool_fails_closed) ... ok
+test_force_and_protected_branch_override_approval (test_policy.PolicyTests.test_force_and_protected_branch_override_approval) ... ok
+test_local_action_is_allowed (test_policy.PolicyTests.test_local_action_is_allowed) ... ok
+test_remote_approval_overrides_git_allow (test_policy.PolicyTests.test_remote_approval_overrides_git_allow) ... ok
+test_sensitive_and_scope_deny_override_local_allow (test_policy.PolicyTests.test_sensitive_and_scope_deny_override_local_allow) ... ok
+test_unknown_action_denied (test_policy.PolicyTests.test_unknown_action_denied) ... ok
+test_malformed_hook_input_denied (test_host_hook.HostHookTests.test_malformed_hook_input_denied) ... ok
+test_native_shell_patch_and_unknown_denied (test_host_hook.HostHookTests.test_native_shell_patch_and_unknown_denied) ... ok
+test_only_exact_guard_tools_and_safe_plan_allowed (test_host_hook.HostHookTests.test_only_exact_guard_tools_and_safe_plan_allowed) ... ok
+test_host_boundary_and_serialization (test_host_profile.HostProfileTests.test_host_boundary_and_serialization) ... ok
+test_preflight_and_agent_owned_state_rejected (test_host_profile.HostProfileTests.test_preflight_and_agent_owned_state_rejected) ... ok
+test_unreviewed_host_version_rejected (test_host_profile.HostProfileTests.test_unreviewed_host_version_rejected) ... ok
+test_unreviewed_project_config_rejected (test_host_profile.HostProfileTests.test_unreviewed_project_config_rejected) ... ok
+test_stdio_agent_surface_and_error_recovery (test_mcp.MCPTests.test_stdio_agent_surface_and_error_recovery) ... ok
+
+----------------------------------------------------------------------
+Ran 18 tests in 1.003s
+
+OK

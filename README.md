@@ -1,72 +1,44 @@
 # Guarded Coding Agent
 
-코딩 에이전트에게 실제 개발 작업과 도구 사용을 위임하되, 모델의 판단과 실제 실행 권한을 분리하는 로컬 개발 도구입니다.
-
-핵심 아이디어:
+코딩 에이전트의 Filesystem / Shell / Git 요청을 실행 전에 검사하는 로컬 도구다. 모델은 작업을 제안하고, 프로그램은 실제 실행 권한을 결정한다.
 
 > LLM interprets intent; the program enforces authority.
 
-에이전트는 필요한 행동을 제안할 수 있지만, Filesystem / Shell / Git의 실제 side effect는 deterministic policy를 통과해야 합니다.
-
-## MVP
-
-- Filesystem / Shell / Git tool gateway
-- ALLOW / REQUIRE_APPROVAL / DENY
-- workspace boundary와 secret 보호
-- git push approval / force push deny
-- approval binding 및 replay 방지
-- structured audit log
-- adversarial regression tests
-- 실제 개발 dogfooding
-
-## Documents
-
-설계와 구현 기준은 [docs/README.md](docs/README.md)에서 시작합니다.
-
-주요 문서:
-
-- [Project Charter](docs/00-project-charter.md)
-- [Product Requirements](docs/01-product-requirements.md)
-- [Architecture](docs/02-architecture.md)
-- [Policy Model](docs/03-policy-model.md)
-- [Threat Model](docs/05-threat-model.md)
-- [Testing Strategy](docs/06-testing-strategy.md)
-- [Roadmap](docs/08-roadmap.md)
-- [001 MVP Plan](docs/plans/001-mvp.md)
-- [002 Live Plan](docs/plans/002-live-dogfooding.md)
-- [003 Real Project Plan](docs/plans/003-real-project-usability.md)
-- [004 Medium Scale Plan](docs/plans/004-medium-scale-readiness.md)
-
-현재 로컬 MVP, 실제 Codex 연결, 세 언어 task와 두 기존 프로젝트의 연속 개발 실험을 구현했습니다. Guard 자체에는 외부 API,
-API key 또는 HTTP 서버가 필요 없습니다. Python 3.11+ 표준 라이브러리만 사용하며,
-Shell/Git 격리 backend는 macOS sandbox-exec입니다.
+정상적인 source 수정·build·test·local commit은 등록한 범위에서 실행한다. Push는 정확한 행동에 결합한 운영자 승인을 요구하고, workspace escape·secret 접근·force push는 차단한다. [최종 판정](docs/FINAL-VERDICT.md)에 검증한 범위와 남은 한계를 정리했다.
 
 ## 실행
 
+Python 3.11+ 표준 라이브러리만 사용한다. Shell/Git 실행에는 macOS, Command Line Tools, 사용 가능한 `sandbox-exec`가 필요하다. Guard 자체에는 API key나 모델 서비스가 필요 없다. 실제 Codex 개발 실험은 기존 Codex 로그인과 모델 서비스를 사용했다.
+
 ```sh
-python3 scripts/check.py --evidence /tmp/guard-regression.json
+python3 -m compileall -q guarded_agent scripts tests examples
+python3 scripts/check.py --group full --evidence /tmp/guard-regression.json
 python3 scripts/dogfood.py --output /tmp/guard-user-x-new-run
 ```
 
-출력 디렉터리는 새 경로여야 합니다. 설치 없이 저장소에서 실행할 수 있습니다.
-실제 coding-agent 연결과 프로필·승인은 [Local Usage](docs/10-local-usage.md)를 참고합니다.
+Dogfood 출력은 새 경로를 지정한다. 중첩 sandbox가 Seatbelt 적용을 금지하면 실행 전에 실패하므로 Guard의 자체 sandbox를 적용할 수 있는 macOS host에서 실행한다.
+
+Workspace 준비, 프로필 발견·검토·등록, stdio MCP 연결과 승인은 [Local Usage](docs/10-local-usage.md)를 따른다. 전용 host profile은 Codex CLI **0.160.0**에서 검증했으며, 직접 실행 경로 차단과 host read-only 설정을 함께 요구한다.
 
 ## 검증 결과
 
-- 수정 후 001–003 회귀 159개 통과. 최신 Guard 전체 회귀는 173개이며 C DBMS profile도 계속 통과.
-- 002: 실제 Codex의 C·Python·JavaScript 호출 49개, 승인·정책 차단 0회.
-- 003: 두 기존 프로젝트 × 세 task, 110개 호출 ALLOW 109/DENY 1/승인 0, 모두 독립 검증·clean local commit 완료.
-- 003의 Git 경고와 빈-query 탐색 거부를 보완했고 이후 73개 live 호출은 거부 없이 완료했습니다.
-- 최종 합성 X의 정상 개발 25개 action 승인·차단 0회, 위험 7개 미실행, bare push에는 exact grant 1회.
-- 004: M1/M2 실제 Codex task 5개와 Git 성능 수정 후 후속 task 1개, 153 Guard 호출 ALLOW 152/DENY 1/승인 0. 전체 173개 회귀와 task별 독립 검증 통과.
-- hook 단독 fail-open과 쓰기 scope 경쟁 조건을 재현해 수정했습니다.
-- 항목별 결과와 증거는 [001 Exec](docs/exec/001-mvp.md), [002 Exec](docs/exec/002-live-dogfooding.md), [003 Exec](docs/exec/003-real-project-usability.md)에 있습니다.
+- 현재 실행 코드 `0060a56`: **전체 회귀 177개 통과**, 실패·오류·skip 0. [JSON](docs/exec/evidence/005/regression-full.json), [소스 해시 결합](docs/exec/evidence/005/source-binding.json).
+- CI: macOS 한 환경에서 syntax/unit과 adversarial/approval/audit/lifecycle/scale/full을 두 job으로 실행한다. [Workflow](.github/workflows/regression.yml), [CI 상태 기록](docs/exec/005-final-failure-injection.md#ci).
+- 004 실제 Codex 개발: M1/M2 C DBMS의 다섯 feature task와 최적화 후 확인 task, Guard 호출 153회 중 ALLOW 152 / DENY 1 / 승인 0. 독립 검증과 clean local commit을 완료했다. [004 실행 기록](docs/exec/004-05-live-medium-scale.md).
+- 005 재측정: 보존된 M1/M2에서 Guard Git status 중앙값 **960ms / 1,748ms**, build 및 프로젝트 테스트 **22개 / 33개 통과**. 새 모델 session 없이 재실행한 결과이며 004의 성능 수치와 구분한다. [재측정 증거](docs/exec/evidence/005/scale-recheck-serial.json).
+- 마지막 실패 주입: 결과 audit 저장 실패 뒤 MCP/CLI가 성공으로 판정하던 결함을 수정했다. Controller SIGKILL 뒤 자식이 남는 한계는 재현해 기록했다. [005 실행 기록](docs/exec/005-final-failure-injection.md).
 
-후속 [001~003 리뷰](docs/exec/review-001-003.md)의 High 1 / Mid 4 / Low 2를 모두 수정했습니다.
-[수정 문서와 재검증](docs/exec/fix-001-003.md)에 항목별 변경·실패 실험·증거를 기록했습니다.
-새 실제 Codex C 작업은 호출 17회, 승인 0회로 새 커밋과 독립 검증을 완료했습니다.
-거부 1회는 실험 프롬프트가 지원하지 않는 동작을 지시한 오류였으며 자동으로 복구했습니다.
-소규모 C 흐름과 이번 10,000 tracked / 25,000 ignored M2 fixture에서는 Git metadata 최적화 뒤 계속 사용할 수 있다는 모의 X 판정입니다. 실제 사용자 1–2주 연속 사용은 아직 측정하지 않았습니다.
-이전 [중규모 용량 관찰](docs/exec/scale-observation.md)의 Git metadata 한도는 보완했고, 현재 root search는 M2에서 5,000-entry 뒤 incomplete를 알리므로 경로를 좁혀야 합니다. [004-05 실행 기록](docs/exec/004-05-live-medium-scale.md)에 수치와 한계를 남겼습니다.
-검증 범위는 macOS와 전용 Codex CLI 0.160.0 profile입니다. 큰 저장소·worktree·dependency 설치·
-다른 host·1~2주 실제 사용자 평가는 [현재 판정과 한계](docs/exec/003-07-verdict.md)에 구분했습니다.
+## Portfolio Highlights
+
+- **권한과 판단 분리:** 구조화된 요청, deterministic policy, 실행 직전 재검증과 OS sandbox를 연결했다. [Gateway](guarded_agent/gateway.py), [Sandbox](guarded_agent/sandbox.py).
+- **정확한 승인:** workspace/run/actor/policy/remote/branch/HEAD/expiry에 결합한 일회용 grant와 replay·동시 consume 회귀를 구현했다. [Approval](guarded_agent/approval.py), [회귀](tests/test_hardening.py).
+- **실패 실험으로 경계 보강:** hook 단독 fail-open, 쓰기 scope 경쟁, 감사 기록 손실을 재현하고 red→green 회귀를 남겼다. [002](docs/exec/002-live-dogfooding.md), [001–003 수정](docs/exec/fix-001-003.md), [005](docs/exec/005-final-failure-injection.md).
+- **성능과 안전성 함께 검증:** 10,000 tracked / 25,000 ignored fixture의 Git metadata 병목을 줄이면서 link·secret·불완전 state 차단을 유지했다. [구현과 측정](docs/exec/004-05-live-medium-scale.md), [회귀](tests/test_scale_git_metadata.py).
+
+## 현재 한계
+
+모의 X는 검증한 macOS/C DBMS 흐름에서 계속 사용할 수 있다고 판정했다. 실제 사람의 1–2주 연속 사용, 임의의 대규모 저장소, linked worktree, symlink dependency tree, package 설치와 다른 OS/host는 평가하지 않았다.
+
+정상 반환·timeout의 자식 cleanup을 검증했지만, controller를 SIGKILL하면 자식이 허용 scope 안에서 계속 실행할 수 있다. 자동 supervisor·복구는 구현하지 않았다. 결과 audit 실패도 이미 생긴 변경을 되돌리지 않으며 운영자의 확인·복구가 필요하다. [실패 주입 증거](docs/exec/evidence/005/injection-final.json).
+
+핵심 개발은 이번 범위에서 마감한다. 재개는 실제 사용에서 새 결함이나 지원할 workload가 확인됐을 때 결정한다. 설계·계획·001–005 실행 기록은 [문서 지도](docs/README.md)에서 찾을 수 있다.

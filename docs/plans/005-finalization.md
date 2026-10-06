@@ -32,3 +32,10 @@ macOS runner 한 환경과 빠른/실행 회귀 두 job만 사용한다. matrix/
 README 자체에 Portfolio Highlights를 짧게 두고, 같은 내용을 반복하는 PORTFOLIO 문서는 만들지 않는다. 핵심 개발은 검증한 workload와 자동 회귀 조건에서 종료하고, 실제 사용에서 새 문제가 확인될 때 재개한다.
 
 결과: [005 Exec](../exec/005-final-failure-injection.md), [최종 판정](../FINAL-VERDICT.md).
+
+## 실행 상태 — 2026-10-06
+
+1–7 완료. 현재 코드 full 177개와 모든 group이 실패·오류·skip 없이 통과했고,
+CLI host smoke 및 보존 M1/M2 build/tests가 통과했다. 결과 audit 손실은 최소 수정과
+red→green으로 고정했으며 controller SIGKILL의 잔여 자식은 자동 복구 한계로 명시했다.
+8의 문서·소스/evidence 교차검증을 마치고 한 PR의 원격 CI 상태를 확인한다.

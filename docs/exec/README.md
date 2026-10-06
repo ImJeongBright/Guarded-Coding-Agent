@@ -2,6 +2,12 @@
 
 이 디렉터리는 구현·실험 결과를 기록한다.
 
+## 005 최종 마감
+
+- [005 CI·마지막 실패 주입](005-final-failure-injection.md): 결과 audit 오류 전달·세션 차단 수정, controller SIGKILL 한계, 177개 full 회귀와 보존 M1/M2 재측정.
+- [최종 판정](../FINAL-VERDICT.md): 열 가지 판정과 scoped 핵심 개발 마감. 장기 실제 사용자 관찰은 미측정이다.
+- [005 evidence](evidence/005/README.md): 최초 실패, red→green, 소스 해시, CLI smoke와 scale replay.
+
 ## 001~003 후속 검토
 
 - [재검토와 수정 우선순위](review-001-003.md): 수정 전 High 1 / Mid 4 / Low 2 재현 기록.

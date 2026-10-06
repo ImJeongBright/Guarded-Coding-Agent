@@ -96,6 +96,11 @@ fsync가 실패하면 파일은 바뀌었으므로 applied다. 재시도 전에 
 실행 전 거부는 DENY/미실행이고, MCP isError는 정책 거부뿐 아니라 실행 실패·nonzero exit에도 true다.
 응답과 result audit에 같은 실행 상태를 기록하며 applied가 내구성 보장을 의미하지는 않는다.
 
+실행 후 result audit 저장이 실패하면 `audit_error`가 추가된다. 실제 execution/effect 상태는
+그대로 남고 MCP는 오류, CLI는 exit 1을 반환한다. 같은 Gateway의 후속 요청은 AU-ERROR로
+차단한다. 운영자가 실제 효과와 감사 저장소를 확인·복구한 뒤 새 Gateway를 시작해야 한다.
+이 차단은 instance 상태이며 프로세스 간 영구 recovery lock은 아니다. [005 실패 주입](exec/005-final-failure-injection.md).
+
 ## 승인
 
 push는 operator profile의 remote, 현재 feature branch, HEAD, canonical URL과 local
@@ -185,6 +190,9 @@ MCP는 newline JSON-RPC stdio, protocol 2025-11-25 계열이다.
   종료를 확인한다. 이 native 기능이 없거나 사전 검사가 실패하면 작업을 시작하지 않는다.
   종료 확인 실패는 SH-LIFECYCLE/실행 실패/possible로 기록하고 현재 Gateway 세션의 모든 후속
   요청을 차단한다. 남긴 lifecycle marker로 운영자가 잔여 프로세스를 확인·복구한 뒤 재시작한다.
+- controller SIGKILL에서는 정상 cleanup과 marker 저장이 실행되지 않을 수 있다. 자식은
+  기존 Seatbelt 안에서 허용 scope에 계속 쓸 수 있다. 자동 supervisor/recovery는 구현하지 않았고,
+  운영자의 잔여 프로세스 확인·정리가 필요하다. [실측 결과](exec/evidence/005/injection-final.json).
 - action/decision/rule/result metadata를 내구 audit로 저장한다. 파일 내용·stdin·stdout/stderr는
   audit에 저장하지 않는다. edit의 old/new text와 search match 내용도 생략한다.
   결과 token redaction은 알려진 형태를 대상으로 하며 모든 secret 탐지기는 아니다.

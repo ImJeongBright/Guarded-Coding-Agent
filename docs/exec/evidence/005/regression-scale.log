@@ -1,0 +1,18 @@
+test_complete_hidden_metadata_passes_large_repository_git_flow (test_scale_git_metadata.GitMetadataScaleTests.test_complete_hidden_metadata_passes_large_repository_git_flow) ... ok
+test_link_added_during_metadata_lookup_is_caught_before_git_execution (test_scale_git_metadata.GitMetadataScaleTests.test_link_added_during_metadata_lookup_is_caught_before_git_execution) ... ok
+test_metadata_overflow_still_denies_before_execution (test_scale_git_metadata.GitMetadataScaleTests.test_metadata_overflow_still_denies_before_execution) ... ok
+test_metadata_path_count_overflow_still_denies (test_scale_git_metadata.GitMetadataScaleTests.test_metadata_path_count_overflow_still_denies) ... ok
+test_metadata_path_lexical_validation_preserves_scope_and_sensitivity (test_scale_git_metadata.GitMetadataScaleTests.test_metadata_path_lexical_validation_preserves_scope_and_sensitivity) ... ok
+test_excluded_hardlink_content_is_never_read_or_audited (test_scale_search.SearchExclusionTests.test_excluded_hardlink_content_is_never_read_or_audited) ... ok
+test_exclusion_is_relative_to_search_path_and_skips_nested_contents (test_scale_search.SearchExclusionTests.test_exclusion_is_relative_to_search_path_and_skips_nested_contents) ... ok
+test_exclusions_reject_escape_files_symlinks_and_self (test_scale_search.SearchExclusionTests.test_exclusions_reject_escape_files_symlinks_and_self) ... ok
+test_generated_tree_exhaustion_is_avoided_by_exact_exclusion (test_scale_search.SearchExclusionTests.test_generated_tree_exhaustion_is_avoided_by_exact_exclusion) ... ok
+test_attribute_added_after_git_config_check_is_caught_before_executor (test_workspace_scan.WorkspaceScanTests.test_attribute_added_after_git_config_check_is_caught_before_executor) ... ok
+test_git_attributes_are_rejected_in_combined_scan_but_shell_allows_them (test_workspace_scan.WorkspaceScanTests.test_git_attributes_are_rejected_in_combined_scan_but_shell_allows_them) ... ok
+test_hardlink_added_after_git_config_check_is_caught_before_executor (test_workspace_scan.WorkspaceScanTests.test_hardlink_added_after_git_config_check_is_caught_before_executor) ... ok
+test_unreadable_or_disappearing_scan_entry_fails_closed (test_workspace_scan.WorkspaceScanTests.test_unreadable_or_disappearing_scan_entry_fails_closed) ... ok
+
+----------------------------------------------------------------------
+Ran 13 tests in 20.369s
+
+OK

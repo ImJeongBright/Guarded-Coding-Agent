@@ -1,0 +1,288 @@
+{
+  "date": "2026-10-06T09:26:01.783010+00:00",
+  "kind": "README operator CLI smoke; no model session",
+  "head_commit": "0060a5626eabe7b1045478fa3ec46d6267e1fb0b",
+  "platform": "macOS-15.7.8-arm64-arm-64bit",
+  "python": "3.12.1",
+  "checks": [
+    {
+      "command": [
+        "init",
+        "--workspace",
+        "$TMP/guard-final-cli-recovered-host/workspace",
+        "--state",
+        "$TMP/guard-final-cli-recovered-host/state"
+      ],
+      "returncode": 0,
+      "response": {
+        "policy": "$TMP/guard-final-cli-recovered-host/state/policy.json",
+        "workspace": "$TMP/guard-final-cli-recovered-host/workspace"
+      },
+      "stderr": ""
+    },
+    {
+      "command": [
+        "discover",
+        "--workspace",
+        "$TMP/guard-final-cli-recovered-host/workspace",
+        "--state",
+        "$TMP/guard-final-cli-recovered-host/state"
+      ],
+      "returncode": 0,
+      "response": {
+        "workspace": "$TMP/guard-final-cli-recovered-host/workspace",
+        "workspace_identity": [
+          16777231,
+          147259119
+        ],
+        "policy_digest": "9170bc63149d155b4a9d29c39b3c1c737a5ad63724fe0cf9f1c74d2a1457454e",
+        "sources": {
+          "Makefile": "dc61941a38a9cc43ad33d474fc24e202aadbbe22bc9dde41be3c2ad14af4614e",
+          "src/db.c": "4eab69ab16111ae86b946fc0149a33d2b92ca5841a8904e8da33878e535cb8c9",
+          "tests/test_db.py": "12085ea2dee1864e0d79ad7b07bdfe3811526398818704aaac22e77b354c7047"
+        },
+        "commands": [
+          {
+            "id": "c-build",
+            "argv": [
+              "/Library/Developer/CommandLineTools/usr/bin/cc",
+              "-isysroot",
+              "/Library/Developer/CommandLineTools/SDKs/MacOSX.sdk",
+              "-std=c11",
+              "-Wall",
+              "-Wextra",
+              "-Werror",
+              "-pedantic",
+              "-O2",
+              "src/db.c",
+              "-o",
+              "build/minidb"
+            ],
+            "cwd": ".",
+            "write_paths": [
+              "build"
+            ],
+            "variants": {
+              "debug": [
+                "/Library/Developer/CommandLineTools/usr/bin/cc",
+                "-isysroot",
+                "/Library/Developer/CommandLineTools/SDKs/MacOSX.sdk",
+                "-std=c11",
+                "-Wall",
+                "-Wextra",
+                "-Werror",
+                "-pedantic",
+                "-O0",
+                "-g",
+                "src/db.c",
+                "-o",
+                "build/minidb"
+              ]
+            }
+          },
+          {
+            "id": "c-tests",
+            "argv": [
+              "/Library/Frameworks/Python.framework/Versions/3.12/bin/python3.12",
+              "tests/test_db.py"
+            ],
+            "cwd": ".",
+            "write_paths": [
+              "build/test-data"
+            ],
+            "filter": {
+              "kind": "python-unittest-literal",
+              "position": 2
+            }
+          },
+          {
+            "id": "c-db",
+            "argv": [
+              "$TMP/guard-final-cli-recovered-host/workspace/build/minidb"
+            ],
+            "cwd": ".",
+            "write_paths": [
+              "data.db",
+              "data.db.tmp"
+            ]
+          }
+        ],
+        "notes": [
+          "C DBMS layout detector proposes fixed compiler/test commands; it does not execute or interpret Makefile recipes. Review write scopes before applying."
+        ],
+        "digest": "0a695be9015d29083a9e2ce83ef206dd1bfed948033b2a47814b5ed81de42b78"
+      },
+      "stderr": ""
+    },
+    {
+      "command": [
+        "profile-apply",
+        "--workspace",
+        "$TMP/guard-final-cli-recovered-host/workspace",
+        "--state",
+        "$TMP/guard-final-cli-recovered-host/state",
+        "--reviewed-digest",
+        "0a695be9015d29083a9e2ce83ef206dd1bfed948033b2a47814b5ed81de42b78",
+        "--ids",
+        "c-build",
+        "c-tests",
+        "c-db"
+      ],
+      "returncode": 0,
+      "response": {
+        "version": "003-0a695be9015d",
+        "approval_ttl": 300,
+        "git_executable": "/opt/homebrew/Cellar/git/2.53.0/bin/git",
+        "git_remotes": {},
+        "commands": [
+          {
+            "id": "c-build",
+            "argv": [
+              "/Library/Developer/CommandLineTools/usr/bin/cc",
+              "-isysroot",
+              "/Library/Developer/CommandLineTools/SDKs/MacOSX.sdk",
+              "-std=c11",
+              "-Wall",
+              "-Wextra",
+              "-Werror",
+              "-pedantic",
+              "-O2",
+              "src/db.c",
+              "-o",
+              "build/minidb"
+            ],
+            "cwd": ".",
+            "write_paths": [
+              "build"
+            ],
+            "variants": {
+              "debug": [
+                "/Library/Developer/CommandLineTools/usr/bin/cc",
+                "-isysroot",
+                "/Library/Developer/CommandLineTools/SDKs/MacOSX.sdk",
+                "-std=c11",
+                "-Wall",
+                "-Wextra",
+                "-Werror",
+                "-pedantic",
+                "-O0",
+                "-g",
+                "src/db.c",
+                "-o",
+                "build/minidb"
+              ]
+            }
+          },
+          {
+            "id": "c-tests",
+            "argv": [
+              "/Library/Frameworks/Python.framework/Versions/3.12/bin/python3.12",
+              "tests/test_db.py"
+            ],
+            "cwd": ".",
+            "write_paths": [
+              "build/test-data"
+            ],
+            "filter": {
+              "kind": "python-unittest-literal",
+              "position": 2
+            }
+          },
+          {
+            "id": "c-db",
+            "argv": [
+              "$TMP/guard-final-cli-recovered-host/workspace/build/minidb"
+            ],
+            "cwd": ".",
+            "write_paths": [
+              "data.db",
+              "data.db.tmp"
+            ]
+          }
+        ]
+      },
+      "stderr": ""
+    },
+    {
+      "command": [
+        "exec",
+        "--workspace",
+        "$TMP/guard-final-cli-recovered-host/workspace",
+        "--state",
+        "$TMP/guard-final-cli-recovered-host/state",
+        "--run-id",
+        "readme-smoke"
+      ],
+      "returncode": 0,
+      "response": {
+        "decision": "ALLOW",
+        "matched_rule": "SH-PROFILE",
+        "reason": "Bounded local capability allowed.",
+        "executed": true,
+        "execution_status": "succeeded",
+        "effect_status": "possible",
+        "exit_code": 0,
+        "stdout": "",
+        "stderr": "",
+        "run_id": "readme-smoke",
+        "audit_event_id": "e93a940ff71f45d489ecd66d3f6c2772",
+        "timed_out": false,
+        "lifecycle_status": "terminated",
+        "terminated_scope_processes": 0,
+        "output_truncated": false,
+        "execution_stage": "completed",
+        "timings_ms": {
+          "normalization": 1.2391259660944343,
+          "decision": 0.016125035472214222,
+          "audit": 0.6712499889545143,
+          "execution": 903.5192090086639,
+          "total": 905.5903750122525,
+          "other": 0.1446650130674243
+        }
+      },
+      "stderr": ""
+    },
+    {
+      "command": [
+        "exec",
+        "--workspace",
+        "$TMP/guard-final-cli-recovered-host/workspace",
+        "--state",
+        "$TMP/guard-final-cli-recovered-host/state",
+        "--run-id",
+        "readme-smoke"
+      ],
+      "returncode": 0,
+      "response": {
+        "decision": "ALLOW",
+        "matched_rule": "SH-PROFILE",
+        "reason": "Bounded local capability allowed.",
+        "executed": true,
+        "execution_status": "succeeded",
+        "effect_status": "possible",
+        "exit_code": 0,
+        "stdout": "",
+        "stderr": "test_capacity_and_eof (__main__.DatabaseTests.test_capacity_and_eof) ... ok\ntest_corrupt_and_truncated_data_rejected (__main__.DatabaseTests.test_corrupt_and_truncated_data_rejected) ... ok\ntest_count_empty_is_read_only (__main__.DatabaseTests.test_count_empty_is_read_only) ... ok\ntest_count_existing_binary_format (__main__.DatabaseTests.test_count_existing_binary_format) ... ok\ntest_count_zero_duplicates_and_restart (__main__.DatabaseTests.test_count_zero_duplicates_and_restart) ... ok\ntest_duplicate_preserves_row (__main__.DatabaseTests.test_duplicate_preserves_row) ... ok\ntest_insert_select_and_restart (__main__.DatabaseTests.test_insert_select_and_restart) ... ok\ntest_invalid_input_never_creates_database (__main__.DatabaseTests.test_invalid_input_never_creates_database) ... ok\ntest_overlong_input_recovery (__main__.DatabaseTests.test_overlong_input_recovery) ... ok\ntest_persistence_failure_is_reported_and_rolled_back (__main__.DatabaseTests.test_persistence_failure_is_reported_and_rolled_back) ... ok\ntest_zero_and_uint32_max (__main__.DatabaseTests.test_zero_and_uint32_max) ... ok\n\n----------------------------------------------------------------------\nRan 11 tests in 0.825s\n\nOK\n",
+        "run_id": "readme-smoke",
+        "audit_event_id": "50dea07474d64e48b13544cebcd8df8e",
+        "timed_out": false,
+        "lifecycle_status": "terminated",
+        "terminated_scope_processes": 0,
+        "output_truncated": false,
+        "execution_stage": "completed",
+        "timings_ms": {
+          "normalization": 1.283584046177566,
+          "decision": 0.013082986697554588,
+          "audit": 1.002333010546863,
+          "execution": 1068.4997499920428,
+          "total": 1070.9756250143982,
+          "other": 0.17687497893348336
+        }
+      },
+      "stderr": ""
+    }
+  ],
+  "passed": true,
+  "config_toml_valid": true,
+  "codex_preflight_version": "codex-cli 0.160.0"
+}
