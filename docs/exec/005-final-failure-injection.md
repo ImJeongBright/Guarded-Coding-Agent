@@ -69,9 +69,9 @@ macOS 15.7.8 arm64, Python 3.12.1, 실행 코드 `0060a56`. 모든 성공 group�
 
 ## CI
 
-로컬에서 CI와 같은 group 명령이 모두 통과했다. 원격 PR/CI는 아직 실행하지 못했다. 복구 세션의 Git/gh 인증이 유효하지 않아 문서 commit push가 실패했고, 연결된 GitHub 도구의 tree 게시도 자동 승인 심사가 거절했다. 거절 사유는 해당 문서·audit/evidence payload를 이 저장소에 내보내는 사용자 권한이 명확하지 않다는 것이다. 로컬 커밋은 보존했고 원격 게시에는 사용자 승인이 필요하다.
+로컬에서 CI와 같은 group 명령이 모두 통과했다. 복구 환경에서는 GitHub 주소 전용 `gh auth git-credential` 설정이 시스템 `osxkeychain`과 사용자 `store` helper를 덮고 있었고, CLI에 저장된 GitHub token은 유효하지 않았다. 전역 설정은 건드리지 않고 이번 명령의 helper 우선순위만 `osxkeychain`→`store`로 바꿔 push했다. GitHub 사용자 세션 인증은 다시 설정하지 않았다.
 
-GitHub Actions의 원격 통과를 주장하지 않는다. Workflow는 `pull_request`, main push, 수동 실행을 trigger로 사용하므로 feature branch push만으로 실행되지 않는다.
+PR [#1](https://github.com/ImJeongBright/Guarded-Coding-Agent/pull/1)은 `8b432ef`에서 열었고, workflow run [37445603891](https://github.com/ImJeongBright/Guarded-Coding-Agent/actions/runs/37445603891)의 Syntax and policy contracts와 Execution boundaries and full regression이 모두 성공했다. Workflow는 `pull_request`, main push, 수동 실행을 trigger로 사용하므로 feature branch push만으로는 CI를 실행하지 않는다. 이 설명을 기록하는 후속 문서 commit은 PR의 새 head이므로 해당 head의 CI도 다시 확인한다.
 
 ## 자체 검토와 마감
 
