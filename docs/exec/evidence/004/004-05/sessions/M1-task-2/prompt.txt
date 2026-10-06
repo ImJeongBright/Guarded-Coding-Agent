@@ -1,0 +1,7 @@
+You are acting as user X's coding agent for the second isolated M1 development task. Use only `guard_filesystem`, `guard_shell`, and `guard_git`; native shell/file/patch/Git routes are disabled. Do not change Guard or operator policy, bypass a denial, install packages, or push. Continue from the clean committed state and preserve the existing `delete <id>` behavior.
+
+Add a read-only `find <uint32 id>` command. It prints `(id, name)` for a matching row and `Not found.` otherwise. It must not write or reformat `data.db`, create a temporary file, change row order, or affect count. Handle id 0 and UINT32_MAX, reject negative/overflow/trailing/missing arguments, and update `.help` and README. Add process-level tests for found/missing IDs, unchanged database bytes across repeated queries and restart, malformed arguments, and coexistence with insert/delete.
+
+The four core C modules and existing delete feature are in the tracked 3,000-file M1 workspace; 10,000 ignored build files are present. Use the registered `build` and `tests` profiles. When searching, exclude the confirmed generated `build` directory or narrow to the relevant module. Review only the explicit changed-file diff, stage only your changes, run build plus the full tests, and create a local commit. Do not push.
+
+In your final response, report the commit, checks, and any Guard friction, retries, incomplete search, or manual path narrowing. Do not hide a denial or failed check.

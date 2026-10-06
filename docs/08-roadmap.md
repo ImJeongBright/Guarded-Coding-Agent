@@ -1,5 +1,29 @@
 # Roadmap
 
+## 2026-10-04 실행 상태
+
+Stage 00~05 구현과 최종 회귀 101개 완료. Stage 06은 실제 Codex CLI 0.160.0에서
+Guard 연결과 native 도구·장애 동작을 검증했다. hook 단독 실패를 재현해 read-only host로 보강했다.
+Stage 07은 C/Python/JavaScript 세 개발 task의 실제 모델 실험을 완료했으며
+정상 49개 호출의 승인/거부는 0이다. 1~2주·기존 대규모 저장소·실제 사용자 의견은 남아 있다.
+[001 Exec](exec/001-mvp.md), [002 Exec](exec/002-live-dogfooding.md),
+[002 Plan](plans/002-live-dogfooding.md)을 참고한다.
+
+[003 Real Project Usability](plans/003-real-project-usability.md)의 일곱 단위를 완료했다.
+두 기존 dependency-free 저장소에서 각각 세 task를 수행해 준비·명령 변화·연속 개발로
+검증 범위를 넓혔다. 110개 live 호출의 승인 0, 정상 탐색 거부 1개는 보완했다.
+[003 Exec](exec/003-real-project-usability.md)에 문서·증거·범위별 판정을 남겼다.
+1~2주 실제 사용자 관찰과 대규모/worktree/dependency 설치는 별도 유지한다.
+
+## 2026-10-05 중규모 실행 상태
+
+[004 계획](plans/004-medium-scale-readiness.md)의 004-01~05를 실행했다. M1/M2의 다섯 실제 Codex
+feature task와 Git 최적화 뒤 follow-up이 독립 검증·clean commit까지 통과했다. 10,000 tracked / 25,000
+ignored M2에서 metadata 정규화 최적화 후 `git status` median은 3.90초에서 1.11초로 줄었고,
+전체 회귀는 173개 통과했다. 모의 X는 이 macOS 개발 profile에서 Guard를 계속 사용할 수 있다고 판단했다.
+실제 사람의 1–2주 사용과 production/worktree 저장소는 여전히 평가하지 않았다.
+[004-05 Exec](exec/004-05-live-medium-scale.md)에 task별 호출·latency·검색 한도와 증거를 남겼다.
+
 ## Stage 00 — Contract Freeze
 
 목적:

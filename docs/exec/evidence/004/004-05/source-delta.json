@@ -1,0 +1,13 @@
+{
+  "added": {},
+  "changed": {
+    "guarded_agent/git.py": {
+      "after": "aadd1f2c902fe385807f5c012f9252ef76d9184c7b56c495a75a493377ad4831",
+      "before": "45a09a82dcf63b29ab32ba9370cd7cb209bb5b950d7d0abc8135877287970c74"
+    },
+    "tests/test_scale_git_metadata.py": {
+      "after": "c69481d2f10bc8f02d3fccd08c24e8330da6dea0aabac05b2c37636ee517263f",
+      "before": "8006322fbb6280537d07888ecc1b5f2882832f5754af79a5c0ab8bf4b0f7f6f2"
+    }
+  }
+}

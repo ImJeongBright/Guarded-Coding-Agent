@@ -1,0 +1,200 @@
+{
+  "guard_filesystem:edit": {
+    "calls": 14,
+    "median_ms": 1.616,
+    "p90_ms": 2.461,
+    "max_ms": 2.952,
+    "samples_ms": [
+      2.255,
+      1.64,
+      1.64,
+      1.306,
+      1.462,
+      1.283,
+      2.549,
+      2.098,
+      1.587,
+      1.592,
+      1.471,
+      2.952,
+      1.547,
+      1.93
+    ],
+    "component_medians_ms": {
+      "audit": 0.319,
+      "decision": 0.019,
+      "execution": 0.678,
+      "normalization": 0.548,
+      "other": 0.06,
+      "total": 1.616
+    }
+  },
+  "guard_filesystem:list": {
+    "calls": 5,
+    "median_ms": 1.119,
+    "p90_ms": 1.902,
+    "max_ms": 2.4,
+    "samples_ms": [
+      2.4,
+      1.155,
+      1.119,
+      0.996,
+      0.928
+    ],
+    "component_medians_ms": {
+      "audit": 0.289,
+      "decision": 0.024,
+      "execution": 0.184,
+      "normalization": 0.551,
+      "other": 0.061,
+      "total": 1.119
+    }
+  },
+  "guard_filesystem:read": {
+    "calls": 18,
+    "median_ms": 1.33,
+    "p90_ms": 2.275,
+    "max_ms": 4.116,
+    "samples_ms": [
+      0.937,
+      2.124,
+      1.34,
+      1.321,
+      1.212,
+      1.174,
+      1.264,
+      2.629,
+      1.37,
+      1.949,
+      1.403,
+      1.183,
+      1.254,
+      1.397,
+      4.116,
+      1.382,
+      1.301,
+      1.159
+    ],
+    "component_medians_ms": {
+      "audit": 0.37,
+      "decision": 0.019,
+      "execution": 0.331,
+      "normalization": 0.534,
+      "other": 0.128,
+      "total": 1.33
+    }
+  },
+  "guard_git:add": {
+    "calls": 2,
+    "median_ms": 3845.736,
+    "p90_ms": 3846.72,
+    "max_ms": 3846.966,
+    "samples_ms": [
+      3846.966,
+      3844.507
+    ],
+    "component_medians_ms": {
+      "audit": 0.967,
+      "decision": 0.037,
+      "execution": 337.584,
+      "normalization": 3506.989,
+      "other": 0.159,
+      "total": 3845.736
+    }
+  },
+  "guard_git:commit": {
+    "calls": 2,
+    "median_ms": 3894.088,
+    "p90_ms": 3898.623,
+    "max_ms": 3899.756,
+    "samples_ms": [
+      3888.419,
+      3899.756
+    ],
+    "component_medians_ms": {
+      "audit": 0.816,
+      "decision": 0.036,
+      "execution": 395.574,
+      "normalization": 3497.518,
+      "other": 0.144,
+      "total": 3894.088
+    }
+  },
+  "guard_git:diff": {
+    "calls": 3,
+    "median_ms": 4012.877,
+    "p90_ms": 4026.71,
+    "max_ms": 4030.169,
+    "samples_ms": [
+      4012.877,
+      4030.169,
+      3950.572
+    ],
+    "component_medians_ms": {
+      "audit": 0.814,
+      "decision": 0.033,
+      "execution": 319.283,
+      "normalization": 3692.488,
+      "other": 0.424,
+      "total": 4012.877
+    }
+  },
+  "guard_git:log": {
+    "calls": 1,
+    "median_ms": 3784.349,
+    "p90_ms": 3784.349,
+    "max_ms": 3784.349,
+    "samples_ms": [
+      3784.349
+    ],
+    "component_medians_ms": {
+      "audit": 0.758,
+      "decision": 0.038,
+      "execution": 319.188,
+      "normalization": 3464.225,
+      "other": 0.141,
+      "total": 3784.349
+    }
+  },
+  "guard_git:status": {
+    "calls": 5,
+    "median_ms": 3897.409,
+    "p90_ms": 3966.802,
+    "max_ms": 3985.363,
+    "samples_ms": [
+      3897.409,
+      3834.231,
+      3938.96,
+      3897.055,
+      3985.363
+    ],
+    "component_medians_ms": {
+      "audit": 0.735,
+      "decision": 0.038,
+      "execution": 348.068,
+      "normalization": 3551.752,
+      "other": 0.139,
+      "total": 3897.409
+    }
+  },
+  "guard_shell:run": {
+    "calls": 4,
+    "median_ms": 1261.861,
+    "p90_ms": 1437.737,
+    "max_ms": 1473.227,
+    "samples_ms": [
+      1168.794,
+      1354.927,
+      1044.847,
+      1473.227
+    ],
+    "component_medians_ms": {
+      "audit": 0.564,
+      "decision": 0.015,
+      "execution": 676.001,
+      "normalization": 584.927,
+      "other": 0.165,
+      "total": 1261.861
+    }
+  }
+}

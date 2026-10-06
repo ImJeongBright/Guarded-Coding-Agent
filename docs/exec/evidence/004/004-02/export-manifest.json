@@ -1,0 +1,93 @@
+{
+  "purpose": "Portable review copies. Path replacement changes original capture bytes.",
+  "files": [
+    {
+      "raw_relative_path": "measurement-summary.json",
+      "portable_path": "measurement-summary.json",
+      "raw_sha256": "55dccbda7c1655b8778f713f5f560a52158a38e4400bc9209c513e52c13ac9f3",
+      "portable_sha256": "94af02c3cf92e928cf6637c8f659530e8b9a84da9e46a3870abad7baf627bfb6",
+      "transformed": true
+    },
+    {
+      "raw_relative_path": "scan-comparison.json",
+      "portable_path": "scan-comparison.json",
+      "raw_sha256": "e1e6fdaeda201cd993a9c06fd8a3027fb1cd908a7dd7575c74e6153e2cfa5185",
+      "portable_sha256": "e1e6fdaeda201cd993a9c06fd8a3027fb1cd908a7dd7575c74e6153e2cfa5185",
+      "transformed": false
+    },
+    {
+      "raw_relative_path": "regression.json",
+      "portable_path": "regression.json",
+      "raw_sha256": "b8db129d8c4c3d74c5b10b2391baf593298a58badfb781f368f697a1377b5fb7",
+      "portable_sha256": "b8db129d8c4c3d74c5b10b2391baf593298a58badfb781f368f697a1377b5fb7",
+      "transformed": false
+    },
+    {
+      "raw_relative_path": "regression.log",
+      "portable_path": "regression.log",
+      "raw_sha256": "56aea9db1e41c77bdc09cc2dc9e3d8d8eac5c509c017af88c87acdb03340b90d",
+      "portable_sha256": "56aea9db1e41c77bdc09cc2dc9e3d8d8eac5c509c017af88c87acdb03340b90d",
+      "transformed": false
+    },
+    {
+      "raw_relative_path": "measure.py",
+      "portable_path": "measure.py",
+      "raw_sha256": "6538c26d07196ed2ece5f727094018ff98bc99875849ab15e8314d744247adca",
+      "portable_sha256": "6538c26d07196ed2ece5f727094018ff98bc99875849ab15e8314d744247adca",
+      "transformed": false
+    },
+    {
+      "raw_relative_path": "compare_scan.py",
+      "portable_path": "compare_scan.py",
+      "raw_sha256": "7f7f20fa4e3b6a188e0f4724141f3df7dcf5754a344ebd8d2b335be196ae417a",
+      "portable_sha256": "7f7f20fa4e3b6a188e0f4724141f3df7dcf5754a344ebd8d2b335be196ae417a",
+      "transformed": false
+    },
+    {
+      "raw_relative_path": "$REPO/tests/test_workspace_scan.py",
+      "portable_path": "regression/test_workspace_scan.py",
+      "raw_sha256": "b8359e1734bf823ed789a2dfd0de885f1fc1e0382ecd1b29a4928e4dfa502ede",
+      "portable_sha256": "b8359e1734bf823ed789a2dfd0de885f1fc1e0382ecd1b29a4928e4dfa502ede",
+      "transformed": false
+    },
+    {
+      "raw_relative_path": "$REPO/docs/exec/evidence/004/004-01/summary.json",
+      "portable_path": "pre-change/004-01-summary.json",
+      "raw_sha256": "66abd7fdda6274433e27c95e467ad379783a4e01d4b597d322f4c3a79d900a2e",
+      "portable_sha256": "66abd7fdda6274433e27c95e467ad379783a4e01d4b597d322f4c3a79d900a2e",
+      "transformed": false
+    },
+    {
+      "raw_relative_path": "M1-3000-10000-state/audit.jsonl",
+      "portable_path": "M1-3000-10000/audit.jsonl",
+      "raw_sha256": "3a35835e79bf285b5efcf5c4e304cd91403f78356954690d3fe347f2559d4da4",
+      "portable_sha256": "3a35835e79bf285b5efcf5c4e304cd91403f78356954690d3fe347f2559d4da4",
+      "transformed": false
+    },
+    {
+      "raw_relative_path": "M2-10000-25000-state/audit.jsonl",
+      "portable_path": "M2-10000-25000/audit.jsonl",
+      "raw_sha256": "1b3885fbbdf83292ffbc4f26e80fc51bc496629fa6d9f3a876bd9152cd42020c",
+      "portable_sha256": "1b3885fbbdf83292ffbc4f26e80fc51bc496629fa6d9f3a876bd9152cd42020c",
+      "transformed": false
+    }
+  ],
+  "cases": [
+    {
+      "case": "M1-3000-10000",
+      "baseline_head": "d5471c1598ca666b05522c2c1871cc2b0d560a4f",
+      "policy_digest": "215d1a5082ed9e4558c2d3f6e7f8d7cadbb80f59bbb086c09b41b1e27ac2b1eb",
+      "normalized_policy_sha256": "c7922ad6a5d440168266e69bd8011abe84eda538e8230130c57dbe0167e31985",
+      "audit_sha256": "3a35835e79bf285b5efcf5c4e304cd91403f78356954690d3fe347f2559d4da4",
+      "target": "src/module_029/component_02999.c"
+    },
+    {
+      "case": "M2-10000-25000",
+      "baseline_head": "5a629d1cf7eb57aee32cda0cca24a8e2a13beed1",
+      "policy_digest": "215d1a5082ed9e4558c2d3f6e7f8d7cadbb80f59bbb086c09b41b1e27ac2b1eb",
+      "normalized_policy_sha256": "c7922ad6a5d440168266e69bd8011abe84eda538e8230130c57dbe0167e31985",
+      "audit_sha256": "1b3885fbbdf83292ffbc4f26e80fc51bc496629fa6d9f3a876bd9152cd42020c",
+      "target": "src/module_099/component_09999.c"
+    }
+  ]
+}

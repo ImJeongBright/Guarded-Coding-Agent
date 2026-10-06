@@ -1,0 +1,92 @@
+{
+  "edit_post_mutation_failure": {
+    "outcome": {
+      "decision": "DENY",
+      "matched_rule": "EXEC-ERROR",
+      "reason": "injected directory fsync failure after replace",
+      "executed": false,
+      "exit_code": null,
+      "stdout": "",
+      "stderr": "",
+      "run_id": "e16bac3ce8a04184890794ae7e49b223",
+      "audit_event_id": "017584e39f814381ae04dcbf14072771",
+      "timings_ms": {
+        "normalization": 0.3761660191230476,
+        "decision": 0.022457970771938562,
+        "audit": 0.3231669543311,
+        "execution": 0.5200830055400729,
+        "total": 1.305209007114172,
+        "other": 0.06333505734801292
+      }
+    },
+    "actual_content": "after\n",
+    "audit_result": {
+      "audit_event_id": "017584e39f814381ae04dcbf14072771",
+      "decision": "DENY",
+      "executed": false,
+      "exit_code": null,
+      "matched_rule": "EXEC-ERROR",
+      "reason": "injected directory fsync failure after replace",
+      "run_id": "e16bac3ce8a04184890794ae7e49b223"
+    }
+  },
+  "search_large_directory": {
+    "actual_matching_files": 5001,
+    "outcome": {
+      "decision": "ALLOW",
+      "matched_rule": "FS-LOCAL",
+      "reason": "Bounded local capability allowed.",
+      "executed": true,
+      "exit_code": 0,
+      "stdout": "",
+      "stderr": "",
+      "run_id": "e16bac3ce8a04184890794ae7e49b223",
+      "audit_event_id": "3ef8b7599e1b449e943cb40116ae33cf",
+      "matches": [],
+      "truncated": true,
+      "scanned_entries": 5000,
+      "scanned_bytes": 0,
+      "timings_ms": {
+        "normalization": 0.3614990273490548,
+        "decision": 0.017584068700671196,
+        "audit": 0.2650409587658942,
+        "execution": 3.1500000040978193,
+        "total": 3.856915980577469,
+        "other": 0.06279192166402936
+      }
+    }
+  },
+  "list_large_directory": {
+    "actual_files": 5001,
+    "reported_files": 2000,
+    "has_truncated_field": false,
+    "decision": "ALLOW",
+    "exit_code": 0
+  },
+  "search_oversized_file": {
+    "outcome": {
+      "decision": "ALLOW",
+      "matched_rule": "FS-LOCAL",
+      "reason": "Bounded local capability allowed.",
+      "executed": true,
+      "exit_code": 0,
+      "stdout": "",
+      "stderr": "",
+      "run_id": "e16bac3ce8a04184890794ae7e49b223",
+      "audit_event_id": "0f76555357144f58aae4b65da627bd53",
+      "matches": [],
+      "truncated": false,
+      "scanned_entries": 0,
+      "scanned_bytes": 0,
+      "timings_ms": {
+        "normalization": 0.29020803049206734,
+        "decision": 0.012874952517449856,
+        "audit": 0.19037601305171847,
+        "execution": 0.22799998987466097,
+        "total": 0.7580830133520067,
+        "other": 0.03662402741611004
+      }
+    },
+    "actual_match": true
+  }
+}

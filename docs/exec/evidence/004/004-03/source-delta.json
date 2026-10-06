@@ -1,0 +1,23 @@
+{
+  "added": {
+    "tests/test_scale_search.py": "5f5f0b7a228313ed851fb9229e5f8690130ad7f8bd3836c6ad02b9477a3e787d"
+  },
+  "changed": {
+    "guarded_agent/domain.py": {
+      "after": "2ce19b2d9027a253dbb63ba08c046ed93b92ab59d5ebf67a4dc064a73cb4f014",
+      "before": "e4a86becb8336ed7cdc73895817238faef363e4c9a30684ab8c65366ac9312e9"
+    },
+    "guarded_agent/filesystem.py": {
+      "after": "414fb4b705fd31f1d3d374d399e6414a7de91331d467cfc6781be6f0ba2f3551",
+      "before": "c937148b382fa408f37de2e962990fdeb5aa86c6e93f02b591d28f741f846589"
+    },
+    "guarded_agent/mcp.py": {
+      "after": "e6b8076fbd6a0c51860a170ae57fb0726afe517da2af0f235391cf7cfa503148",
+      "before": "4e6f0b822eee69cc67afa18578b5551b41403812403540cca50dd7d25808ff29"
+    },
+    "tests/test_workflow_003.py": {
+      "after": "5f0530bafbc5cacde1e94309a3463d383bbf60e2952711e81f59a4983ea3e038",
+      "before": "a45cb88f47c5c2d453b864e388f300b6e971cb77514f1dde63f3b7608e27e71d"
+    }
+  }
+}

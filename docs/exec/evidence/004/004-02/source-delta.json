@@ -1,0 +1,19 @@
+{
+  "added": {
+    "tests/test_workspace_scan.py": "b8359e1734bf823ed789a2dfd0de885f1fc1e0382ecd1b29a4928e4dfa502ede"
+  },
+  "changed": {
+    "guarded_agent/filesystem.py": {
+      "after": "c937148b382fa408f37de2e962990fdeb5aa86c6e93f02b591d28f741f846589",
+      "before": "a80fcbd983e053b69bf3dadd78b84617c73526849151e8331e9493fe354cdc74"
+    },
+    "guarded_agent/gateway.py": {
+      "after": "fa8e647603b75e3e224e5fd65e82213a3811e6317a1cbb52077e140ba25f275b",
+      "before": "5acb4b100264569d092210ed1130f01765f0cc46b61657496593e88764d57d91"
+    },
+    "guarded_agent/git.py": {
+      "after": "45a09a82dcf63b29ab32ba9370cd7cb209bb5b950d7d0abc8135877287970c74",
+      "before": "6514bb47915169e34f0f697c7724fde66ffb602fa0bfa1542871672158b97361"
+    }
+  }
+}

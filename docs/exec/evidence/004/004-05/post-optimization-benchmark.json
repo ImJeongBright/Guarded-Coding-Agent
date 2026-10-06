@@ -1,0 +1,124 @@
+{
+  "M1": {
+    "calls": 6,
+    "median_ms": 626.48,
+    "max_ms": 786.65,
+    "samples": [
+      {
+        "total_ms": 786.65,
+        "normalization": 577.586,
+        "decision": 0.033,
+        "audit": 0.461,
+        "execution": 208.446,
+        "other": 0.124,
+        "stdout_bytes": 0
+      },
+      {
+        "total_ms": 624.548,
+        "normalization": 415.599,
+        "decision": 0.031,
+        "audit": 0.416,
+        "execution": 208.381,
+        "other": 0.121,
+        "stdout_bytes": 0
+      },
+      {
+        "total_ms": 643.639,
+        "normalization": 415.371,
+        "decision": 0.036,
+        "audit": 0.602,
+        "execution": 227.499,
+        "other": 0.13,
+        "stdout_bytes": 0
+      },
+      {
+        "total_ms": 619.262,
+        "normalization": 411.74,
+        "decision": 0.028,
+        "audit": 0.359,
+        "execution": 207.025,
+        "other": 0.109,
+        "stdout_bytes": 0
+      },
+      {
+        "total_ms": 624.677,
+        "normalization": 407.544,
+        "decision": 0.026,
+        "audit": 0.814,
+        "execution": 216.17,
+        "other": 0.123,
+        "stdout_bytes": 0
+      },
+      {
+        "total_ms": 628.283,
+        "normalization": 413.589,
+        "decision": 0.027,
+        "audit": 0.383,
+        "execution": 214.169,
+        "other": 0.116,
+        "stdout_bytes": 0
+      }
+    ]
+  },
+  "M2": {
+    "calls": 6,
+    "median_ms": 1113.897,
+    "max_ms": 1220.149,
+    "samples": [
+      {
+        "total_ms": 1220.149,
+        "normalization": 859.89,
+        "decision": 0.027,
+        "audit": 0.473,
+        "execution": 359.645,
+        "other": 0.113,
+        "stdout_bytes": 0
+      },
+      {
+        "total_ms": 1100.542,
+        "normalization": 722.947,
+        "decision": 0.026,
+        "audit": 0.689,
+        "execution": 376.77,
+        "other": 0.11,
+        "stdout_bytes": 0
+      },
+      {
+        "total_ms": 1157.646,
+        "normalization": 738.283,
+        "decision": 0.034,
+        "audit": 0.699,
+        "execution": 418.482,
+        "other": 0.147,
+        "stdout_bytes": 0
+      },
+      {
+        "total_ms": 1105.398,
+        "normalization": 716.823,
+        "decision": 0.026,
+        "audit": 0.757,
+        "execution": 387.662,
+        "other": 0.131,
+        "stdout_bytes": 0
+      },
+      {
+        "total_ms": 1089.177,
+        "normalization": 727.35,
+        "decision": 0.028,
+        "audit": 1.343,
+        "execution": 360.335,
+        "other": 0.12,
+        "stdout_bytes": 0
+      },
+      {
+        "total_ms": 1122.396,
+        "normalization": 728.83,
+        "decision": 0.028,
+        "audit": 1.608,
+        "execution": 391.79,
+        "other": 0.141,
+        "stdout_bytes": 0
+      }
+    ]
+  }
+}

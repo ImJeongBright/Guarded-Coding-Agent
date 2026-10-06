@@ -1,0 +1,9 @@
+{
+  "command": "python3 -B -m unittest discover -s tests -v",
+  "tests": 173,
+  "failures": 0,
+  "errors": 0,
+  "skipped": 0,
+  "duration_seconds": 50.549,
+  "result": "passed"
+}

@@ -1,0 +1,39 @@
+{
+  "kind": "004-05 M2 copy of the multi-module C DBMS",
+  "source_workspace": "$RUN/live-M1/workspace",
+  "workspace": "$RUN/live-M2/workspace",
+  "state": "$RUN/live-M2/operator-state",
+  "tracked_files": 10000,
+  "ignored_build_files": 25000,
+  "baseline_head": "ab537c3f2b7179afd76c90886129f51ff92df0b6",
+  "core_modules": [
+    "src/main.c",
+    "src/command.c",
+    "src/db.c",
+    "src/storage.c"
+  ],
+  "compiler": "/Library/Developer/CommandLineTools/usr/bin/clang",
+  "sdk": "/Library/Developer/CommandLineTools/SDKs/MacOSX.sdk",
+  "policy_sha256": "c30592326a2ecbfbf7e7eccf44c784c4c4178baee2ac47bc37cf243ddd468318",
+  "baseline_gate_checks": [
+    {
+      "profile": "build",
+      "decision": "ALLOW",
+      "executed": true,
+      "exit_code": 0,
+      "elapsed_ms": 1113.09,
+      "normalization_ms": 621.5345420059748,
+      "execution_ms": 490.75983301736414
+    },
+    {
+      "profile": "tests",
+      "decision": "ALLOW",
+      "executed": true,
+      "exit_code": 0,
+      "elapsed_ms": 1332.168,
+      "normalization_ms": 548.2284179888666,
+      "execution_ms": 783.1196670304053
+    }
+  ],
+  "initial_scan_denial": "FS-LINK: integrity could not be verified on first build; direct scan and retry recorded separately."
+}

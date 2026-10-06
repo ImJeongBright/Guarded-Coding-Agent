@@ -1,0 +1,19 @@
+{
+  "format": 1,
+  "session_id": "b5a6fee139f54ae7a75fde05aee5c1d7",
+  "started_at": 1791124719.180387,
+  "state": "$RUN/live/c/operator-state",
+  "head": "d58134054849f4ff2c054e6e958471db6dd3ce7d",
+  "clean": true,
+  "status": "",
+  "workspace": "$RUN/live/c/workspace",
+  "workspace_identity": [
+    16777231,
+    145979901
+  ],
+  "policy_digest": "db117f12c81775fcce36517f2dc94896cef27f15471815c789d35b271fdefd63",
+  "audit": {
+    "bytes": 0,
+    "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+  }
+}

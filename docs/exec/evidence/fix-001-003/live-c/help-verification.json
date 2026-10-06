@@ -1,0 +1,113 @@
+{
+  "checks": [
+    {
+      "label": "release build",
+      "decision": "ALLOW",
+      "matched_rule": "SH-PROFILE",
+      "reason": "Bounded local capability allowed.",
+      "executed": true,
+      "execution_status": "succeeded",
+      "effect_status": "possible",
+      "exit_code": 0,
+      "stdout": "",
+      "stderr": "",
+      "run_id": "e88469e07e034537b6550f87467b7776",
+      "audit_event_id": "d53732b8d7d64a259c4d6d7dca76f30f",
+      "timed_out": false,
+      "lifecycle_status": "terminated",
+      "terminated_scope_processes": 0,
+      "output_truncated": false,
+      "execution_stage": "completed",
+      "timings_ms": {
+        "normalization": 4.0651659946888685,
+        "decision": 0.012415985111147165,
+        "audit": 0.45070797204971313,
+        "execution": 207.00162497814745,
+        "total": 211.6309170378372,
+        "other": 0.10100210784003139
+      }
+    },
+    {
+      "label": "release independent help",
+      "decision": "ALLOW",
+      "matched_rule": "SH-PROFILE",
+      "reason": "Bounded local capability allowed.",
+      "executed": true,
+      "execution_status": "succeeded",
+      "effect_status": "possible",
+      "exit_code": 0,
+      "stdout": "Independent help contract passed: exact seven lines, repeated help, EOF/exit, empty/existing DB, bytes/inode/mtime/ctime/mode unchanged\n",
+      "stderr": "",
+      "run_id": "e88469e07e034537b6550f87467b7776",
+      "audit_event_id": "3d7e4830f2054e6a8444a4143c3f72fe",
+      "timed_out": false,
+      "lifecycle_status": "terminated",
+      "terminated_scope_processes": 0,
+      "output_truncated": false,
+      "execution_stage": "completed",
+      "timings_ms": {
+        "normalization": 4.521500028204173,
+        "decision": 0.014707969967275858,
+        "audit": 0.7032079738564789,
+        "execution": 422.88970900699496,
+        "total": 428.3259160001762,
+        "other": 0.1967910211533308
+      }
+    },
+    {
+      "label": "debug build",
+      "decision": "ALLOW",
+      "matched_rule": "SH-PROFILE",
+      "reason": "Bounded local capability allowed.",
+      "executed": true,
+      "execution_status": "succeeded",
+      "effect_status": "possible",
+      "exit_code": 0,
+      "stdout": "",
+      "stderr": "",
+      "run_id": "e88469e07e034537b6550f87467b7776",
+      "audit_event_id": "45f99b6d8a744086b157d8e6d7a83601",
+      "timed_out": false,
+      "lifecycle_status": "terminated",
+      "terminated_scope_processes": 0,
+      "output_truncated": false,
+      "execution_stage": "completed",
+      "timings_ms": {
+        "normalization": 7.740957953501493,
+        "decision": 0.030000985134392977,
+        "audit": 0.4580009845085442,
+        "execution": 154.5246250461787,
+        "total": 162.90875000413507,
+        "other": 0.15516503481194377
+      }
+    },
+    {
+      "label": "debug independent help",
+      "decision": "ALLOW",
+      "matched_rule": "SH-PROFILE",
+      "reason": "Bounded local capability allowed.",
+      "executed": true,
+      "execution_status": "succeeded",
+      "effect_status": "possible",
+      "exit_code": 0,
+      "stdout": "Independent help contract passed: exact seven lines, repeated help, EOF/exit, empty/existing DB, bytes/inode/mtime/ctime/mode unchanged\n",
+      "stderr": "",
+      "run_id": "e88469e07e034537b6550f87467b7776",
+      "audit_event_id": "362a232a0afe407f96e43526d9109656",
+      "timed_out": false,
+      "lifecycle_status": "terminated",
+      "terminated_scope_processes": 0,
+      "output_truncated": false,
+      "execution_stage": "completed",
+      "timings_ms": {
+        "normalization": 4.74329199641943,
+        "decision": 0.01341692404821515,
+        "audit": 0.46920799650251865,
+        "execution": 364.4215840031393,
+        "total": 369.8218750068918,
+        "other": 0.17437408678233624
+      }
+    }
+  ],
+  "passed": true
+}

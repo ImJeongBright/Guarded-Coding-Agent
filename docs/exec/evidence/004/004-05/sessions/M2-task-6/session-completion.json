@@ -1,0 +1,31 @@
+{
+  "format": 1,
+  "session_id": "66917d1acff6413694c7fda55c768bf4",
+  "baseline_sha256": "1b3a2405655ee825088e5d61a7e168a9f674de5dd8f7a22211e4dd541919d13f",
+  "finished_at": 1791169720.419225,
+  "exit_code": 0,
+  "head": "0e920239e420e10caf5e925de409917216b2019c",
+  "clean": true,
+  "status": "",
+  "workspace": "$RUN/live-M2/workspace",
+  "workspace_identity": [
+    16777231,
+    146681674
+  ],
+  "policy_digest": "087872a39fa6b8c633a4f4a69a738bb7752098404b677516d929192c407e89e0",
+  "new_commits": [
+    "0e920239e420e10caf5e925de409917216b2019c"
+  ],
+  "changed_paths": {
+    "0e920239e420e10caf5e925de409917216b2019c": [
+      "README.md",
+      "tests/test_db.py"
+    ]
+  },
+  "audit": {
+    "bytes": 134123,
+    "sha256": "beaf0314765b0cfb934a17d603fe7f420b64a236d98ef9195a32a4b8fa0c1477"
+  },
+  "events_sha256": "b00652beb291789c8f83f06228e3da452dcd6bd0e300f6ec3c817fb39e02de92",
+  "exit_sha256": "124fd50cb6d223cdd18fedc166d00af7254199b6e6dedf9be82f71db87af6d01"
+}

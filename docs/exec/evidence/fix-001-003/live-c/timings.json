@@ -1,0 +1,20 @@
+{
+  "guard_filesystem": {
+    "samples": 8,
+    "boundary_median_ms": 1.038,
+    "boundary_p95_ms": 1.707,
+    "execution_median_ms": 0.502
+  },
+  "guard_shell": {
+    "samples": 2,
+    "boundary_median_ms": 4.223,
+    "boundary_p95_ms": 4.404,
+    "execution_median_ms": 449.851
+  },
+  "guard_git": {
+    "samples": 6,
+    "boundary_median_ms": 104.454,
+    "boundary_p95_ms": 197.799,
+    "execution_median_ms": 46.598
+  }
+}

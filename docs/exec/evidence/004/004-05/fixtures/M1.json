@@ -1,0 +1,62 @@
+{
+  "kind": "004-05 M1 multi-module C DBMS live-task fixture",
+  "workspace": "$RUN/live-M1/workspace",
+  "state": "$RUN/live-M1/operator-state",
+  "session_output": "$RUN/live-M1/task-1",
+  "tracked_files": 3000,
+  "ignored_build_files": 10000,
+  "baseline_head": "f1ba27bc386b6be68bfa0916342f4af4f6798c64",
+  "source_files": 2994,
+  "core_modules": [
+    "src/main.c",
+    "src/command.c",
+    "src/db.c",
+    "src/storage.c"
+  ],
+  "sdk": "/Library/Developer/CommandLineTools/SDKs/MacOSX.sdk",
+  "compiler": "/Library/Developer/CommandLineTools/usr/bin/clang",
+  "policy_sha256": "96c977fa02ce2b7b9f265070561bff92332b80d730397131fb5396fe411e9131",
+  "baseline_gate_checks": [
+    {
+      "argv": [
+        "/Library/Developer/CommandLineTools/usr/bin/cc",
+        "-isysroot",
+        "/Library/Developer/CommandLineTools/SDKs/MacOSX.sdk",
+        "-std=c11",
+        "-Wall",
+        "-Wextra",
+        "-Werror",
+        "-pedantic",
+        "-O2",
+        "src/main.c",
+        "src/command.c",
+        "src/db.c",
+        "src/storage.c",
+        "-o",
+        "build/minidb"
+      ],
+      "decision": "ALLOW",
+      "executed": true,
+      "exit_code": 0,
+      "elapsed_ms": 763.694,
+      "stderr": ""
+    },
+    {
+      "argv": [
+        "/Library/Frameworks/Python.framework/Versions/3.12/bin/python3.12",
+        "-B",
+        "-m",
+        "unittest",
+        "discover",
+        "-s",
+        "tests",
+        "-v"
+      ],
+      "decision": "ALLOW",
+      "executed": true,
+      "exit_code": 0,
+      "elapsed_ms": 713.847,
+      "stderr": "test_capacity_and_eof (test_db.DatabaseTests.test_capacity_and_eof) ... ok\ntest_corrupt_and_truncated_data_rejected (test_db.DatabaseTests.test_corrupt_and_truncated_data_rejected) ... ok\ntest_count_e"
+    }
+  ]
+}

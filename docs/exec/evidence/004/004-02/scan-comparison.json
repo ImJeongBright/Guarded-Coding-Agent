@@ -1,0 +1,37 @@
+{
+  "fixture_only": true,
+  "repeats": 3,
+  "semantics": "legacy = 2 old link walks + 3 Path.rglob(.gitattributes); combined = 3 integrity walks",
+  "results": {
+    "M1-3000-10000": {
+      "old_five_passes_ms": [
+        549.188,
+        480.61,
+        459.744
+      ],
+      "old_median_ms": 480.61,
+      "combined_three_passes_ms": [
+        405.606,
+        390.709,
+        398.802
+      ],
+      "combined_median_ms": 398.802,
+      "reduction_percent": 17.02
+    },
+    "M2-10000-25000": {
+      "old_five_passes_ms": [
+        993.105,
+        942.71,
+        945.081
+      ],
+      "old_median_ms": 945.081,
+      "combined_three_passes_ms": [
+        827.982,
+        841.859,
+        831.444
+      ],
+      "combined_median_ms": 831.444,
+      "reduction_percent": 12.02
+    }
+  }
+}

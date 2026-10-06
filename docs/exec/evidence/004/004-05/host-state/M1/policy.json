@@ -1,0 +1,62 @@
+{
+  "version": "004-live-M1-v1",
+  "git_executable": "/opt/homebrew/bin/git",
+  "git_remotes": {},
+  "commands": [
+    {
+      "id": "build",
+      "argv": [
+        "/Library/Developer/CommandLineTools/usr/bin/cc",
+        "-isysroot",
+        "/Library/Developer/CommandLineTools/SDKs/MacOSX.sdk",
+        "-std=c11",
+        "-Wall",
+        "-Wextra",
+        "-Werror",
+        "-pedantic",
+        "-O2",
+        "src/main.c",
+        "src/command.c",
+        "src/db.c",
+        "src/storage.c",
+        "-o",
+        "build/minidb"
+      ],
+      "cwd": ".",
+      "write_paths": [
+        "build"
+      ],
+      "timeout": 20
+    },
+    {
+      "id": "tests",
+      "argv": [
+        "/Library/Frameworks/Python.framework/Versions/3.12/bin/python3.12",
+        "-B",
+        "-m",
+        "unittest",
+        "discover",
+        "-s",
+        "tests",
+        "-v"
+      ],
+      "cwd": ".",
+      "write_paths": [
+        "build/test-data"
+      ],
+      "timeout": 40
+    },
+    {
+      "id": "db",
+      "argv": [
+        "$RUN/live-M1/workspace/build/minidb"
+      ],
+      "cwd": ".",
+      "write_paths": [
+        "data.db",
+        "data.db.tmp"
+      ],
+      "timeout": 20
+    }
+  ]
+}

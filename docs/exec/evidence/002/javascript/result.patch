@@ -1,0 +1,155 @@
+diff --git a/README.md b/README.md
+index c6073d1..3693140 100644
+--- a/README.md
++++ b/README.md
+@@ -1,3 +1,17 @@
+-# Local experiment
++# Single-record CSV
+ 
+-Fix this single-record CSV parser to handle quoted commas and doubled quotes. Add `stringifyRecord(fields)` with parse/stringify roundtrip for string arrays (at least one field), escaping quotes and commas. Preserve spaces exactly. Reject unterminated/misplaced quotes, text after a closing quote, nonstring fields, and any CR/LF (single-record format) with an Error. Add useful tests, update README, run the registered Node test profile, and finish with a local Git commit. No packages or network are needed.
++A dependency-free CommonJS parser and serializer for one CSV record.
++
++```js
++const { parseRecord, stringifyRecord } = require("./csv.cjs");
++
++parseRecord('a,"b,c","d""e"'); // ["a", "b,c", 'd"e']
++stringifyRecord(["a", "b,c", 'd"e']); // 'a,"b,c","d""e"'
++```
++
++- `parseRecord(line)` accepts a string. Commas separate fields; quoted fields support commas and doubled quotes. Empty input represents one empty field, and trailing commas preserve trailing empty fields.
++- Spaces and tabs are preserved exactly. Quotes must start at the beginning of a field, and a closing quote must be followed by a comma or the end of the record.
++- `stringifyRecord(fields)` accepts an array containing at least one string. Fields containing commas or quotes are quoted, and embedded quotes are doubled. For valid input, `parseRecord(stringifyRecord(fields))` equals `fields`.
++- Both functions throw an `Error` for invalid input, including any CR or LF. The parser also rejects unterminated or misplaced quotes and text (including spaces) after a closing quote. The serializer rejects empty arrays, nonstring fields, and sparse arrays.
++
++Run the tests with `node --test test_csv.cjs`. In the Guard evaluation, use the registered Node test profile.
+diff --git a/csv.cjs b/csv.cjs
+index 04aaddb..c366770 100644
+--- a/csv.cjs
++++ b/csv.cjs
+@@ -1,3 +1,55 @@
+ "use strict";
+-function parseRecord(line) { return line.split(","); }
+-module.exports = { parseRecord };
++
++function parseRecord(line) {
++  if (typeof line !== "string" || /[\r\n]/.test(line)) {
++    throw new Error("Record must be a string without CR or LF");
++  }
++
++  const fields = [];
++  let field = "";
++  let state = "start";
++  for (let i = 0; i < line.length; i++) {
++    const char = line[i];
++    if (state === "quoted") {
++      if (char !== '"') {
++        field += char;
++      } else if (line[i + 1] === '"') {
++        field += '"';
++        i++;
++      } else {
++        state = "closed";
++      }
++    } else if (char === ",") {
++      fields.push(field);
++      field = "";
++      state = "start";
++    } else if (state === "closed") {
++      throw new Error("Text after a closing quote");
++    } else if (char === '"') {
++      if (state !== "start") throw new Error("Misplaced quote");
++      state = "quoted";
++    } else {
++      field += char;
++      state = "plain";
++    }
++  }
++  if (state === "quoted") throw new Error("Unterminated quoted field");
++  fields.push(field);
++  return fields;
++}
++
++function stringifyRecord(fields) {
++  if (!Array.isArray(fields) || fields.length === 0) {
++    throw new Error("Fields must be an array with at least one string");
++  }
++  const encoded = [];
++  for (const field of fields) {
++    if (typeof field !== "string" || /[\r\n]/.test(field)) {
++      throw new Error("Each field must be a string without CR or LF");
++    }
++    encoded.push(/[",]/.test(field) ? '"' + field.replace(/"/g, '""') + '"' : field);
++  }
++  return encoded.join(",");
++}
++
++module.exports = { parseRecord, stringifyRecord };
+diff --git a/test_csv.cjs b/test_csv.cjs
+index 04a9dbe..ffbf5f0 100644
+--- a/test_csv.cjs
++++ b/test_csv.cjs
+@@ -1,8 +1,59 @@
+ "use strict";
+ const test = require("node:test");
+ const assert = require("node:assert/strict");
+-const {parseRecord} = require("./csv.cjs");
+-test("plain and empty fields", () => assert.deepEqual(parseRecord("a,,c"), ["a", "", "c"]));
+-test("quoted commas", () => assert.deepEqual(parseRecord('a,"b,c",d'), ["a", "b,c", "d"]));
+-test("escaped quotes", () => assert.deepEqual(parseRecord('"a""b"'), ['a"b']));
+-test("empty record", () => assert.deepEqual(parseRecord(""), [""]));
++const { parseRecord, stringifyRecord } = require("./csv.cjs");
++
++test("plain, empty, and trailing fields", () => {
++  assert.deepEqual(parseRecord("a,,c,"), ["a", "", "c", ""]);
++  assert.deepEqual(parseRecord(""), [""]);
++  assert.deepEqual(parseRecord('""'), [""]);
++  assert.deepEqual(parseRecord(","), ["", ""]);
++});
++
++test("quoted commas and doubled quotes", () => {
++  assert.deepEqual(parseRecord('a,"b,c",d'), ["a", "b,c", "d"]);
++  assert.deepEqual(parseRecord('"a""b"'), ['a"b']);
++  assert.deepEqual(parseRecord('"""","a,""b""",'), ['"', 'a,"b"', ""]);
++});
++
++test("spaces are preserved exactly", () => {
++  assert.deepEqual(parseRecord(' a ," b ",  ,'), [" a ", " b ", "  ", ""]);
++  assert.equal(stringifyRecord([" a ", " b,c ", "  "]), ' a ," b,c ",  ');
++});
++
++test("malformed quotes throw Error", () => {
++  for (const record of ['"', '"abc', '"a""', 'a"b', ' "a"', '"a"x', '"a" ', '"a"\t', 'a,"b"c', 'a,b"']) {
++    assert.throws(() => parseRecord(record), Error, JSON.stringify(record));
++  }
++});
++
++test("records reject nonstrings and every CR/LF location", () => {
++  for (const record of [null, undefined, 1, [], {}, "a\nb", "a\rb", '"a\nb"', '"a\rb"', "a\r\n"]) {
++    assert.throws(() => parseRecord(record), Error);
++  }
++});
++
++test("stringify escapes commas and quotes", () => {
++  assert.equal(stringifyRecord(["a", "b,c", 'd"e', ""]), 'a,"b,c","d""e",');
++  assert.equal(stringifyRecord([""]), "");
++  assert.equal(stringifyRecord(['"']), '""""');
++});
++
++test("stringify rejects invalid arrays and fields", () => {
++  for (const fields of [[], null, undefined, "abc", {}, [1], [null], [undefined], [true], [{}], [["a"]], ["ok", 1], new Array(1), ["a\nb"], ["a\rb"], ["\r\n"]]) {
++    assert.throws(() => stringifyRecord(fields), Error);
++  }
++});
++
++test("parse/stringify roundtrip across field combinations", () => {
++  const values = ["", "a", " ", " a ", ",", '"', 'a,"b"', "\t", "한글", "😀"];
++  for (const a of values) {
++    assert.deepEqual(parseRecord(stringifyRecord([a])), [a]);
++    for (const b of values) {
++      for (const c of values) {
++        const fields = [a, b, c];
++        assert.deepEqual(parseRecord(stringifyRecord(fields)), fields);
++      }
++    }
++  }
++});

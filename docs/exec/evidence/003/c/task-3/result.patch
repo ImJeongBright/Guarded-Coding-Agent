@@ -1,0 +1,125 @@
+commit c55d056ea70ab9090627a821a97cef1fc7287f97
+Author:     User X <user-x@example.invalid>
+AuthorDate: Sun Oct 4 10:35:23 2026 +0000
+Commit:     User X <user-x@example.invalid>
+CommitDate: Sun Oct 4 10:35:23 2026 +0000
+
+    test: strengthen find persistence and read-only regressions
+
+diff --git a/README.md b/README.md
+index e979b77..60ca4d6 100644
+--- a/README.md
++++ b/README.md
+@@ -11,4 +11,8 @@ C11로 구현한 작은 영속 row store. `insert <uint32 id> <name>`, `select`,
+ 트랜잭션, SQL 전체 문법, 동시 쓰기, index, directory fsync를 포함한 crash durability는 실험 범위 밖이다.
+ 
+ Guard 설정과 재현은 [사용 가이드](../../docs/10-local-usage.md)를 참고한다.
+-컴파일 후 `tests/test_db.py`에 있는 14개의 실제 프로세스·파일 영속성 테스트를 실행한다.
++컴파일 후 `tests/test_db.py`에 있는 16개의 실제 프로세스·파일 영속성 테스트를 실행한다.
++`find` 회귀 테스트는 빈 DB(파일 없음/저장된 빈 파일), 경계 id, 중복 insert 후 원래 row,
++재시작, 없는 id, 잘못된 문법을 확인한다. 조회 전후 파일 내용·inode·크기·수정 시각·
++변경 시각·권한과 디렉터리 항목을 비교해 DB 재작성이나 임시 파일 생성을 감지한다.
++파일 읽기에 따른 접근 시각 변경은 비교에서 제외한다.
+diff --git a/tests/test_db.py b/tests/test_db.py
+index 6d48559..637ca7f 100644
+--- a/tests/test_db.py
++++ b/tests/test_db.py
+@@ -18,6 +18,15 @@ class DatabaseTests(unittest.TestCase):
+     def run_db(self, commands):
+         return subprocess.run([str(BINARY)],input=commands,cwd=self.path,text=True,capture_output=True,timeout=3)
+ 
++    def database_snapshot(self):
++        # Exclude access time: loading the database is allowed to read it.
++        return {
++            entry.name: (entry.read_bytes(), entry.stat().st_ino,
++                         entry.stat().st_size, entry.stat().st_mtime_ns,
++                         entry.stat().st_ctime_ns, entry.stat().st_mode)
++            for entry in self.path.iterdir()
++        }
++
+     def test_insert_select_and_restart(self):
+         self.assertIn('Executed.',self.run_db('insert 1 alice\n.exit\n').stdout)
+         result=self.run_db('select\n.exit\n')
+@@ -70,7 +79,41 @@ class DatabaseTests(unittest.TestCase):
+         result=self.run_db('find 0\nfind 4294967295\n.exit\n')
+         self.assertEqual(result.returncode,0)
+         self.assertEqual(result.stdout,'Not found.\nNot found.\n')
+-        self.assertFalse((self.path/'data.db').exists())
++        self.assertEqual(self.database_snapshot(),{})
++        result=self.run_db('find 1\n')
++        self.assertEqual(result.returncode,0)
++        self.assertEqual(result.stdout,'Not found.\n')
++        self.assertEqual(result.stderr,'')
++        self.assertEqual(self.database_snapshot(),{})
++
++    def test_find_persisted_empty_is_read_only(self):
++        (self.path/'data.db').write_bytes(b'GDB1'+struct.pack('<I',0))
++        before=self.database_snapshot()
++        for commands in ['find 0\nfind 4294967295\n.exit\n','find 1\n']:
++            with self.subTest(commands=commands):
++                result=self.run_db(commands)
++                self.assertEqual(result.returncode,0)
++                self.assertEqual(result.stdout,'Not found.\n'*commands.count('find'))
++                self.assertEqual(result.stderr,'')
++                self.assertEqual(self.database_snapshot(),before)
++
++    def test_find_duplicate_inserts_preserve_original_after_restart(self):
++        result=self.run_db('insert 0 zero\ninsert 4294967295 max\n'
++                           'insert 0 other\ninsert 4294967295 other\n'
++                           'find 0\nfind 4294967295\n.exit\n')
++        self.assertEqual(result.returncode,0)
++        self.assertEqual(result.stdout.splitlines(),[
++            'Executed.','Executed.','Error: duplicate id.',
++            'Error: duplicate id.','(0, zero)','(4294967295, max)'])
++        before=self.database_snapshot()
++        result=self.run_db('insert 0 other\ninsert 4294967295 other\n'
++                           'find 4294967295\nfind 0\nfind 1\n.exit\n')
++        self.assertEqual(result.returncode,0)
++        self.assertEqual(result.stdout.splitlines(),[
++            'Error: duplicate id.','Error: duplicate id.',
++            '(4294967295, max)','(0, zero)','Not found.'])
++        self.assertEqual(result.stderr,'')
++        self.assertEqual(self.database_snapshot(),before)
+ 
+     def test_find_boundaries_and_restart(self):
+         result=self.run_db('insert 0 zero\ninsert 42 alice\ninsert 4294967295 max\nfind 42\nfind 0\nfind 4294967295\nfind 1\n.exit\n')
+@@ -82,28 +125,36 @@ class DatabaseTests(unittest.TestCase):
+                   +struct.pack('<I32s',42,b'alice')
+                   +struct.pack('<I32s',4294967295,b'max'))
+         self.assertEqual((self.path/'data.db').read_bytes(),expected)
+-        result=self.run_db('find 42\nfind 1\ncount\n.exit\n')
++        before=self.database_snapshot()
++        result=self.run_db('find 4294967295\nfind 42\nfind 0\nfind 1\nfind 43\n.exit\n')
+         self.assertEqual(result.returncode,0)
+-        self.assertEqual(result.stdout,'(42, alice)\nNot found.\nCount: 3\n')
++        self.assertEqual(result.stdout,'(4294967295, max)\n(42, alice)\n(0, zero)\nNot found.\nNot found.\n')
++        self.assertEqual(result.stderr,'')
++        self.assertEqual(self.database_snapshot(),before)
+         self.assertEqual((self.path/'data.db').read_bytes(),expected)
+ 
+     def test_find_invalid_arguments_preserve_data(self):
+         commands=['find','find -1','find +1','find 4294967296',
+                   'find 9999999999999999999999999999999999999999',
+                   'find 1x','find 1.0','find abc','find 0 extra',
+-                  'find 0 extra more']
++                  'find 0 extra more','find 0x1','find 1e0','find 1_0',
++                  'find0','Find 0','find --1']
+         invalid='\n'.join(commands)+'\n'
+         result=self.run_db(invalid+'.exit\n')
+         self.assertEqual(result.returncode,0)
+         self.assertEqual(result.stdout,'Error: invalid statement.\n'*len(commands))
+         self.assertFalse((self.path/'data.db').exists())
++        self.assertEqual(self.database_snapshot(),{})
+         data=b'GDB1'+struct.pack('<I',1)+struct.pack('<I32s',0,b'legacy')
+         (self.path/'data.db').write_bytes(data)
++        before=self.database_snapshot()
+         result=self.run_db(invalid+'find 0\ncount\nselect\n.exit\n')
+         self.assertEqual(result.returncode,0)
+         self.assertEqual(result.stdout,'Error: invalid statement.\n'*len(commands)
+                          +'(0, legacy)\nCount: 1\n(0, legacy)\nExecuted.\n')
+         self.assertEqual((self.path/'data.db').read_bytes(),data)
++        self.assertEqual(result.stderr,'')
++        self.assertEqual(self.database_snapshot(),before)
+ 
+     def test_invalid_input_never_creates_database(self):
+         result=self.run_db('insert -1 bad\ninsert 4294967296 bad\ninsert 1 '+'a'*32+'\ninsert 2 ok extra\ninsert 1x bad\n.exit\n')

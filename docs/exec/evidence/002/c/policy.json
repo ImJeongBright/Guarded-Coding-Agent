@@ -1,0 +1,45 @@
+{
+  "version": "001",
+  "approval_ttl": 300,
+  "git_executable": "/opt/homebrew/bin/git",
+  "git_remotes": {},
+  "commands": [
+    {
+      "argv": [
+        "/Library/Developer/CommandLineTools/usr/bin/cc",
+        "-isysroot",
+        "/Library/Developer/CommandLineTools/SDKs/MacOSX.sdk",
+        "-std=c11",
+        "-Wall",
+        "-Wextra",
+        "-Werror",
+        "-pedantic",
+        "-O2",
+        "src/db.c",
+        "-o",
+        "build/minidb"
+      ],
+      "write_paths": [
+        "build"
+      ]
+    },
+    {
+      "argv": [
+        "$RUN/workspace/build/minidb"
+      ],
+      "write_paths": [
+        "data.db",
+        "data.db.tmp"
+      ]
+    },
+    {
+      "argv": [
+        "/Library/Frameworks/Python.framework/Versions/3.12/bin/python3.12",
+        "tests/test_db.py"
+      ],
+      "write_paths": [
+        "build/test-data"
+      ]
+    }
+  ]
+}

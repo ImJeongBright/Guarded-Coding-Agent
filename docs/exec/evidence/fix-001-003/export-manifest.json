@@ -1,0 +1,209 @@
+{
+  "format": 1,
+  "purpose": "Portable view of raw local evidence; transformed files do not satisfy capture-time hashes or workspace identity.",
+  "files": [
+    {
+      "raw_relative_path": "regression-final.json",
+      "portable_path": "regression-final.json",
+      "raw_sha256": "71e95ad9f405f02a3decde0164a018f1ff71a8d2d216167c870a09ea68dfdc68",
+      "portable_sha256": "71e95ad9f405f02a3decde0164a018f1ff71a8d2d216167c870a09ea68dfdc68",
+      "transformed": false
+    },
+    {
+      "raw_relative_path": "regression-first-156-failed.json",
+      "portable_path": "regression-first-156-failed.json",
+      "raw_sha256": "032f3d4f45ad11a23f629d18162845e5a2d614a004d4f9cee793fda45b6d551b",
+      "portable_sha256": "032f3d4f45ad11a23f629d18162845e5a2d614a004d4f9cee793fda45b6d551b",
+      "transformed": false
+    },
+    {
+      "raw_relative_path": "regression-final.log",
+      "portable_path": "regression-final.log",
+      "raw_sha256": "3264d70503347d8307c20968fbd56f10f7d82985f98a4365ebdaa7ba8b9558b2",
+      "portable_sha256": "3264d70503347d8307c20968fbd56f10f7d82985f98a4365ebdaa7ba8b9558b2",
+      "transformed": false
+    },
+    {
+      "raw_relative_path": "audit-signal-probe.json",
+      "portable_path": "audit-signal-probe.json",
+      "raw_sha256": "6d88066a59b8f7a6c96b5927079529cbae088323851cbbc082d6a4823454948d",
+      "portable_sha256": "6d88066a59b8f7a6c96b5927079529cbae088323851cbbc082d6a4823454948d",
+      "transformed": false
+    },
+    {
+      "raw_relative_path": "marker-probe.json",
+      "portable_path": "marker-probe.json",
+      "raw_sha256": "c7763e3b60112e4909006cbb5dc131ee07a4ff1e73834ecf7192393482ce5bbd",
+      "portable_sha256": "c7763e3b60112e4909006cbb5dc131ee07a4ff1e73834ecf7192393482ce5bbd",
+      "transformed": false
+    },
+    {
+      "raw_relative_path": "lifecycle-probe.json",
+      "portable_path": "lifecycle-probe.json",
+      "raw_sha256": "35f080778d6d05179d169b89f1c6d39cb90a11d77bf459861041206019567b83",
+      "portable_sha256": "35f080778d6d05179d169b89f1c6d39cb90a11d77bf459861041206019567b83",
+      "transformed": false
+    },
+    {
+      "raw_relative_path": "user-x/summary.json",
+      "portable_path": "user-x/summary.json",
+      "raw_sha256": "a734bd41a7fcc110482abedf6426ad901b58537985e8a9268722e49bb0ba2883",
+      "portable_sha256": "8d6bfdc544a6f3f69908f21a1b557c90e7b23c8d98b181d0e90daf98b95b3551",
+      "transformed": true
+    },
+    {
+      "raw_relative_path": "user-x/trace.json",
+      "portable_path": "user-x/trace.json",
+      "raw_sha256": "ad55ac4579db34e89120a194482ca4eddd00d1920b26bc2d15629761ca6ea2f1",
+      "portable_sha256": "022d714627fa1e14cf454b2cb753444c9103d1a994e140ddc9d745d76fd1dc99",
+      "transformed": true
+    },
+    {
+      "raw_relative_path": "user-x/state/audit.jsonl",
+      "portable_path": "user-x/audit.jsonl",
+      "raw_sha256": "67dbf2f418b508bea6f9eba0c054bb1019bc20e84247ff12be801bf956734554",
+      "portable_sha256": "7f128d10cc63d4017f42989041286369a353b4e90a4dc1e676afc8bea8af34af",
+      "transformed": true
+    },
+    {
+      "raw_relative_path": "live/c/verification-1.json",
+      "portable_path": "live-c/verification-1.json",
+      "raw_sha256": "d0060135bd62df66d21a95d3a0fce64a8a6eed87d6e74ea8a9fd7962fde2914d",
+      "portable_sha256": "d0060135bd62df66d21a95d3a0fce64a8a6eed87d6e74ea8a9fd7962fde2914d",
+      "transformed": false
+    },
+    {
+      "raw_relative_path": "live/c/help-verification.json",
+      "portable_path": "live-c/help-verification.json",
+      "raw_sha256": "4971f4bb0c151feef3355e0f77b3d53ead2b3c32cf7bcfad42a8ba6912c0c6bc",
+      "portable_sha256": "4971f4bb0c151feef3355e0f77b3d53ead2b3c32cf7bcfad42a8ba6912c0c6bc",
+      "transformed": false
+    },
+    {
+      "raw_relative_path": "live/c/prompt-1.txt",
+      "portable_path": "live-c/prompt-1.txt",
+      "raw_sha256": "9395c02599239ecb2bbdf52afa36bb75a35748fe1a80606b1ae5918e682c9733",
+      "portable_sha256": "9395c02599239ecb2bbdf52afa36bb75a35748fe1a80606b1ae5918e682c9733",
+      "transformed": false
+    },
+    {
+      "raw_relative_path": "live/c/task-1/session-baseline.json",
+      "portable_path": "live-c/task-1/session-baseline.json",
+      "raw_sha256": "8fa7c9484df1166bef82dd7ac05ebd36fb7de129716ce64b4d734f515887777e",
+      "portable_sha256": "841f37ff539364b1b3aefdee607fde6d5e910b5fe4685e1c3326817aa84e09e1",
+      "transformed": true
+    },
+    {
+      "raw_relative_path": "live/c/task-1/session-completion.json",
+      "portable_path": "live-c/task-1/session-completion.json",
+      "raw_sha256": "8c079bb6cb8e45fd807999d1b375a55d0173558caa801eb3a17cbe1a0a5685cd",
+      "portable_sha256": "83acaf718dc80978f0cddc8d876825afdc42574054431cac6108abf57935d8de",
+      "transformed": true
+    },
+    {
+      "raw_relative_path": "live/c/task-1/events.jsonl",
+      "portable_path": "live-c/task-1/events.jsonl",
+      "raw_sha256": "eeb8c5e92795515604c294e989615e8d95a0a2107a8ac436c2a2d4421a55542d",
+      "portable_sha256": "eeb8c5e92795515604c294e989615e8d95a0a2107a8ac436c2a2d4421a55542d",
+      "transformed": false
+    },
+    {
+      "raw_relative_path": "live/c/task-1/exit.json",
+      "portable_path": "live-c/task-1/exit.json",
+      "raw_sha256": "124fd50cb6d223cdd18fedc166d00af7254199b6e6dedf9be82f71db87af6d01",
+      "portable_sha256": "124fd50cb6d223cdd18fedc166d00af7254199b6e6dedf9be82f71db87af6d01",
+      "transformed": false
+    },
+    {
+      "raw_relative_path": "live/c/task-1/preflight.json",
+      "portable_path": "live-c/task-1/preflight.json",
+      "raw_sha256": "558f1b9b47f5185d0c6ffa4baca6f4fdf10e304ea508ba582facac79d141b606",
+      "portable_sha256": "3fd28246993b470c8a68f48a036a3b8daf47e39eb5a1295d504af932b0eba555",
+      "transformed": true
+    },
+    {
+      "raw_relative_path": "live/c/task-1/invocation.json",
+      "portable_path": "live-c/task-1/invocation.json",
+      "raw_sha256": "5b3f686e6baf360cbf109f95790c0084c1f6f58c011d4fa83a4a913784ef3508",
+      "portable_sha256": "c6f8f79e5b12d67f3a8b5c0796575b52956095913dc3860ed26a196f607aac3e",
+      "transformed": true
+    },
+    {
+      "raw_relative_path": "live/c/task-1/prompt.txt",
+      "portable_path": "live-c/task-1/prompt.txt",
+      "raw_sha256": "9395c02599239ecb2bbdf52afa36bb75a35748fe1a80606b1ae5918e682c9733",
+      "portable_sha256": "9395c02599239ecb2bbdf52afa36bb75a35748fe1a80606b1ae5918e682c9733",
+      "transformed": false
+    },
+    {
+      "raw_relative_path": "live/c/task-1/stderr.txt",
+      "portable_path": "live-c/task-1/stderr.txt",
+      "raw_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "portable_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "transformed": false
+    },
+    {
+      "raw_relative_path": "live/c/operator-state/policy.json",
+      "portable_path": "live-c/policy.json",
+      "raw_sha256": "ba0c794a67ed9215b54fb3d63e5f1f3c2aae926600688f969f57a4a1c2c838c3",
+      "portable_sha256": "0a47ea162ae7fef56c889ae905d42f0657b85bfd50b744ce874764144122aad4",
+      "transformed": true
+    },
+    {
+      "raw_relative_path": "live/c/operator-state/audit.jsonl",
+      "portable_path": "live-c/audit.jsonl",
+      "raw_sha256": "593a30afc3259ef95ed1d91b7d37ab9163ceaf8e080aa06539fbacb7c293c2af",
+      "portable_sha256": "593a30afc3259ef95ed1d91b7d37ab9163ceaf8e080aa06539fbacb7c293c2af",
+      "transformed": false
+    },
+    {
+      "raw_relative_path": "live/c/help-reviewer/audit.jsonl",
+      "portable_path": "live-c/help-review-audit.jsonl",
+      "raw_sha256": "8cc9ce3c60f079de9b047517d7e180c928c888f9e88c2b779addbb9fee0eecba",
+      "portable_sha256": "8cc9ce3c60f079de9b047517d7e180c928c888f9e88c2b779addbb9fee0eecba",
+      "transformed": false
+    },
+    {
+      "raw_relative_path": "live/c/reviewer-1/audit.jsonl",
+      "portable_path": "live-c/reviewer-audit.jsonl",
+      "raw_sha256": "620063762f9e6843624d8f358144a4aec0517b3d79ce0b1427b2db13df3e761f",
+      "portable_sha256": "620063762f9e6843624d8f358144a4aec0517b3d79ce0b1427b2db13df3e761f",
+      "transformed": false
+    },
+    {
+      "raw_relative_path": "help-check.py",
+      "portable_path": "repro/help-check.py",
+      "raw_sha256": "0ebe014ca670d72e75e88e73182fed434bf8994e6be050d1de040ecc785ca852",
+      "portable_sha256": "0ebe014ca670d72e75e88e73182fed434bf8994e6be050d1de040ecc785ca852",
+      "transformed": false
+    },
+    {
+      "raw_relative_path": "prepare-live.py",
+      "portable_path": "repro/prepare-live.py",
+      "raw_sha256": "fbff512b327a6e4a9bb4b197e87010b19d29d4c1141ce593ec0c24b0888a6469",
+      "portable_sha256": "fbff512b327a6e4a9bb4b197e87010b19d29d4c1141ce593ec0c24b0888a6469",
+      "transformed": false
+    },
+    {
+      "raw_relative_path": "audit-signal-probe.py",
+      "portable_path": "repro/audit-signal-probe.py",
+      "raw_sha256": "b9e1be7684ca76ebf3db0a13a7e5c6163607a61681d442691197f0627e86cbce",
+      "portable_sha256": "b9e1be7684ca76ebf3db0a13a7e5c6163607a61681d442691197f0627e86cbce",
+      "transformed": false
+    },
+    {
+      "raw_relative_path": "marker-probe.py",
+      "portable_path": "repro/marker-probe.py",
+      "raw_sha256": "9b6b04591eafc10d55edd388ad32b8c4c7d663ff7ea6855c014054541c023a29",
+      "portable_sha256": "9b6b04591eafc10d55edd388ad32b8c4c7d663ff7ea6855c014054541c023a29",
+      "transformed": false
+    },
+    {
+      "raw_relative_path": "lifecycle-probe.py",
+      "portable_path": "repro/lifecycle-probe.py",
+      "raw_sha256": "48e7c0e34202aeb4cad2c07a78cacf934e69db873c830c5929a65926a143feca",
+      "portable_sha256": "48e7c0e34202aeb4cad2c07a78cacf934e69db873c830c5929a65926a143feca",
+      "transformed": false
+    }
+  ]
+}

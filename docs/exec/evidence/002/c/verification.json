@@ -1,0 +1,97 @@
+{
+  "kind": "c",
+  "model_tool_calls": 20,
+  "decisions": {
+    "ALLOW": 20
+  },
+  "checks": [
+    {
+      "kind": "project tests/build",
+      "argv": [
+        "/Library/Developer/CommandLineTools/usr/bin/cc",
+        "-isysroot",
+        "/Library/Developer/CommandLineTools/SDKs/MacOSX.sdk",
+        "-std=c11",
+        "-Wall",
+        "-Wextra",
+        "-Werror",
+        "-pedantic",
+        "-O2",
+        "src/db.c",
+        "-o",
+        "build/minidb"
+      ],
+      "decision": "ALLOW",
+      "matched_rule": "SH-PROFILE",
+      "reason": "Bounded local capability allowed.",
+      "executed": true,
+      "exit_code": 0,
+      "stdout": "",
+      "stderr": "",
+      "run_id": "20582a97cb3d469db8760aaaff59d6e3",
+      "audit_event_id": "73959cbd5fbc4bafbece8645895f21a0",
+      "timed_out": false,
+      "output_truncated": false
+    },
+    {
+      "kind": "project tests/build",
+      "argv": [
+        "/Library/Frameworks/Python.framework/Versions/3.12/bin/python3.12",
+        "tests/test_db.py"
+      ],
+      "decision": "ALLOW",
+      "matched_rule": "SH-PROFILE",
+      "reason": "Bounded local capability allowed.",
+      "executed": true,
+      "exit_code": 0,
+      "stdout": "",
+      "stderr": "test_capacity_and_eof (__main__.DatabaseTests.test_capacity_and_eof) ... ok\ntest_corrupt_and_truncated_data_rejected (__main__.DatabaseTests.test_corrupt_and_truncated_data_rejected) ... ok\ntest_count_empty_is_read_only (__main__.DatabaseTests.test_count_empty_is_read_only) ... ok\ntest_count_existing_binary_format (__main__.DatabaseTests.test_count_existing_binary_format) ... ok\ntest_count_zero_duplicates_and_restart (__main__.DatabaseTests.test_count_zero_duplicates_and_restart) ... ok\ntest_duplicate_preserves_row (__main__.DatabaseTests.test_duplicate_preserves_row) ... ok\ntest_insert_select_and_restart (__main__.DatabaseTests.test_insert_select_and_restart) ... ok\ntest_invalid_input_never_creates_database (__main__.DatabaseTests.test_invalid_input_never_creates_database) ... ok\ntest_overlong_input_recovery (__main__.DatabaseTests.test_overlong_input_recovery) ... ok\ntest_persistence_failure_is_reported_and_rolled_back (__main__.DatabaseTests.test_persistence_failure_is_reported_and_rolled_back) ... ok\ntest_zero_and_uint32_max (__main__.DatabaseTests.test_zero_and_uint32_max) ... ok\n\n----------------------------------------------------------------------\nRan 11 tests in 0.231s\n\nOK\n",
+      "run_id": "20582a97cb3d469db8760aaaff59d6e3",
+      "audit_event_id": "f7ece061b950479997d6a140ad23a6f7",
+      "timed_out": false,
+      "output_truncated": false
+    },
+    {
+      "kind": "independent checks",
+      "decision": "ALLOW",
+      "matched_rule": "SH-PROFILE",
+      "reason": "Bounded local capability allowed.",
+      "executed": true,
+      "exit_code": 0,
+      "stdout": "Independent C checks passed: empty, zero, duplicate, max, restart, binary format\n",
+      "stderr": "",
+      "run_id": "20582a97cb3d469db8760aaaff59d6e3",
+      "audit_event_id": "409a9977e1c44b23a416cd286649c4f9",
+      "timed_out": false,
+      "output_truncated": false
+    }
+  ],
+  "git_status": {
+    "decision": "ALLOW",
+    "matched_rule": "GT-LOCAL",
+    "reason": "Bounded local capability allowed.",
+    "executed": true,
+    "exit_code": 0,
+    "stdout": "",
+    "stderr": "",
+    "run_id": "20582a97cb3d469db8760aaaff59d6e3",
+    "audit_event_id": "b41762c11c024bc0910dc2b362ac200a",
+    "timed_out": false,
+    "output_truncated": false
+  },
+  "git_history": {
+    "decision": "ALLOW",
+    "matched_rule": "GT-LOCAL",
+    "reason": "Bounded local capability allowed.",
+    "executed": true,
+    "exit_code": 0,
+    "stdout": "de37b9a Fix zero IDs and add persistent row count command\n5a4d1b6 Baseline fixture with a known bug\n",
+    "stderr": "",
+    "run_id": "20582a97cb3d469db8760aaaff59d6e3",
+    "audit_event_id": "7893e611fb514e35838d74944bc4b0ba",
+    "timed_out": false,
+    "output_truncated": false
+  },
+  "model_final": "Committed locally as `de37b9a`.\n\n- Fixed id 0 rejection and added `count`, printing exactly `Count: N`.\n- Preserved binary format; refactored dispatch and updated README.\n- Registered compiler passed; all 11 process-level tests passed, including restart and duplicate rejection.\n- Working tree clean. No push.\n\nFriction: none; all Guard operations were allowed.",
+  "passed": true
+}

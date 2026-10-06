@@ -1,0 +1,11 @@
+{"case": "M1-3000-10000", "operation": "git_status", "decision": "ALLOW", "rule": "GT-LOCAL", "ms": 1685.716, "incomplete": null, "matches": 0}
+{"case": "M1-3000-10000", "operation": "single_file_diff", "decision": "ALLOW", "rule": "GT-LOCAL", "ms": 2004.107, "incomplete": null, "matches": 0}
+{"case": "M1-3000-10000", "operation": "shell_noop", "decision": "ALLOW", "rule": "SH-PROFILE", "ms": 586.211, "incomplete": null, "matches": 0}
+{"case": "M1-3000-10000", "operation": "root_search", "decision": "ALLOW", "rule": "FS-LOCAL", "ms": 858.639, "incomplete": true, "matches": 0}
+{"case": "M1-3000-10000", "operation": "module_search", "decision": "ALLOW", "rule": "FS-LOCAL", "ms": 19.389, "incomplete": false, "matches": 1}
+{"case": "M2-10000-25000", "operation": "git_status", "decision": "ALLOW", "rule": "GT-LOCAL", "ms": 4465.467, "incomplete": null, "matches": 0}
+{"case": "M2-10000-25000", "operation": "single_file_diff", "decision": "ALLOW", "rule": "GT-LOCAL", "ms": 4552.45, "incomplete": null, "matches": 0}
+{"case": "M2-10000-25000", "operation": "shell_noop", "decision": "ALLOW", "rule": "SH-PROFILE", "ms": 954.191, "incomplete": null, "matches": 0}
+{"case": "M2-10000-25000", "operation": "root_search", "decision": "ALLOW", "rule": "FS-LOCAL", "ms": 749.611, "incomplete": true, "matches": 0}
+{"case": "M2-10000-25000", "operation": "module_search", "decision": "ALLOW", "rule": "FS-LOCAL", "ms": 26.591, "incomplete": false, "matches": 1}
+M1/M2 post-change capacity smoke complete.

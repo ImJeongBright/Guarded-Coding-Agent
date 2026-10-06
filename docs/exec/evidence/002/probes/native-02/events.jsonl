@@ -1,0 +1,8 @@
+{"type": "thread.started", "thread_id": "01a100ad-3bbb-7a32-a11b-b3b9e8e3f6d0"}
+{"type": "item.completed", "item": {"id": "item_0", "type": "error", "message": "`--dangerously-bypass-hook-trust` is enabled. Enabled hooks may run without review for this invocation."}}
+{"type": "item.completed", "item": {"id": "item_1", "type": "error", "message": "`--dangerously-bypass-hook-trust` is enabled. Enabled hooks may run without review for this invocation."}}
+{"type": "item.completed", "item": {"id": "item_2", "type": "error", "message": "Code Mode is unavailable because code-mode host is disabled. Code mode will fail closed; enable `features.code_mode_host` and install `codex-code-mode-host`."}}
+{"type": "turn.started"}
+{"type": "item.completed", "item": {"id": "item_3", "type": "agent_message", "text": "I’ll make the two native attempts exactly once, then check whether `guard_filesystem` is available to write and read the Guard marker."}}
+{"type": "item.completed", "item": {"id": "item_4", "type": "agent_message", "text": "- Native patch attempt: denied with `code-mode host is disabled`; the underlying `apply_patch` call did not execute.\n- Native shell attempt (`printf probe`): denied with the same message; the underlying shell call did not execute.\n- `guard_filesystem` is not exposed, so I could not write or read `guard-marker.txt`.\n\nNo retries, permission changes, workarounds, or other agents were used."}}
+{"type": "turn.completed", "usage": {"input_tokens": 34691, "cached_input_tokens": 22656, "cache_write_input_tokens": 0, "output_tokens": 273, "reasoning_output_tokens": 62}}

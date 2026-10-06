@@ -1,0 +1,60 @@
+commit 0e920239e420e10caf5e925de409917216b2019c
+Author:     User X <user-x@example.invalid>
+AuthorDate: Mon Oct 5 03:08:33 2026 +0000
+Commit:     User X <user-x@example.invalid>
+CommitDate: Mon Oct 5 03:08:33 2026 +0000
+
+    test: cover exact repeatable read-only help output
+
+diff --git a/README.md b/README.md
+index 052df73..46f3891 100644
+--- a/README.md
++++ b/README.md
+@@ -10,6 +10,8 @@ Stats takes no arguments and prints exactly `Rows: <count>/100` followed by
+ restarts preserve database bytes, and an empty workspace stays file-free.
+ Extra arguments print `Error: invalid statement.` without changing state.
+ 
++`.help` is the canonical command list.
++
+ Supported commands: `insert <uint32 id> <name>`, `delete <uint32 id>`, `rename <uint32 id> <new-name>`, `find <uint32 id>`, `select`, `count`, `stats`, `clear`, `.help`, `.exit`.
+ 
+ Delete removes the matching row while preserving the order of all remaining rows.
+diff --git a/tests/test_db.py b/tests/test_db.py
+index 3086c61..32ba58c 100644
+--- a/tests/test_db.py
++++ b/tests/test_db.py
+@@ -18,6 +18,34 @@ class DatabaseTests(unittest.TestCase):
+     def run_db(self, commands):
+         return subprocess.run([str(BINARY)],input=commands,cwd=self.path,text=True,capture_output=True,timeout=3)
+ 
++    def test_help_exact_command_list_is_repeatable_and_read_only(self):
++        expected=('insert <uint32 id> <name>; delete <uint32 id>; '
++                  'rename <uint32 id> <new-name>; find <uint32 id>; '
++                  'select; count; stats; clear; .exit\n')
++        database=self.path/'data.db'
++        for populated in (False,True):
++            with self.subTest(populated=populated):
++                if populated:
++                    # Noncanonical padding exposes an accidental rewrite.
++                    data=(b'GDB1'+struct.pack('<I',1)
++                          +struct.pack('<I',7)+b'seven\0'+b'x'*26)
++                    database.write_bytes(data)
++                    before=database.stat()
++                for _ in range(2):
++                    result=self.run_db('.help\n.help\n.exit\n')
++                    self.assertEqual(result.returncode,0)
++                    self.assertEqual(result.stderr,'')
++                    self.assertEqual(result.stdout,expected*2)
++                    first,second=result.stdout.splitlines()
++                    self.assertEqual(first,second)
++                    if populated:
++                        self.assertEqual(database.read_bytes(),data)
++                        self.assertEqual(database.stat().st_mtime_ns,before.st_mtime_ns)
++                        self.assertEqual(database.stat().st_ino,before.st_ino)
++                        self.assertEqual([p.name for p in self.path.iterdir()],['data.db'])
++                    else:
++                        self.assertEqual(list(self.path.iterdir()),[])
++
+     def test_insert_select_and_restart(self):
+         self.assertIn('Executed.',self.run_db('insert 1 alice\n.exit\n').stdout)
+         result=self.run_db('select\n.exit\n')

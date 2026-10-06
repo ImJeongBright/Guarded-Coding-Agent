@@ -1,0 +1,92 @@
+diff --git a/README.md b/README.md
+index 60ca4d6..38ed490 100644
+--- a/README.md
++++ b/README.md
+@@ -8,11 +8,26 @@ C11로 구현한 작은 영속 row store. `insert <uint32 id> <name>`, `select`,
+ `find <uint32 id>`는 해당 row가 있으면 `(id, name)` 한 줄만, 없으면 `Not found.`를 출력한다.
+ 음수, 범위 초과, 잘못된 id, 누락되거나 추가된 인자는 거절하며 데이터를 변경하지 않는다.
+ 예: `find 0`, `find 4294967295`. 조회는 재시작 후에도 동작하며 GDB1 파일을 변경하지 않는다.
++.help는 다음 명령 목록을 출력한다. 도움말만 실행하면 DB 파일을 생성하지 않으며,
++기존 파일의 내용·inode·수정 시각을 변경하지 않는다.
++
++```text
++Commands:
++insert <uint32 id> <name>
++select
++count
++find <uint32 id>
++.help
++.exit
++```
++
+ 트랜잭션, SQL 전체 문법, 동시 쓰기, index, directory fsync를 포함한 crash durability는 실험 범위 밖이다.
+ 
+ Guard 설정과 재현은 [사용 가이드](../../docs/10-local-usage.md)를 참고한다.
+-컴파일 후 `tests/test_db.py`에 있는 16개의 실제 프로세스·파일 영속성 테스트를 실행한다.
++컴파일 후 `tests/test_db.py`에 있는 19개의 실제 프로세스·파일 영속성 테스트를 실행한다.
+ `find` 회귀 테스트는 빈 DB(파일 없음/저장된 빈 파일), 경계 id, 중복 insert 후 원래 row,
+ 재시작, 없는 id, 잘못된 문법을 확인한다. 조회 전후 파일 내용·inode·크기·수정 시각·
+ 변경 시각·권한과 디렉터리 항목을 비교해 DB 재작성이나 임시 파일 생성을 감지한다.
++`.help` 회귀 테스트는 파일 없는 빈 DB, 저장된 빈 DB, insert 후 재시작한 DB에서
++정확한 전체 출력과 파일 보존을 EOF 및 `.exit` 종료로 확인한다.
+ 파일 읽기에 따른 접근 시각 변경은 비교에서 제외한다.
+diff --git a/src/db.c b/src/db.c
+index 5943a75..7c0d5bf 100644
+--- a/src/db.c
++++ b/src/db.c
+@@ -83,7 +83,16 @@ static void print_row(const Row *row) {
+ }
+ static int dispatch(Table *table, const char *line) {
+     if (strcmp(line, ".exit") == 0) return 1;
+-    if (strcmp(line, ".help") == 0) { puts("insert <uint32 id> <name>; select; count; find <uint32 id>; .exit"); return 0; }
++    if (strcmp(line, ".help") == 0) {
++        puts("Commands:\n"
++             "insert <uint32 id> <name>\n"
++             "select\n"
++             "count\n"
++             "find <uint32 id>\n"
++             ".help\n"
++             ".exit");
++        return 0;
++    }
+     if (strcmp(line, "select") == 0) {
+         for (uint32_t i = 0; i < table->count; ++i)
+             print_row(&table->rows[i]);
+diff --git a/tests/test_db.py b/tests/test_db.py
+index 637ca7f..cf4aac3 100644
+--- a/tests/test_db.py
++++ b/tests/test_db.py
+@@ -27,6 +27,33 @@ class DatabaseTests(unittest.TestCase):
+             for entry in self.path.iterdir()
+         }
+ 
++    def assert_help_is_read_only(self):
++        expected=('Commands:\ninsert <uint32 id> <name>\nselect\n'
++                  'count\nfind <uint32 id>\n.help\n.exit\n')
++        before=self.database_snapshot()
++        for commands in ['.help\n', '.help\n.exit\n', '.help\n.help\n.exit\n']:
++            with self.subTest(commands=commands):
++                result=self.run_db(commands)
++                self.assertEqual(result.returncode,0)
++                self.assertEqual(result.stdout,expected*commands.count('.help'))
++                self.assertEqual(result.stderr,'')
++                self.assertEqual(self.database_snapshot(),before)
++
++    def test_help_empty_is_read_only(self):
++        self.assert_help_is_read_only()
++        self.assertEqual(self.database_snapshot(),{})
++
++    def test_help_persisted_empty_is_read_only(self):
++        (self.path/'data.db').write_bytes(b'GDB1'+struct.pack('<I',0))
++        self.assert_help_is_read_only()
++
++    def test_help_existing_persisted_database_is_read_only(self):
++        result=self.run_db('insert 0 zero\ninsert 4294967295 max\n.exit\n')
++        self.assertEqual(result.returncode,0)
++        self.assertEqual(result.stdout,'Executed.\nExecuted.\n')
++        self.assertEqual(result.stderr,'')
++        self.assert_help_is_read_only()
++
+     def test_insert_select_and_restart(self):
+         self.assertIn('Executed.',self.run_db('insert 1 alice\n.exit\n').stdout)
+         result=self.run_db('select\n.exit\n')

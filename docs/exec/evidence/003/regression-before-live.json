@@ -1,0 +1,16 @@
+{
+  "date": "2026-10-04T10:22:26.914444+00:00",
+  "policy_version": "001",
+  "python": "3.12.1",
+  "platform": "macOS-15.7.8-arm64-arm-64bit",
+  "base_commit": "b93ba56",
+  "working_tree": "uncommitted MVP implementation",
+  "tests": 92,
+  "failures": [
+    "test_mcp.MCPTests.test_stdio_agent_surface_and_error_recovery"
+  ],
+  "errors": [],
+  "skipped": [],
+  "passed": false,
+  "elapsed_seconds": 7.85
+}

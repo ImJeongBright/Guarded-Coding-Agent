@@ -1,0 +1,72 @@
+{
+  "codex_version": "codex-cli 0.160.0",
+  "hook_sha256": "7dd1ffaf3ea205f75f4b3f32e5667bfdc12af971125cb247f746e0f95e5a9e91",
+  "policy_sha256": "ba0c794a67ed9215b54fb3d63e5f1f3c2aae926600688f969f57a4a1c2c838c3",
+  "config": {
+    "approval_policy": "never",
+    "sandbox_mode": "read-only",
+    "web_search": "disabled",
+    "features": {
+      "hooks": true,
+      "shell_tool": false,
+      "unified_exec": false,
+      "multi_agent": false,
+      "multi_agent_v2": false,
+      "apps": false,
+      "plugins": false,
+      "browser_use": false,
+      "browser_use_external": false,
+      "computer_use": false,
+      "in_app_browser": false,
+      "image_generation": false,
+      "code_mode": false,
+      "code_mode_only": false,
+      "view_image": false,
+      "shell_snapshot": false,
+      "skill_mcp_dependency_install": false,
+      "tool_suggest": false
+    },
+    "log_dir": "$RUN/live/c/operator-state/host-logs",
+    "sqlite_home": "$RUN/live/c/operator-state/host-db",
+    "history": {
+      "persistence": "none"
+    },
+    "mcp_servers": {
+      "guard": {
+        "command": "/Library/Frameworks/Python.framework/Versions/3.12/bin/python3",
+        "args": [
+          "$REPO/scripts/guard_stdio.py",
+          "serve",
+          "--workspace",
+          "$RUN/live/c/workspace",
+          "--state",
+          "$RUN/live/c/operator-state",
+          "--policy",
+          "$RUN/live/c/operator-state/policy.json"
+        ],
+        "required": true,
+        "enabled_tools": [
+          "guard_filesystem",
+          "guard_shell",
+          "guard_git"
+        ],
+        "default_tools_approval_mode": "approve",
+        "tool_timeout_sec": 130
+      }
+    },
+    "hooks": {
+      "PreToolUse": [
+        {
+          "matcher": ".*",
+          "hooks": [
+            {
+              "type": "command",
+              "command": "/Library/Frameworks/Python.framework/Versions/3.12/bin/python3 $REPO/scripts/codex_pre_tool.py",
+              "timeout": 5
+            }
+          ]
+        }
+      ]
+    }
+  }
+}

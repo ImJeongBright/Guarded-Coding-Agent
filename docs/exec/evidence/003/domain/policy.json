@@ -1,0 +1,22 @@
+{
+  "version": "003-d737be17c8b1",
+  "commands": [
+    {
+      "id": "node-tests",
+      "argv": [
+        "$HOME/.nvm/versions/node/v24.20.0/bin/node",
+        "--experimental-strip-types",
+        "--test",
+        "test/*.test.mjs"
+      ],
+      "cwd": ".",
+      "write_paths": [],
+      "filter": {
+        "kind": "node-test-literal",
+        "position": 3
+      }
+    }
+  ],
+  "git_remotes": {},
+  "approval_ttl": 300
+}

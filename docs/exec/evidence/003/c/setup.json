@@ -1,0 +1,297 @@
+{
+  "discovery_seconds": 0.02702229202259332,
+  "review_started_at": 1791109333.686733,
+  "candidate": {
+    "workspace": "$RUN/c/workspace",
+    "workspace_identity": [
+      16777231,
+      145834444
+    ],
+    "policy_digest": "72d09c67b33e77e02809db37fe9b4ce958f08b4fb81d06aecdde71ff1e3b7bd6",
+    "sources": {
+      "Makefile": "dc61941a38a9cc43ad33d474fc24e202aadbbe22bc9dde41be3c2ad14af4614e",
+      "src/db.c": "4eab69ab16111ae86b946fc0149a33d2b92ca5841a8904e8da33878e535cb8c9",
+      "tests/test_db.py": "12085ea2dee1864e0d79ad7b07bdfe3811526398818704aaac22e77b354c7047"
+    },
+    "commands": [
+      {
+        "id": "c-build",
+        "argv": [
+          "/Library/Developer/CommandLineTools/usr/bin/cc",
+          "-isysroot",
+          "/Library/Developer/CommandLineTools/SDKs/MacOSX.sdk",
+          "-std=c11",
+          "-Wall",
+          "-Wextra",
+          "-Werror",
+          "-pedantic",
+          "-O2",
+          "src/db.c",
+          "-o",
+          "build/minidb"
+        ],
+        "cwd": ".",
+        "write_paths": [
+          "build"
+        ],
+        "variants": {
+          "debug": [
+            "/Library/Developer/CommandLineTools/usr/bin/cc",
+            "-isysroot",
+            "/Library/Developer/CommandLineTools/SDKs/MacOSX.sdk",
+            "-std=c11",
+            "-Wall",
+            "-Wextra",
+            "-Werror",
+            "-pedantic",
+            "-O0",
+            "-g",
+            "src/db.c",
+            "-o",
+            "build/minidb"
+          ]
+        }
+      },
+      {
+        "id": "c-tests",
+        "argv": [
+          "/Library/Frameworks/Python.framework/Versions/3.12/bin/python3.12",
+          "tests/test_db.py"
+        ],
+        "cwd": ".",
+        "write_paths": [
+          "build/test-data"
+        ],
+        "filter": {
+          "kind": "python-unittest-literal",
+          "position": 2
+        }
+      },
+      {
+        "id": "c-db",
+        "argv": [
+          "$RUN/c/workspace/build/minidb"
+        ],
+        "cwd": ".",
+        "write_paths": [
+          "data.db",
+          "data.db.tmp"
+        ]
+      }
+    ],
+    "notes": [
+      "C DBMS layout detector proposes fixed compiler/test commands; it does not execute or interpret Makefile recipes. Review write scopes before applying."
+    ],
+    "digest": "a2a820a5ac9784b776137a4848652109a3711baa620472578c36d28286ffa978"
+  },
+  "apply_seconds": 0.005978792032692581,
+  "agent_operator_review_elapsed_seconds": 21.2238929271698,
+  "human_operator_review_measured": false,
+  "same_request_replay": [
+    {
+      "request": {
+        "tool": "shell",
+        "operation": "exec",
+        "argv": [
+          "/Library/Frameworks/Python.framework/Versions/3.12/bin/python3.12",
+          "tests/test_db.py",
+          "-k",
+          "count"
+        ]
+      },
+      "result": {
+        "decision": "ALLOW",
+        "matched_rule": "SH-PROFILE",
+        "reason": "Bounded local capability allowed.",
+        "executed": true,
+        "exit_code": 0,
+        "stdout": "",
+        "stderr": "test_count_empty_is_read_only (__main__.DatabaseTests.test_count_empty_is_read_only) ... ok\ntest_count_existing_binary_format (__main__.DatabaseTests.test_count_existing_binary_format) ... ok\ntest_count_zero_duplicates_and_restart (__main__.DatabaseTests.test_count_zero_duplicates_and_restart) ... ok\n\n----------------------------------------------------------------------\nRan 3 tests in 0.014s\n\nOK\n",
+        "run_id": "7054012cb6514fe189457781342124da",
+        "audit_event_id": "ee5e69b6a8564768a0911d67b817ca55",
+        "timed_out": false,
+        "output_truncated": false,
+        "timings_ms": {
+          "normalization": 3.951040969695896,
+          "decision": 0.005749985575675964,
+          "audit": 0.3346659359522164,
+          "execution": 87.99100003670901,
+          "total": 92.36004203557968,
+          "other": 0.07758510764688253
+        }
+      }
+    },
+    {
+      "request": {
+        "tool": "shell",
+        "operation": "exec",
+        "argv": [
+          "/Library/Developer/CommandLineTools/usr/bin/cc",
+          "-isysroot",
+          "/Library/Developer/CommandLineTools/SDKs/MacOSX.sdk",
+          "-std=c11",
+          "-Wall",
+          "-Wextra",
+          "-Werror",
+          "-pedantic",
+          "-O0",
+          "-g",
+          "src/db.c",
+          "-o",
+          "build/minidb"
+        ]
+      },
+      "result": {
+        "decision": "ALLOW",
+        "matched_rule": "SH-PROFILE",
+        "reason": "Bounded local capability allowed.",
+        "executed": true,
+        "exit_code": 0,
+        "stdout": "",
+        "stderr": "",
+        "run_id": "7054012cb6514fe189457781342124da",
+        "audit_event_id": "a31aa0da785b4d43aa5faad284384cf5",
+        "timed_out": false,
+        "output_truncated": false,
+        "timings_ms": {
+          "normalization": 3.5701660090126097,
+          "decision": 0.013832992408424616,
+          "audit": 1.027582969982177,
+          "execution": 920.4791249940172,
+          "total": 925.25004100753,
+          "other": 0.15933404210954905
+        }
+      }
+    },
+    {
+      "request": {
+        "tool": "filesystem",
+        "operation": "search",
+        "path": "src",
+        "query": "parse_id"
+      },
+      "result": {
+        "decision": "ALLOW",
+        "matched_rule": "FS-LOCAL",
+        "reason": "Bounded local capability allowed.",
+        "executed": true,
+        "exit_code": 0,
+        "stdout": "",
+        "stderr": "",
+        "run_id": "7054012cb6514fe189457781342124da",
+        "audit_event_id": "99fa4d8f155747b2b3aa3433bf4fae95",
+        "matches": [
+          {
+            "path": "src/db.c",
+            "line": 62,
+            "text": "static int parse_id(const char *text, uint32_t *id) {"
+          },
+          {
+            "path": "src/db.c",
+            "line": 94,
+            "text": "    if (fields == 3 && strcmp(command, \"insert\") == 0 && parse_id(id_text, &id) == 0)"
+          }
+        ],
+        "truncated": false,
+        "scanned_entries": 1,
+        "scanned_bytes": 4568,
+        "timings_ms": {
+          "normalization": 1.7072909395210445,
+          "decision": 0.0673329341225326,
+          "audit": 0.822708010673523,
+          "execution": 1.9217910012230277,
+          "total": 4.644000029657036,
+          "other": 0.12487714411690831
+        }
+      }
+    },
+    {
+      "request": {
+        "tool": "filesystem",
+        "operation": "read",
+        "path": "src/db.c",
+        "start_line": 1,
+        "end_line": 20
+      },
+      "result": {
+        "decision": "ALLOW",
+        "matched_rule": "FS-LOCAL",
+        "reason": "Bounded local capability allowed.",
+        "executed": true,
+        "exit_code": 0,
+        "stdout": "#define _POSIX_C_SOURCE 200809L\n#include <errno.h>\n#include <stdint.h>\n#include <stdio.h>\n#include <stdlib.h>\n#include <string.h>\n#include <unistd.h>\n\n#define MAX_ROWS 100\n#define NAME_BYTES 32\n#define DB_FILE \"data.db\"\n\ntypedef struct { uint32_t id; char name[NAME_BYTES]; } Row;\ntypedef struct { Row rows[MAX_ROWS]; uint32_t count; } Table;\n\nstatic void encode32(unsigned char b[4], uint32_t n) {\n    for (unsigned i = 0; i < 4; ++i) b[i] = (unsigned char)(n >> (i * 8));\n}\nstatic uint32_t decode32(const unsigned char b[4]) {\n    return (uint32_t)b[0] | (uint32_t)b[1] << 8 | (uint32_t)b[2] << 16 | (uint32_t)b[3] << 24;\n",
+        "stderr": "",
+        "run_id": "7054012cb6514fe189457781342124da",
+        "audit_event_id": "f1ec713edcd04e25bf0ed8a00d436400",
+        "sha256": "4eab69ab16111ae86b946fc0149a33d2b92ca5841a8904e8da33878e535cb8c9",
+        "total_lines": 113,
+        "timings_ms": {
+          "normalization": 0.5873750196769834,
+          "decision": 0.022666994482278824,
+          "audit": 0.272165983915329,
+          "execution": 0.2912080381065607,
+          "total": 1.2615419691428542,
+          "other": 0.08812593296170235
+        }
+      }
+    },
+    {
+      "request": {
+        "tool": "filesystem",
+        "operation": "edit",
+        "path": "src/db.c",
+        "old_text": "[OMITTED]",
+        "new_text": "[OMITTED]",
+        "expected_sha256": "4eab69ab16111ae86b946fc0149a33d2b92ca5841a8904e8da33878e535cb8c9"
+      },
+      "result": {
+        "decision": "ALLOW",
+        "matched_rule": "FS-LOCAL",
+        "reason": "Bounded local capability allowed.",
+        "executed": true,
+        "exit_code": 0,
+        "stdout": "Edited one unique occurrence.",
+        "stderr": "",
+        "run_id": "7054012cb6514fe189457781342124da",
+        "audit_event_id": "e950fd0c3cc84fa3a4e5ff855730ba3f",
+        "sha256": "4eab69ab16111ae86b946fc0149a33d2b92ca5841a8904e8da33878e535cb8c9",
+        "timings_ms": {
+          "normalization": 0.5755830206908286,
+          "decision": 0.020625011529773474,
+          "audit": 0.4267489421181381,
+          "execution": 0.7299170247279108,
+          "total": 1.8151659751310945,
+          "other": 0.06229197606444359
+        }
+      }
+    },
+    {
+      "request": {
+        "tool": "git",
+        "operation": "diff",
+        "staged": true
+      },
+      "result": {
+        "decision": "ALLOW",
+        "matched_rule": "GT-LOCAL",
+        "reason": "Bounded local capability allowed.",
+        "executed": true,
+        "exit_code": 0,
+        "stdout": "",
+        "stderr": "git: error: couldn't create cache file '/var/folders/c3/dz20673d3ld80mj1_sl129180000gn/T/xcrun_db-QsrIuEfT' (errno=Operation not permitted)\ngit: error: couldn't create cache file '/var/folders/c3/dz20673d3ld80mj1_sl129180000gn/T/xcrun_db-zEJNDKIT' (errno=Operation not permitted)\n",
+        "run_id": "7054012cb6514fe189457781342124da",
+        "audit_event_id": "81cd2cc0f2f647c096d1376b7f761f64",
+        "timed_out": false,
+        "output_truncated": false,
+        "timings_ms": {
+          "normalization": 86.74029097892344,
+          "decision": 0.03241602098569274,
+          "audit": 0.42379199294373393,
+          "execution": 49.08641701331362,
+          "total": 136.4209169987589,
+          "other": 0.13800099259242415
+        }
+      }
+    }
+  ]
+}

@@ -1,0 +1,696 @@
+{
+  "kind": "c",
+  "task": 1,
+  "calls": [
+    {
+      "tool": "guard_filesystem",
+      "arguments": {
+        "operation": "list",
+        "path": "."
+      },
+      "result": {
+        "decision": "ALLOW",
+        "matched_rule": "FS-LOCAL",
+        "reason": "Bounded local capability allowed.",
+        "executed": true,
+        "exit_code": 0,
+        "stdout": ".gitignore\nMakefile\nREADME.md\nbuild\nsrc\ntests",
+        "stderr": "",
+        "run_id": "3497a88a980549e29cf718aa114192b8",
+        "audit_event_id": "289345681d2d42d992a7923fbe7bc63f",
+        "timings_ms": {
+          "normalization": 0.9368749451823533,
+          "decision": 0.041791005060076714,
+          "audit": 0.49312604824081063,
+          "execution": 0.21070800721645355,
+          "total": 1.7861250089481473,
+          "other": 0.10362500324845314
+        }
+      },
+      "error": null
+    },
+    {
+      "tool": "guard_git",
+      "arguments": {
+        "operation": "status"
+      },
+      "result": {
+        "decision": "ALLOW",
+        "matched_rule": "GT-LOCAL",
+        "reason": "Bounded local capability allowed.",
+        "executed": true,
+        "exit_code": 0,
+        "stdout": "",
+        "stderr": "git: error: couldn't create cache file '/var/folders/c3/dz20673d3ld80mj1_sl129180000gn/T/xcrun_db-MUSz7vuO' (errno=Operation not permitted)\ngit: error: couldn't create cache file '/var/folders/c3/dz20673d3ld80mj1_sl129180000gn/T/xcrun_db-GRQrWspt' (errno=Operation not permitted)\nwarning: unable to access '/etc/gitattributes': Operation not permitted\n",
+        "run_id": "3497a88a980549e29cf718aa114192b8",
+        "audit_event_id": "803bb3cc07f8485a8f5462ab15ec670d",
+        "timed_out": false,
+        "output_truncated": false,
+        "timings_ms": {
+          "normalization": 78.10295902891085,
+          "decision": 0.03766600275412202,
+          "audit": 0.40512398118153214,
+          "execution": 51.94574996130541,
+          "total": 130.63199998578057,
+          "other": 0.14050101162865758
+        }
+      },
+      "error": null
+    },
+    {
+      "tool": "guard_filesystem",
+      "arguments": {
+        "operation": "read",
+        "path": "Makefile"
+      },
+      "result": {
+        "decision": "ALLOW",
+        "matched_rule": "FS-LOCAL",
+        "reason": "Bounded local capability allowed.",
+        "executed": true,
+        "exit_code": 0,
+        "stdout": "CC = cc\nCFLAGS = -std=c11 -Wall -Wextra -Werror -pedantic -O2\n\nbuild/minidb: src/db.c\n\tmkdir -p build\n\t$(CC) $(CFLAGS) src/db.c -o build/minidb\n\ntest: build/minidb\n\tpython3 tests/test_db.py\n\n.PHONY: test\n",
+        "stderr": "",
+        "run_id": "3497a88a980549e29cf718aa114192b8",
+        "audit_event_id": "20afc31c0f35418b8be13d4f9c653a22",
+        "sha256": "dc61941a38a9cc43ad33d474fc24e202aadbbe22bc9dde41be3c2ad14af4614e",
+        "total_lines": 11,
+        "timings_ms": {
+          "normalization": 0.9357919916510582,
+          "decision": 0.04370900569483638,
+          "audit": 0.38941699312999845,
+          "execution": 0.2951670321635902,
+          "total": 1.762750034686178,
+          "other": 0.09866501204669476
+        }
+      },
+      "error": null
+    },
+    {
+      "tool": "guard_filesystem",
+      "arguments": {
+        "operation": "read",
+        "path": "README.md"
+      },
+      "result": {
+        "decision": "ALLOW",
+        "matched_rule": "FS-LOCAL",
+        "reason": "Bounded local capability allowed.",
+        "executed": true,
+        "exit_code": 0,
+        "stdout": "# C언어 DBMS 엔진 간단 실험\n\nC11로 구현한 작은 영속 row store. `insert <uint32 id> <name>`, `select`, `count`, `.exit`, `.help`를 지원한다.\n100개 row, 고유 id(0부터 4294967295까지), 이름 최대 31바이트.\n`count`는 현재 row 수를 `Count: N` 한 줄로 출력한다. 재시작 후에도 저장된 row 수를 표시하며,\n중복 id로 거절된 insert는 row 수를 바꾸지 않는다. `data.db`는 GDB1 magic/count와 little-endian id,\n32바이트 name으로 저장한다. 임시 파일을 flush/fsync하고 rename해 매 insert를 저장한다.\n트랜잭션, SQL 전체 문법, 동시 쓰기, index, directory fsync를 포함한 crash durability는 실험 범위 밖이다.\n\nGuard 설정과 재현은 [사용 가이드](../../docs/10-local-usage.md)를 참고한다.\n컴파일 후 `tests/test_db.py`에 있는 11개의 실제 프로세스·파일 영속성 테스트를 실행한다.\n",
+        "stderr": "",
+        "run_id": "3497a88a980549e29cf718aa114192b8",
+        "audit_event_id": "cd339729d1f2426d830d7f3a7b6823a8",
+        "sha256": "0314689b72a5e6a621b5a1d4d2ad2af3e08ac5074781749c9d17eb36f224fd11",
+        "total_lines": 11,
+        "timings_ms": {
+          "normalization": 0.47387502854689956,
+          "decision": 0.01695798709988594,
+          "audit": 0.5800419603474438,
+          "execution": 0.18025003373622894,
+          "total": 1.324750017374754,
+          "other": 0.07362500764429569
+        }
+      },
+      "error": null
+    },
+    {
+      "tool": "guard_filesystem",
+      "arguments": {
+        "operation": "read",
+        "path": "src/db.c"
+      },
+      "result": {
+        "decision": "ALLOW",
+        "matched_rule": "FS-LOCAL",
+        "reason": "Bounded local capability allowed.",
+        "executed": true,
+        "exit_code": 0,
+        "stdout": "#define _POSIX_C_SOURCE 200809L\n#include <errno.h>\n#include <stdint.h>\n#include <stdio.h>\n#include <stdlib.h>\n#include <string.h>\n#include <unistd.h>\n\n#define MAX_ROWS 100\n#define NAME_BYTES 32\n#define DB_FILE \"data.db\"\n\ntypedef struct { uint32_t id; char name[NAME_BYTES]; } Row;\ntypedef struct { Row rows[MAX_ROWS]; uint32_t count; } Table;\n\nstatic void encode32(unsigned char b[4], uint32_t n) {\n    for (unsigned i = 0; i < 4; ++i) b[i] = (unsigned char)(n >> (i * 8));\n}\nstatic uint32_t decode32(const unsigned char b[4]) {\n    return (uint32_t)b[0] | (uint32_t)b[1] << 8 | (uint32_t)b[2] << 16 | (uint32_t)b[3] << 24;\n}\nstatic int load(Table *table) {\n    FILE *file = fopen(DB_FILE, \"rb\");\n    if (!file) return errno == ENOENT ? 0 : -1;\n    unsigned char header[8];\n    int ok = fread(header, 1, sizeof header, file) == sizeof header &&\n             memcmp(header, \"GDB1\", 4) == 0;\n    if (ok) table->count = decode32(header + 4);\n    if (!ok || table->count > MAX_ROWS) { fclose(file); return -1; }\n    for (uint32_t i = 0; i < table->count; ++i) {\n        unsigned char id[4];\n        Row *row = &table->rows[i];\n        if (fread(id, 1, 4, file) != 4 || fread(row->name, 1, NAME_BYTES, file) != NAME_BYTES ||\n            !memchr(row->name, '\\0', NAME_BYTES) || row->name[0] == '\\0') {\n            fclose(file); return -1;\n        }\n        row->id = decode32(id);\n        for (uint32_t j = 0; j < i; ++j)\n            if (table->rows[j].id == row->id) { fclose(file); return -1; }\n    }\n    ok = fgetc(file) == EOF && !ferror(file);\n    if (fclose(file) != 0) ok = 0;\n    return ok ? 0 : -1;\n}\nstatic int save(const Table *table) {\n    FILE *file = fopen(DB_FILE \".tmp\", \"wb\");\n    if (!file) return -1;\n    unsigned char header[8];\n    memcpy(header, \"GDB1\", 4); encode32(header + 4, table->count);\n    int ok = fwrite(header, 1, sizeof header, file) == sizeof header;\n    for (uint32_t i = 0; ok && i < table->count; ++i) {\n        unsigned char id[4]; encode32(id, table->rows[i].id);\n        ok = fwrite(id, 1, 4, file) == 4 && fwrite(table->rows[i].name, 1, NAME_BYTES, file) == NAME_BYTES;\n    }\n    if (fflush(file) != 0 || fsync(fileno(file)) != 0) ok = 0;\n    if (fclose(file) != 0) ok = 0;\n    if (!ok || rename(DB_FILE \".tmp\", DB_FILE) != 0) {\n        remove(DB_FILE \".tmp\"); return -1;\n    }\n    return 0;\n}\nstatic int parse_id(const char *text, uint32_t *id) {\n    if (*text < '0' || *text > '9') return -1;\n    errno = 0; char *end;\n    unsigned long number = strtoul(text, &end, 10);\n    if (errno || *end || number > UINT32_MAX) return -1;\n    *id = (uint32_t)number;\n    return 0;\n}\nstatic void insert(Table *table, uint32_t id, const char *name) {\n    for (uint32_t i = 0; i < table->count; ++i)\n        if (table->rows[i].id == id) { puts(\"Error: duplicate id.\"); return; }\n    if (table->count == MAX_ROWS) { puts(\"Error: table full.\"); return; }\n    Row *row = &table->rows[table->count];\n    memset(row, 0, sizeof *row); row->id = id;\n    memcpy(row->name, name, strlen(name));\n    ++table->count;\n    if (save(table) != 0) { --table->count; puts(\"Error: persistence failed.\"); }\n    else puts(\"Executed.\");\n}\nstatic int dispatch(Table *table, const char *line) {\n    if (strcmp(line, \".exit\") == 0) return 1;\n    if (strcmp(line, \".help\") == 0) { puts(\"insert <uint32 id> <name>; select; count; .exit\"); return 0; }\n    if (strcmp(line, \"select\") == 0) {\n        for (uint32_t i = 0; i < table->count; ++i)\n            printf(\"(%u, %s)\\n\", (unsigned)table->rows[i].id, table->rows[i].name);\n        puts(\"Executed.\"); return 0;\n    }\n    if (strcmp(line, \"count\") == 0) {\n        printf(\"Count: %u\\n\", (unsigned)table->count); return 0;\n    }\n    char command[16], id_text[32], name[NAME_BYTES], extra[2]; uint32_t id;\n    int fields = sscanf(line, \"%15s %31s %31s %1s\", command, id_text, name, extra);\n    if (fields == 3 && strcmp(command, \"insert\") == 0 && parse_id(id_text, &id) == 0)\n        insert(table, id, name);\n    else puts(\"Error: invalid statement.\");\n    return 0;\n}\nint main(void) {\n    Table table = {0};\n    if (load(&table) != 0) { fputs(\"Error: invalid database.\\n\", stderr); return 1; }\n    char line[4096];\n    while (fgets(line, sizeof line, stdin)) {\n        size_t len = strlen(line);\n        if (len == sizeof line - 1 && line[len - 1] != '\\n') {\n            int c; while ((c = getchar()) != '\\n' && c != EOF) {}\n            puts(\"Error: input too long.\"); continue;\n        }\n        line[strcspn(line, \"\\r\\n\")] = '\\0';\n        if (dispatch(&table, line)) return 0;\n    }\n    return ferror(stdin) ? 1 : 0;\n}\n",
+        "stderr": "",
+        "run_id": "3497a88a980549e29cf718aa114192b8",
+        "audit_event_id": "5e0e32ce03cd472f9f6c263fce00eabf",
+        "sha256": "4eab69ab16111ae86b946fc0149a33d2b92ca5841a8904e8da33878e535cb8c9",
+        "total_lines": 113,
+        "timings_ms": {
+          "normalization": 0.6063329637981951,
+          "decision": 0.019915984012186527,
+          "audit": 0.4748750361613929,
+          "execution": 0.24208298418670893,
+          "total": 1.5656249597668648,
+          "other": 0.22241799160838127
+        }
+      },
+      "error": null
+    },
+    {
+      "tool": "guard_filesystem",
+      "arguments": {
+        "operation": "read",
+        "path": "tests/test_db.py"
+      },
+      "result": {
+        "decision": "ALLOW",
+        "matched_rule": "FS-LOCAL",
+        "reason": "Bounded local capability allowed.",
+        "executed": true,
+        "exit_code": 0,
+        "stdout": "from pathlib import Path\nimport struct\nimport subprocess\nimport tempfile\nimport unittest\n\nBINARY=(Path(__file__).resolve().parent.parent/'build/minidb')\n\nclass DatabaseTests(unittest.TestCase):\n    def setUp(self):\n        # All child test files stay in the sandbox workspace.\n        test_root=Path(__file__).resolve().parent.parent/'build/test-data'\n        test_root.mkdir(parents=True,exist_ok=True)\n        self.temp=tempfile.TemporaryDirectory(prefix='db-test-',dir=test_root)\n        self.addCleanup(self.temp.cleanup)\n        self.path=Path(self.temp.name)\n\n    def run_db(self, commands):\n        return subprocess.run([str(BINARY)],input=commands,cwd=self.path,text=True,capture_output=True,timeout=3)\n\n    def test_insert_select_and_restart(self):\n        self.assertIn('Executed.',self.run_db('insert 1 alice\\n.exit\\n').stdout)\n        result=self.run_db('select\\n.exit\\n')\n        self.assertEqual(result.returncode,0)\n        self.assertIn('(1, alice)',result.stdout)\n\n    def test_zero_and_uint32_max(self):\n        result=self.run_db('insert 0 zero\\ninsert 4294967295 max\\nselect\\n.exit\\n')\n        self.assertIn('(0, zero)',result.stdout)\n        self.assertIn('(4294967295, max)',result.stdout)\n\n    def test_duplicate_preserves_row(self):\n        result=self.run_db('insert 3 first\\ninsert 3 second\\nselect\\n.exit\\n')\n        self.assertIn('duplicate',result.stdout)\n        self.assertNotIn('(3, second)',result.stdout)\n        self.assertIn('(3, first)',result.stdout)\n\n    def test_count_empty_is_read_only(self):\n        result=self.run_db('count\\ncount\\n.exit\\n')\n        self.assertEqual(result.returncode,0)\n        self.assertEqual(result.stdout,'Count: 0\\nCount: 0\\n')\n        self.assertFalse((self.path/'data.db').exists())\n\n    def test_count_zero_duplicates_and_restart(self):\n        result=self.run_db('count\\ninsert 0 zero\\ncount\\ninsert 0 other\\ncount\\ninsert 4294967295 max\\ncount\\n.exit\\n')\n        self.assertEqual(result.returncode,0)\n        self.assertEqual(result.stdout.splitlines(),[\n            'Count: 0','Executed.','Count: 1','Error: duplicate id.',\n            'Count: 1','Executed.','Count: 2'])\n        expected=(b'GDB1'+struct.pack('<I',2)+struct.pack('<I32s',0,b'zero')\n                  +struct.pack('<I32s',4294967295,b'max'))\n        self.assertEqual((self.path/'data.db').read_bytes(),expected)\n        result=self.run_db('count\\ninsert 0 other\\ncount\\nselect\\n.exit\\n')\n        self.assertEqual(result.returncode,0)\n        self.assertEqual(result.stdout.splitlines(),[\n            'Count: 2','Error: duplicate id.','Count: 2',\n            '(0, zero)','(4294967295, max)','Executed.'])\n        self.assertEqual((self.path/'data.db').read_bytes(),expected)\n\n    def test_count_existing_binary_format(self):\n        data=b'GDB1'+struct.pack('<I',1)+struct.pack('<I32s',0,b'legacy')\n        (self.path/'data.db').write_bytes(data)\n        result=self.run_db('count\\nselect\\ncount extra\\n.exit\\n')\n        self.assertEqual(result.returncode,0)\n        self.assertEqual(result.stdout.splitlines(),[\n            'Count: 1','(0, legacy)','Executed.','Error: invalid statement.'])\n        self.assertEqual((self.path/'data.db').read_bytes(),data)\n\n    def test_invalid_input_never_creates_database(self):\n        result=self.run_db('insert -1 bad\\ninsert 4294967296 bad\\ninsert 1 '+'a'*32+'\\ninsert 2 ok extra\\ninsert 1x bad\\n.exit\\n')\n        self.assertEqual(result.stdout.count('invalid statement'),5)\n        self.assertFalse((self.path/'data.db').exists())\n\n    def test_capacity_and_eof(self):\n        result=self.run_db(''.join(f'insert {i} row{i}\\n' for i in range(101)))\n        self.assertEqual(result.stdout.count('Executed.'),100)\n        self.assertIn('table full',result.stdout)\n        self.assertEqual(result.returncode,0)\n\n    def test_corrupt_and_truncated_data_rejected(self):\n        for data in [b'bad',b'GDB1'+struct.pack('<I',101),b'GDB1'+struct.pack('<I',1)+b'broken',b'GDB1'+struct.pack('<I',0)+b'extra']:\n            (self.path/'data.db').write_bytes(data)\n            result=self.run_db('select\\n')\n            self.assertEqual(result.returncode,1)\n            self.assertIn('invalid database',result.stderr)\n\n    def test_overlong_input_recovery(self):\n        result=self.run_db('x'*5000+'\\ninsert 1 ok\\nselect\\n.exit\\n')\n        self.assertIn('input too long',result.stdout)\n        self.assertIn('(1, ok)',result.stdout)\n\n    def test_persistence_failure_is_reported_and_rolled_back(self):\n        (self.path/'data.db.tmp').mkdir()\n        result=self.run_db('insert 1 nope\\nselect\\ncount\\n.exit\\n')\n        self.assertIn('persistence failed',result.stdout)\n        self.assertNotIn('(1, nope)',result.stdout)\n        self.assertIn('Count: 0\\n',result.stdout)\n        self.assertFalse((self.path/'data.db').exists())\n\nif __name__=='__main__':\n    unittest.main(verbosity=2)\n",
+        "stderr": "",
+        "run_id": "3497a88a980549e29cf718aa114192b8",
+        "audit_event_id": "c964a634da1548adaa54f1a8be546af0",
+        "sha256": "12085ea2dee1864e0d79ad7b07bdfe3811526398818704aaac22e77b354c7047",
+        "total_lines": 101,
+        "timings_ms": {
+          "normalization": 0.599374994635582,
+          "decision": 0.021084037143737078,
+          "audit": 0.44062500819563866,
+          "execution": 0.22675003856420517,
+          "total": 1.5056249685585499,
+          "other": 0.217790890019387
+        }
+      },
+      "error": null
+    },
+    {
+      "tool": "guard_filesystem",
+      "arguments": {
+        "operation": "edit",
+        "path": "src/db.c",
+        "expected_sha256": "4eab69ab16111ae86b946fc0149a33d2b92ca5841a8904e8da33878e535cb8c9",
+        "old_text": "[OMITTED]",
+        "new_text": "[OMITTED]"
+      },
+      "result": {
+        "decision": "ALLOW",
+        "matched_rule": "FS-LOCAL",
+        "reason": "Bounded local capability allowed.",
+        "executed": true,
+        "exit_code": 0,
+        "stdout": "Edited one unique occurrence.",
+        "stderr": "",
+        "run_id": "3497a88a980549e29cf718aa114192b8",
+        "audit_event_id": "76582a9dbd0f4d7c981d217295eb323e",
+        "sha256": "624030cefd5b77220746ff7ccba2d3a05ec75467e8fe6ef577baf048bc9f2f33",
+        "timings_ms": {
+          "normalization": 0.911083014216274,
+          "decision": 0.02766697434708476,
+          "audit": 0.5017929943278432,
+          "execution": 0.6683329702354968,
+          "total": 2.2674999781884253,
+          "other": 0.15862402506172657
+        }
+      },
+      "error": null
+    },
+    {
+      "tool": "guard_filesystem",
+      "arguments": {
+        "operation": "edit",
+        "path": "tests/test_db.py",
+        "expected_sha256": "12085ea2dee1864e0d79ad7b07bdfe3811526398818704aaac22e77b354c7047",
+        "old_text": "[OMITTED]",
+        "new_text": "[OMITTED]"
+      },
+      "result": {
+        "decision": "ALLOW",
+        "matched_rule": "FS-LOCAL",
+        "reason": "Bounded local capability allowed.",
+        "executed": true,
+        "exit_code": 0,
+        "stdout": "Edited one unique occurrence.",
+        "stderr": "",
+        "run_id": "3497a88a980549e29cf718aa114192b8",
+        "audit_event_id": "84c94a5a2c664d24a8ef1201e9ade242",
+        "sha256": "ede6984308890418895bd107cdf56a21e4643f58b65e1770551c467f742f77e7",
+        "timings_ms": {
+          "normalization": 0.7865829975344241,
+          "decision": 0.0255830236710608,
+          "audit": 0.5154589889571071,
+          "execution": 0.6780839757993817,
+          "total": 2.107542008161545,
+          "other": 0.10183302219957113
+        }
+      },
+      "error": null
+    },
+    {
+      "tool": "guard_filesystem",
+      "arguments": {
+        "operation": "edit",
+        "path": "README.md",
+        "expected_sha256": "0314689b72a5e6a621b5a1d4d2ad2af3e08ac5074781749c9d17eb36f224fd11",
+        "old_text": "[OMITTED]",
+        "new_text": "[OMITTED]"
+      },
+      "result": {
+        "decision": "ALLOW",
+        "matched_rule": "FS-LOCAL",
+        "reason": "Bounded local capability allowed.",
+        "executed": true,
+        "exit_code": 0,
+        "stdout": "Edited one unique occurrence.",
+        "stderr": "",
+        "run_id": "3497a88a980549e29cf718aa114192b8",
+        "audit_event_id": "c85c71d46dab4c58b291761bdc4c7f20",
+        "sha256": "f03d24e3a844af5da31b128540059499a20eec4d42ffdfb6cddc050d65545c7f",
+        "timings_ms": {
+          "normalization": 0.5295409937389195,
+          "decision": 0.019083963707089424,
+          "audit": 0.36745803663507104,
+          "execution": 0.5304999649524689,
+          "total": 1.5232499572448432,
+          "other": 0.07666699821129441
+        }
+      },
+      "error": null
+    },
+    {
+      "tool": "guard_shell",
+      "arguments": {
+        "operation": "run",
+        "profile": "c-build"
+      },
+      "result": {
+        "decision": "ALLOW",
+        "matched_rule": "SH-PROFILE",
+        "reason": "Bounded local capability allowed.",
+        "executed": true,
+        "exit_code": 0,
+        "stdout": "",
+        "stderr": "",
+        "run_id": "3497a88a980549e29cf718aa114192b8",
+        "audit_event_id": "3d6b70055ba54413a09e46f223b910c3",
+        "timed_out": false,
+        "output_truncated": false,
+        "timings_ms": {
+          "normalization": 7.238167047034949,
+          "decision": 0.01066701952368021,
+          "audit": 0.53641595877707,
+          "execution": 429.7217080020346,
+          "total": 437.6147909788415,
+          "other": 0.10783295147120953
+        }
+      },
+      "error": null
+    },
+    {
+      "tool": "guard_shell",
+      "arguments": {
+        "operation": "run",
+        "profile": "c-tests",
+        "filter": "test_find"
+      },
+      "result": {
+        "decision": "ALLOW",
+        "matched_rule": "SH-PROFILE",
+        "reason": "Bounded local capability allowed.",
+        "executed": true,
+        "exit_code": 0,
+        "stdout": "",
+        "stderr": "test_find_boundaries_and_restart (__main__.DatabaseTests.test_find_boundaries_and_restart) ... ok\ntest_find_empty_is_read_only (__main__.DatabaseTests.test_find_empty_is_read_only) ... ok\ntest_find_invalid_arguments_preserve_data (__main__.DatabaseTests.test_find_invalid_arguments_preserve_data) ... ok\n\n----------------------------------------------------------------------\nRan 3 tests in 0.390s\n\nOK\n",
+        "run_id": "3497a88a980549e29cf718aa114192b8",
+        "audit_event_id": "c4665d7a199e4ba0a27a85af884e435a",
+        "timed_out": false,
+        "output_truncated": false,
+        "timings_ms": {
+          "normalization": 3.5809159744530916,
+          "decision": 0.014124962035566568,
+          "audit": 0.6041679880581796,
+          "execution": 471.7427910072729,
+          "total": 476.05095902690664,
+          "other": 0.10895909508690238
+        }
+      },
+      "error": null
+    },
+    {
+      "tool": "guard_shell",
+      "arguments": {
+        "operation": "run",
+        "profile": "c-tests"
+      },
+      "result": {
+        "decision": "ALLOW",
+        "matched_rule": "SH-PROFILE",
+        "reason": "Bounded local capability allowed.",
+        "executed": true,
+        "exit_code": 0,
+        "stdout": "",
+        "stderr": "test_capacity_and_eof (__main__.DatabaseTests.test_capacity_and_eof) ... ok\ntest_corrupt_and_truncated_data_rejected (__main__.DatabaseTests.test_corrupt_and_truncated_data_rejected) ... ok\ntest_count_empty_is_read_only (__main__.DatabaseTests.test_count_empty_is_read_only) ... ok\ntest_count_existing_binary_format (__main__.DatabaseTests.test_count_existing_binary_format) ... ok\ntest_count_zero_duplicates_and_restart (__main__.DatabaseTests.test_count_zero_duplicates_and_restart) ... ok\ntest_duplicate_preserves_row (__main__.DatabaseTests.test_duplicate_preserves_row) ... ok\ntest_find_boundaries_and_restart (__main__.DatabaseTests.test_find_boundaries_and_restart) ... ok\ntest_find_empty_is_read_only (__main__.DatabaseTests.test_find_empty_is_read_only) ... ok\ntest_find_invalid_arguments_preserve_data (__main__.DatabaseTests.test_find_invalid_arguments_preserve_data) ... ok\ntest_insert_select_and_restart (__main__.DatabaseTests.test_insert_select_and_restart) ... ok\ntest_invalid_input_never_creates_database (__main__.DatabaseTests.test_invalid_input_never_creates_database) ... ok\ntest_overlong_input_recovery (__main__.DatabaseTests.test_overlong_input_recovery) ... ok\ntest_persistence_failure_is_reported_and_rolled_back (__main__.DatabaseTests.test_persistence_failure_is_reported_and_rolled_back) ... ok\ntest_zero_and_uint32_max (__main__.DatabaseTests.test_zero_and_uint32_max) ... ok\n\n----------------------------------------------------------------------\nRan 14 tests in 0.085s\n\nOK\n",
+        "run_id": "3497a88a980549e29cf718aa114192b8",
+        "audit_event_id": "c682b7bf47474fbbb47ce066577fbb3e",
+        "timed_out": false,
+        "output_truncated": false,
+        "timings_ms": {
+          "normalization": 3.834916977211833,
+          "decision": 0.015416997484862804,
+          "audit": 0.5015000351704657,
+          "execution": 190.31450001057237,
+          "total": 194.79537499137223,
+          "other": 0.1290409709326923
+        }
+      },
+      "error": null
+    },
+    {
+      "tool": "guard_shell",
+      "arguments": {
+        "operation": "run",
+        "profile": "c-build",
+        "mode": "debug"
+      },
+      "result": {
+        "decision": "ALLOW",
+        "matched_rule": "SH-PROFILE",
+        "reason": "Bounded local capability allowed.",
+        "executed": true,
+        "exit_code": 0,
+        "stdout": "",
+        "stderr": "",
+        "run_id": "3497a88a980549e29cf718aa114192b8",
+        "audit_event_id": "1ef4312f8e0a4b4eba8a464587b9a9bb",
+        "timed_out": false,
+        "output_truncated": false,
+        "timings_ms": {
+          "normalization": 3.602999961003661,
+          "decision": 0.01512398011982441,
+          "audit": 0.49712404143065214,
+          "execution": 143.35266704438254,
+          "total": 147.56100001977757,
+          "other": 0.09308499284088612
+        }
+      },
+      "error": null
+    },
+    {
+      "tool": "guard_shell",
+      "arguments": {
+        "operation": "run",
+        "profile": "c-tests"
+      },
+      "result": {
+        "decision": "ALLOW",
+        "matched_rule": "SH-PROFILE",
+        "reason": "Bounded local capability allowed.",
+        "executed": true,
+        "exit_code": 0,
+        "stdout": "",
+        "stderr": "test_capacity_and_eof (__main__.DatabaseTests.test_capacity_and_eof) ... ok\ntest_corrupt_and_truncated_data_rejected (__main__.DatabaseTests.test_corrupt_and_truncated_data_rejected) ... ok\ntest_count_empty_is_read_only (__main__.DatabaseTests.test_count_empty_is_read_only) ... ok\ntest_count_existing_binary_format (__main__.DatabaseTests.test_count_existing_binary_format) ... ok\ntest_count_zero_duplicates_and_restart (__main__.DatabaseTests.test_count_zero_duplicates_and_restart) ... ok\ntest_duplicate_preserves_row (__main__.DatabaseTests.test_duplicate_preserves_row) ... ok\ntest_find_boundaries_and_restart (__main__.DatabaseTests.test_find_boundaries_and_restart) ... ok\ntest_find_empty_is_read_only (__main__.DatabaseTests.test_find_empty_is_read_only) ... ok\ntest_find_invalid_arguments_preserve_data (__main__.DatabaseTests.test_find_invalid_arguments_preserve_data) ... ok\ntest_insert_select_and_restart (__main__.DatabaseTests.test_insert_select_and_restart) ... ok\ntest_invalid_input_never_creates_database (__main__.DatabaseTests.test_invalid_input_never_creates_database) ... ok\ntest_overlong_input_recovery (__main__.DatabaseTests.test_overlong_input_recovery) ... ok\ntest_persistence_failure_is_reported_and_rolled_back (__main__.DatabaseTests.test_persistence_failure_is_reported_and_rolled_back) ... ok\ntest_zero_and_uint32_max (__main__.DatabaseTests.test_zero_and_uint32_max) ... ok\n\n----------------------------------------------------------------------\nRan 14 tests in 0.338s\n\nOK\n",
+        "run_id": "3497a88a980549e29cf718aa114192b8",
+        "audit_event_id": "ed43f601bc3d45d299262ec3f1ede03f",
+        "timed_out": false,
+        "output_truncated": false,
+        "timings_ms": {
+          "normalization": 3.585083002690226,
+          "decision": 0.014542019926011562,
+          "audit": 0.4943330422975123,
+          "execution": 435.4505829978734,
+          "total": 439.67070896178484,
+          "other": 0.12616789899766445
+        }
+      },
+      "error": null
+    },
+    {
+      "tool": "guard_git",
+      "arguments": {
+        "operation": "add",
+        "paths": [
+          "src/db.c",
+          "tests/test_db.py",
+          "README.md"
+        ]
+      },
+      "result": {
+        "decision": "ALLOW",
+        "matched_rule": "GT-LOCAL",
+        "reason": "Bounded local capability allowed.",
+        "executed": true,
+        "exit_code": 0,
+        "stdout": "",
+        "stderr": "git: error: couldn't create cache file '/var/folders/c3/dz20673d3ld80mj1_sl129180000gn/T/xcrun_db-DNsppuRG' (errno=Operation not permitted)\ngit: error: couldn't create cache file '/var/folders/c3/dz20673d3ld80mj1_sl129180000gn/T/xcrun_db-Za8XoSzN' (errno=Operation not permitted)\nwarning: unable to access '/etc/gitattributes': Operation not permitted\n",
+        "run_id": "3497a88a980549e29cf718aa114192b8",
+        "audit_event_id": "68d968152990467386d2b271e8c1fe1f",
+        "timed_out": false,
+        "output_truncated": false,
+        "timings_ms": {
+          "normalization": 86.69945795554668,
+          "decision": 0.04612404154613614,
+          "audit": 0.4171660402789712,
+          "execution": 51.18124996079132,
+          "total": 138.48820800194517,
+          "other": 0.14421000378206372
+        }
+      },
+      "error": null
+    },
+    {
+      "tool": "guard_git",
+      "arguments": {
+        "operation": "diff",
+        "staged": true
+      },
+      "result": {
+        "decision": "ALLOW",
+        "matched_rule": "GT-LOCAL",
+        "reason": "Bounded local capability allowed.",
+        "executed": true,
+        "exit_code": 0,
+        "stdout": "diff --git a/README.md b/README.md\nindex ffc3e36..e979b77 100644\n--- a/README.md\n+++ b/README.md\n@@ -1,11 +1,14 @@\n # C언어 DBMS 엔진 간단 실험\n \n-C11로 구현한 작은 영속 row store. `insert <uint32 id> <name>`, `select`, `count`, `.exit`, `.help`를 지원한다.\n+C11로 구현한 작은 영속 row store. `insert <uint32 id> <name>`, `select`, `count`, `find <uint32 id>`, `.exit`, `.help`를 지원한다.\n 100개 row, 고유 id(0부터 4294967295까지), 이름 최대 31바이트.\n `count`는 현재 row 수를 `Count: N` 한 줄로 출력한다. 재시작 후에도 저장된 row 수를 표시하며,\n 중복 id로 거절된 insert는 row 수를 바꾸지 않는다. `data.db`는 GDB1 magic/count와 little-endian id,\n 32바이트 name으로 저장한다. 임시 파일을 flush/fsync하고 rename해 매 insert를 저장한다.\n+`find <uint32 id>`는 해당 row가 있으면 `(id, name)` 한 줄만, 없으면 `Not found.`를 출력한다.\n+음수, 범위 초과, 잘못된 id, 누락되거나 추가된 인자는 거절하며 데이터를 변경하지 않는다.\n+예: `find 0`, `find 4294967295`. 조회는 재시작 후에도 동작하며 GDB1 파일을 변경하지 않는다.\n 트랜잭션, SQL 전체 문법, 동시 쓰기, index, directory fsync를 포함한 crash durability는 실험 범위 밖이다.\n \n Guard 설정과 재현은 [사용 가이드](../../docs/10-local-usage.md)를 참고한다.\n-컴파일 후 `tests/test_db.py`에 있는 11개의 실제 프로세스·파일 영속성 테스트를 실행한다.\n+컴파일 후 `tests/test_db.py`에 있는 14개의 실제 프로세스·파일 영속성 테스트를 실행한다.\ndiff --git a/src/db.c b/src/db.c\nindex fbdf317..bb23985 100644\n--- a/src/db.c\n+++ b/src/db.c\n@@ -80,7 +80,7 @@ static void insert(Table *table, uint32_t id, const char *name) {\n }\n static int dispatch(Table *table, const char *line) {\n     if (strcmp(line, \".exit\") == 0) return 1;\n-    if (strcmp(line, \".help\") == 0) { puts(\"insert <uint32 id> <name>; select; count; .exit\"); return 0; }\n+    if (strcmp(line, \".help\") == 0) { puts(\"insert <uint32 id> <name>; select; count; find <uint32 id>; .exit\"); return 0; }\n     if (strcmp(line, \"select\") == 0) {\n         for (uint32_t i = 0; i < table->count; ++i)\n             printf(\"(%u, %s)\\n\", (unsigned)table->rows[i].id, table->rows[i].name);\n@@ -93,6 +93,15 @@ static int dispatch(Table *table, const char *line) {\n     int fields = sscanf(line, \"%15s %31s %31s %1s\", command, id_text, name, extra);\n     if (fields == 3 && strcmp(command, \"insert\") == 0 && parse_id(id_text, &id) == 0)\n         insert(table, id, name);\n+    else if (fields == 2 && strcmp(command, \"find\") == 0 && parse_id(id_text, &id) == 0) {\n+        for (uint32_t i = 0; i < table->count; ++i) {\n+            if (table->rows[i].id == id) {\n+                printf(\"(%u, %s)\\n\", (unsigned)id, table->rows[i].name);\n+                return 0;\n+            }\n+        }\n+        puts(\"Not found.\");\n+    }\n     else puts(\"Error: invalid statement.\");\n     return 0;\n }\ndiff --git a/tests/test_db.py b/tests/test_db.py\nindex 40c7165..6d48559 100644\n--- a/tests/test_db.py\n+++ b/tests/test_db.py\n@@ -66,6 +66,45 @@ class DatabaseTests(unittest.TestCase):\n             'Count: 1','(0, legacy)','Executed.','Error: invalid statement.'])\n         self.assertEqual((self.path/'data.db').read_bytes(),data)\n \n+    def test_find_empty_is_read_only(self):\n+        result=self.run_db('find 0\\nfind 4294967295\\n.exit\\n')\n+        self.assertEqual(result.returncode,0)\n+        self.assertEqual(result.stdout,'Not found.\\nNot found.\\n')\n+        self.assertFalse((self.path/'data.db').exists())\n+\n+    def test_find_boundaries_and_restart(self):\n+        result=self.run_db('insert 0 zero\\ninsert 42 alice\\ninsert 4294967295 max\\nfind 42\\nfind 0\\nfind 4294967295\\nfind 1\\n.exit\\n')\n+        self.assertEqual(result.returncode,0)\n+        self.assertEqual(result.stdout.splitlines(),[\n+            'Executed.','Executed.','Executed.','(42, alice)',\n+            '(0, zero)','(4294967295, max)','Not found.'])\n+        expected=(b'GDB1'+struct.pack('<I',3)+struct.pack('<I32s',0,b'zero')\n+                  +struct.pack('<I32s',42,b'alice')\n+                  +struct.pack('<I32s',4294967295,b'max'))\n+        self.assertEqual((self.path/'data.db').read_bytes(),expected)\n+        result=self.run_db('find 42\\nfind 1\\ncount\\n.exit\\n')\n+        self.assertEqual(result.returncode,0)\n+        self.assertEqual(result.stdout,'(42, alice)\\nNot found.\\nCount: 3\\n')\n+        self.assertEqual((self.path/'data.db').read_bytes(),expected)\n+\n+    def test_find_invalid_arguments_preserve_data(self):\n+        commands=['find','find -1','find +1','find 4294967296',\n+                  'find 9999999999999999999999999999999999999999',\n+                  'find 1x','find 1.0','find abc','find 0 extra',\n+                  'find 0 extra more']\n+        invalid='\\n'.join(commands)+'\\n'\n+        result=self.run_db(invalid+'.exit\\n')\n+        self.assertEqual(result.returncode,0)\n+        self.assertEqual(result.stdout,'Error: invalid statement.\\n'*len(commands))\n+        self.assertFalse((self.path/'data.db').exists())\n+        data=b'GDB1'+struct.pack('<I',1)+struct.pack('<I32s',0,b'legacy')\n+        (self.path/'data.db').write_bytes(data)\n+        result=self.run_db(invalid+'find 0\\ncount\\nselect\\n.exit\\n')\n+        self.assertEqual(result.returncode,0)\n+        self.assertEqual(result.stdout,'Error: invalid statement.\\n'*len(commands)\n+                         +'(0, legacy)\\nCount: 1\\n(0, legacy)\\nExecuted.\\n')\n+        self.assertEqual((self.path/'data.db').read_bytes(),data)\n+\n     def test_invalid_input_never_creates_database(self):\n         result=self.run_db('insert -1 bad\\ninsert 4294967296 bad\\ninsert 1 '+'a'*32+'\\ninsert 2 ok extra\\ninsert 1x bad\\n.exit\\n')\n         self.assertEqual(result.stdout.count('invalid statement'),5)\n",
+        "stderr": "git: error: couldn't create cache file '/var/folders/c3/dz20673d3ld80mj1_sl129180000gn/T/xcrun_db-4vPZh7Us' (errno=Operation not permitted)\ngit: error: couldn't create cache file '/var/folders/c3/dz20673d3ld80mj1_sl129180000gn/T/xcrun_db-pxDWLQ6x' (errno=Operation not permitted)\nwarning: unable to access '/etc/gitattributes': Operation not permitted\nwarning: unable to access '/etc/gitattributes': Operation not permitted\nwarning: unable to access '/etc/gitattributes': Operation not permitted\n",
+        "run_id": "3497a88a980549e29cf718aa114192b8",
+        "audit_event_id": "30a8b6d6ca164d81a42b4ef5ce92f069",
+        "timed_out": false,
+        "output_truncated": false,
+        "timings_ms": {
+          "normalization": 81.6963329561986,
+          "decision": 0.04308304050937295,
+          "audit": 0.6978760357014835,
+          "execution": 50.188500026706606,
+          "total": 132.9853340284899,
+          "other": 0.3595419693738222
+        }
+      },
+      "error": null
+    },
+    {
+      "tool": "guard_git",
+      "arguments": {
+        "operation": "commit",
+        "message": "Add read-only find command with validation and tests"
+      },
+      "result": {
+        "decision": "ALLOW",
+        "matched_rule": "GT-LOCAL",
+        "reason": "Bounded local capability allowed.",
+        "executed": true,
+        "exit_code": 0,
+        "stdout": "[feature/003-c a470fb2] Add read-only find command with validation and tests\n 3 files changed, 54 insertions(+), 3 deletions(-)\n",
+        "stderr": "git: error: couldn't create cache file '/var/folders/c3/dz20673d3ld80mj1_sl129180000gn/T/xcrun_db-HzwLwZd4' (errno=Operation not permitted)\ngit: error: couldn't create cache file '/var/folders/c3/dz20673d3ld80mj1_sl129180000gn/T/xcrun_db-RbCCJSGf' (errno=Operation not permitted)\nwarning: unable to access '/etc/gitattributes': Operation not permitted\nwarning: unable to access '/etc/gitattributes': Operation not permitted\n",
+        "run_id": "3497a88a980549e29cf718aa114192b8",
+        "audit_event_id": "bb5ca04ad12c4d979fc0031e2487f94f",
+        "timed_out": false,
+        "output_truncated": false,
+        "timings_ms": {
+          "normalization": 78.06916703702882,
+          "decision": 0.04237395478412509,
+          "audit": 0.41816598968580365,
+          "execution": 48.573916021268815,
+          "total": 127.24679196253419,
+          "other": 0.14316895976662636
+        }
+      },
+      "error": null
+    },
+    {
+      "tool": "guard_git",
+      "arguments": {
+        "operation": "status"
+      },
+      "result": {
+        "decision": "ALLOW",
+        "matched_rule": "GT-LOCAL",
+        "reason": "Bounded local capability allowed.",
+        "executed": true,
+        "exit_code": 0,
+        "stdout": "",
+        "stderr": "git: error: couldn't create cache file '/var/folders/c3/dz20673d3ld80mj1_sl129180000gn/T/xcrun_db-UFXnLbJb' (errno=Operation not permitted)\ngit: error: couldn't create cache file '/var/folders/c3/dz20673d3ld80mj1_sl129180000gn/T/xcrun_db-oBTte6mr' (errno=Operation not permitted)\n",
+        "run_id": "3497a88a980549e29cf718aa114192b8",
+        "audit_event_id": "719e5c0e6e694b258770f06e257f45e4",
+        "timed_out": false,
+        "output_truncated": false,
+        "timings_ms": {
+          "normalization": 58.49983403459191,
+          "decision": 0.04054204327985644,
+          "audit": 0.4650830524042249,
+          "execution": 48.3014170313254,
+          "total": 107.44104103650898,
+          "other": 0.134164874907583
+        }
+      },
+      "error": null
+    }
+  ],
+  "tool_calls": 18,
+  "decisions": {
+    "ALLOW": 18
+  },
+  "checks": [
+    {
+      "label": "release build",
+      "decision": "ALLOW",
+      "matched_rule": "SH-PROFILE",
+      "reason": "Bounded local capability allowed.",
+      "executed": true,
+      "exit_code": 0,
+      "stdout": "",
+      "stderr": "",
+      "run_id": "061ca268363c417d9552207d8e1c3929",
+      "audit_event_id": "4fd20d908a3d48de8b97981224f24ef0",
+      "timed_out": false,
+      "output_truncated": false,
+      "timings_ms": {
+        "normalization": 4.687709093559533,
+        "decision": 0.010457995813339949,
+        "audit": 0.717083050403744,
+        "execution": 150.40987503016368,
+        "total": 155.91958299046382,
+        "other": 0.09445782052353024
+      }
+    },
+    {
+      "label": "project tests",
+      "decision": "ALLOW",
+      "matched_rule": "SH-PROFILE",
+      "reason": "Bounded local capability allowed.",
+      "executed": true,
+      "exit_code": 0,
+      "stdout": "",
+      "stderr": "test_capacity_and_eof (__main__.DatabaseTests.test_capacity_and_eof) ... ok\ntest_corrupt_and_truncated_data_rejected (__main__.DatabaseTests.test_corrupt_and_truncated_data_rejected) ... ok\ntest_count_empty_is_read_only (__main__.DatabaseTests.test_count_empty_is_read_only) ... ok\ntest_count_existing_binary_format (__main__.DatabaseTests.test_count_existing_binary_format) ... ok\ntest_count_zero_duplicates_and_restart (__main__.DatabaseTests.test_count_zero_duplicates_and_restart) ... ok\ntest_duplicate_preserves_row (__main__.DatabaseTests.test_duplicate_preserves_row) ... ok\ntest_find_boundaries_and_restart (__main__.DatabaseTests.test_find_boundaries_and_restart) ... ok\ntest_find_empty_is_read_only (__main__.DatabaseTests.test_find_empty_is_read_only) ... ok\ntest_find_invalid_arguments_preserve_data (__main__.DatabaseTests.test_find_invalid_arguments_preserve_data) ... ok\ntest_insert_select_and_restart (__main__.DatabaseTests.test_insert_select_and_restart) ... ok\ntest_invalid_input_never_creates_database (__main__.DatabaseTests.test_invalid_input_never_creates_database) ... ok\ntest_overlong_input_recovery (__main__.DatabaseTests.test_overlong_input_recovery) ... ok\ntest_persistence_failure_is_reported_and_rolled_back (__main__.DatabaseTests.test_persistence_failure_is_reported_and_rolled_back) ... ok\ntest_zero_and_uint32_max (__main__.DatabaseTests.test_zero_and_uint32_max) ... ok\n\n----------------------------------------------------------------------\nRan 14 tests in 0.255s\n\nOK\n",
+      "run_id": "061ca268363c417d9552207d8e1c3929",
+      "audit_event_id": "3e49a35128b643b18aed83ac0486e2f3",
+      "timed_out": false,
+      "output_truncated": false,
+      "timings_ms": {
+        "normalization": 5.344500008504838,
+        "decision": 0.014999997802078724,
+        "audit": 0.3874159883707762,
+        "execution": 324.90679097827524,
+        "total": 330.8092089719139,
+        "other": 0.15550199896097183
+      }
+    },
+    {
+      "label": "independent behavior",
+      "decision": "ALLOW",
+      "matched_rule": "SH-PROFILE",
+      "reason": "Bounded local capability allowed.",
+      "executed": true,
+      "exit_code": 0,
+      "stdout": "Independent C contract passed: exact find, empty/read-only, malformed, uint32, duplicate, restart, select, GDB1\n",
+      "stderr": "",
+      "run_id": "061ca268363c417d9552207d8e1c3929",
+      "audit_event_id": "08227e46feed4140b807f4ab2d6ceaa3",
+      "timed_out": false,
+      "output_truncated": false,
+      "timings_ms": {
+        "normalization": 4.463333985768259,
+        "decision": 0.013373966794461012,
+        "audit": 0.5677909939549863,
+        "execution": 89.21741700032726,
+        "total": 94.45299999788404,
+        "other": 0.1910840510390699
+      }
+    },
+    {
+      "label": "debug build",
+      "decision": "ALLOW",
+      "matched_rule": "SH-PROFILE",
+      "reason": "Bounded local capability allowed.",
+      "executed": true,
+      "exit_code": 0,
+      "stdout": "",
+      "stderr": "",
+      "run_id": "061ca268363c417d9552207d8e1c3929",
+      "audit_event_id": "c5a9ac2a80be459582a1fc5491e5b3a1",
+      "timed_out": false,
+      "output_truncated": false,
+      "timings_ms": {
+        "normalization": 4.798167967237532,
+        "decision": 0.017084006685763597,
+        "audit": 0.39783300599083304,
+        "execution": 77.56920799147338,
+        "total": 82.89804199011996,
+        "other": 0.11574901873245835
+      }
+    },
+    {
+      "label": "debug independent behavior",
+      "decision": "ALLOW",
+      "matched_rule": "SH-PROFILE",
+      "reason": "Bounded local capability allowed.",
+      "executed": true,
+      "exit_code": 0,
+      "stdout": "Independent C contract passed: exact find, empty/read-only, malformed, uint32, duplicate, restart, select, GDB1\n",
+      "stderr": "",
+      "run_id": "061ca268363c417d9552207d8e1c3929",
+      "audit_event_id": "77ffa190703249b08e40b336e46ac3dd",
+      "timed_out": false,
+      "output_truncated": false,
+      "timings_ms": {
+        "normalization": 4.257874970789999,
+        "decision": 0.012958014849573374,
+        "audit": 0.7527090492658317,
+        "execution": 367.1360830194317,
+        "total": 372.3779169959016,
+        "other": 0.21829194156453013
+      }
+    }
+  ],
+  "git_status": {
+    "decision": "ALLOW",
+    "matched_rule": "GT-LOCAL",
+    "reason": "Bounded local capability allowed.",
+    "executed": true,
+    "exit_code": 0,
+    "stdout": "",
+    "stderr": "git: error: couldn't create cache file '/var/folders/c3/dz20673d3ld80mj1_sl129180000gn/T/xcrun_db-dR3BtEf7' (errno=Operation not permitted)\ngit: error: couldn't create cache file '/var/folders/c3/dz20673d3ld80mj1_sl129180000gn/T/xcrun_db-EcMj0806' (errno=Operation not permitted)\n",
+    "run_id": "061ca268363c417d9552207d8e1c3929",
+    "audit_event_id": "e9ce11572cb1441dae47dad86544ac73",
+    "timed_out": false,
+    "output_truncated": false,
+    "timings_ms": {
+      "normalization": 101.91350005334243,
+      "decision": 0.04841701593250036,
+      "audit": 0.45441597467288375,
+      "execution": 52.29741596849635,
+      "total": 154.88645900040865,
+      "other": 0.17270998796448112
+    }
+  },
+  "git_history": {
+    "decision": "ALLOW",
+    "matched_rule": "GT-LOCAL",
+    "reason": "Bounded local capability allowed.",
+    "executed": true,
+    "exit_code": 0,
+    "stdout": "a470fb2 Add read-only find command with validation and tests\n7d2bd91 Existing project snapshot for Guard 003\n",
+    "stderr": "git: error: couldn't create cache file '/var/folders/c3/dz20673d3ld80mj1_sl129180000gn/T/xcrun_db-KMNvYGlu' (errno=Operation not permitted)\ngit: error: couldn't create cache file '/var/folders/c3/dz20673d3ld80mj1_sl129180000gn/T/xcrun_db-sQXz3GYO' (errno=Operation not permitted)\n",
+    "run_id": "061ca268363c417d9552207d8e1c3929",
+    "audit_event_id": "5041347ae98c43bb814f3e8b67ce22ae",
+    "timed_out": false,
+    "output_truncated": false,
+    "timings_ms": {
+      "normalization": 75.5693749524653,
+      "decision": 0.03879104042425752,
+      "audit": 0.43483299668878317,
+      "execution": 27.4282080354169,
+      "total": 103.6154999746941,
+      "other": 0.1442929496988654
+    }
+  },
+  "model_final": "Committed locally as `a470fb2`. Working tree is clean.\n\n- Added `find <uint32 id>` with exact found/missing output and argument validation.\n- Added three tests and README documentation; preserved insert/select/count and GDB1.\n- Release and debug builds passed.\n- Literal filter `test_find`: 3 tests ran and passed.\n- Full suite: 14 tests passed on both builds.\n- Inspected staged diff before committing.\n\nNo denied calls or nonzero exits. Git emitted cache-file permission errors and `/etc/gitattributes` warnings, but all operations succeeded.\n\nGuard was mildly frustrating: hash-bound edits were straightforward, while repeated Git diagnostics added noise. It did not block completion.",
+  "passed": true
+}

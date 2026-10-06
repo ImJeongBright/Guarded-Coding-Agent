@@ -1,0 +1,17 @@
+{"case": "small-100", "operation": "read_one_file", "decision": "ALLOW", "rule": "FS-LOCAL", "median_ms": 0.959}
+{"case": "small-100", "operation": "shell_noop", "decision": "ALLOW", "rule": "SH-PROFILE", "median_ms": 71.587}
+{"case": "small-100", "operation": "git_status", "decision": "ALLOW", "rule": "GT-LOCAL", "median_ms": 177.572}
+{"case": "small-100", "operation": "git_diff_one_file", "decision": "ALLOW", "rule": "GT-LOCAL", "median_ms": 271.165}
+{"case": "medium-1000", "operation": "read_one_file", "decision": "ALLOW", "rule": "FS-LOCAL", "median_ms": 1.005}
+{"case": "medium-1000", "operation": "shell_noop", "decision": "ALLOW", "rule": "SH-PROFILE", "median_ms": 94.296}
+{"case": "medium-1000", "operation": "git_status", "decision": "ALLOW", "rule": "GT-LOCAL", "median_ms": 547.717}
+{"case": "medium-1000", "operation": "git_diff_one_file", "decision": "ALLOW", "rule": "GT-LOCAL", "median_ms": 700.451}
+{"case": "medium-3000", "operation": "read_one_file", "decision": "ALLOW", "rule": "FS-LOCAL", "median_ms": 1.836}
+{"case": "medium-3000", "operation": "shell_noop", "decision": "ALLOW", "rule": "SH-PROFILE", "median_ms": 145.719}
+{"case": "medium-3000", "operation": "git_status", "decision": "DENY", "rule": "GT-STATE", "median_ms": 93.917}
+{"case": "medium-3000", "operation": "git_diff_one_file", "decision": "DENY", "rule": "GT-STATE", "median_ms": 96.084}
+{"case": "medium-1000-ignored", "operation": "read_one_file", "decision": "ALLOW", "rule": "FS-LOCAL", "median_ms": 0.948}
+{"case": "medium-1000-ignored", "operation": "shell_noop", "decision": "ALLOW", "rule": "SH-PROFILE", "median_ms": 327.224}
+{"case": "medium-1000-ignored", "operation": "git_status", "decision": "ALLOW", "rule": "GT-LOCAL", "median_ms": 819.997}
+{"case": "medium-1000-ignored", "operation": "git_diff_one_file", "decision": "ALLOW", "rule": "GT-LOCAL", "median_ms": 965.871}
+Capacity observation complete.

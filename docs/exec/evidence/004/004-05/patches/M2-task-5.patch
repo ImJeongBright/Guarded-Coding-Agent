@@ -1,0 +1,163 @@
+commit e684ad9aec7611f2ef3933d65a7f0b9fecfb7e02
+Author:     User X <user-x@example.invalid>
+AuthorDate: Mon Oct 5 02:51:25 2026 +0000
+Commit:     User X <user-x@example.invalid>
+CommitDate: Mon Oct 5 02:51:25 2026 +0000
+
+    Add read-only stats command with capacity API and process tests
+
+diff --git a/README.md b/README.md
+index 9485619..052df73 100644
+--- a/README.md
++++ b/README.md
+@@ -5,7 +5,12 @@ The executable is split across `main.c`, `command.c`, `db.c`, and `storage.c` wi
+ Build the fixed C11 source list into `build/minidb`; tests are process-level and store temporary
+ database files under `build/test-data`. The on-disk GDB1 format is intentionally stable.
+ 
+-Supported commands: `insert <uint32 id> <name>`, `delete <uint32 id>`, `rename <uint32 id> <new-name>`, `find <uint32 id>`, `select`, `count`, `clear`, `.help`, `.exit`.
++Stats takes no arguments and prints exactly `Rows: <count>/100` followed by
++`Available: <100-count>` on the next line. It is read-only: repeated calls and
++restarts preserve database bytes, and an empty workspace stays file-free.
++Extra arguments print `Error: invalid statement.` without changing state.
++
++Supported commands: `insert <uint32 id> <name>`, `delete <uint32 id>`, `rename <uint32 id> <new-name>`, `find <uint32 id>`, `select`, `count`, `stats`, `clear`, `.help`, `.exit`.
+ 
+ Delete removes the matching row while preserving the order of all remaining rows.
+ Ids range from 0 to 4294967295. A successful delete prints `Executed.`; a missing
+diff --git a/src/command.c b/src/command.c
+index d7fd091..4a99af8 100644
+--- a/src/command.c
++++ b/src/command.c
+@@ -25,7 +25,14 @@ static void print_status(DbStatus status) {
+ int command_dispatch(Table *table, const char *line) {
+     if (strcmp(line, ".exit") == 0) return 1;
+     if (strcmp(line, ".help") == 0) {
+-        puts("insert <uint32 id> <name>; delete <uint32 id>; rename <uint32 id> <new-name>; find <uint32 id>; select; count; clear; .exit"); return 0;
++        puts("insert <uint32 id> <name>; delete <uint32 id>; rename <uint32 id> <new-name>; find <uint32 id>; select; count; stats; clear; .exit"); return 0;
++    }
++    if (strcmp(line, "stats") == 0) {
++        uint32_t count = db_count(table);
++        uint32_t capacity = db_capacity();
++        printf("Rows: %u/%u\nAvailable: %u\n",
++               (unsigned)count, (unsigned)capacity, (unsigned)(capacity - count));
++        return 0;
+     }
+     if (strcmp(line, "clear") == 0) { print_status(db_clear(table)); return 0; }
+     if (strcmp(line, "select") == 0) { db_select(table); return 0; }
+diff --git a/src/db.c b/src/db.c
+index cd0528b..8a5da56 100644
+--- a/src/db.c
++++ b/src/db.c
+@@ -59,3 +59,4 @@ void db_select(const Table *table) {
+     puts("Executed.");
+ }
+ uint32_t db_count(const Table *table) { return table->count; }
++uint32_t db_capacity(void) { return MAX_ROWS; }
+diff --git a/src/db.h b/src/db.h
+index 56915c6..f97c4bb 100644
+--- a/src/db.h
++++ b/src/db.h
+@@ -16,4 +16,5 @@ DbStatus db_rename(Table *table, uint32_t id, const char *name);
+ const Row *db_find(const Table *table, uint32_t id);
+ void db_select(const Table *table);
+ uint32_t db_count(const Table *table);
++uint32_t db_capacity(void);
+ #endif
+diff --git a/tests/test_db.py b/tests/test_db.py
+index dd1c973..3086c61 100644
+--- a/tests/test_db.py
++++ b/tests/test_db.py
+@@ -378,5 +378,93 @@ class DatabaseTests(unittest.TestCase):
+         self.assertEqual(result.stdout,'Executed.\nCount: 0\nExecuted.\n')
+         self.assertEqual(database.read_bytes(),b'GDB1'+struct.pack('<I',0))
+ 
++
++    def test_stats_new_workspace_repeated_and_restart(self):
++        for _ in range(2):
++            result=self.run_db('stats\nstats\n.exit\n')
++            self.assertEqual(result.returncode,0)
++            self.assertEqual(result.stderr,'')
++            self.assertEqual(result.stdout,'Rows: 0/100\nAvailable: 100\n'*2)
++            self.assertEqual(list(self.path.iterdir()),[])
++
++    def test_stats_existing_empty_database(self):
++        database=self.path/'data.db'
++        data=b'GDB1'+struct.pack('<I',0)
++        database.write_bytes(data)
++        before=database.stat()
++        for _ in range(2):
++            result=self.run_db('stats\nstats\n')
++            self.assertEqual(result.returncode,0)
++            self.assertEqual(result.stdout,'Rows: 0/100\nAvailable: 100\n'*2)
++            self.assertEqual(database.read_bytes(),data)
++            self.assertEqual(database.stat().st_mtime_ns,before.st_mtime_ns)
++            self.assertEqual(database.stat().st_ino,before.st_ino)
++            self.assertEqual([p.name for p in self.path.iterdir()],['data.db'])
++
++    def test_stats_populated_repeated_restart_preserves_bytes(self):
++        # Preserve noncanonical padding to detect an accidental save.
++        data=(b'GDB1'+struct.pack('<I',2)
++              +struct.pack('<I',7)+b'seven\0'+b'x'*26
++              +struct.pack('<I32s',0,b'zero'))
++        database=self.path/'data.db'
++        database.write_bytes(data)
++        before=database.stat()
++        for _ in range(2):
++            result=self.run_db('stats\nstats\nfind 7\ncount\n')
++            self.assertEqual(result.returncode,0)
++            self.assertEqual(result.stdout,
++                             'Rows: 2/100\nAvailable: 98\n'*2
++                             +'(7, seven)\nCount: 2\n')
++            self.assertEqual(database.read_bytes(),data)
++            self.assertEqual(database.stat().st_mtime_ns,before.st_mtime_ns)
++            self.assertEqual(database.stat().st_ino,before.st_ino)
++            self.assertEqual([p.name for p in self.path.iterdir()],['data.db'])
++
++    def test_stats_full_table_and_restart(self):
++        result=self.run_db(''.join(f'insert {i} row{i}\n' for i in range(100))
++                           +'stats\n')
++        self.assertEqual(result.returncode,0)
++        self.assertEqual(result.stdout,'Executed.\n'*100+'Rows: 100/100\nAvailable: 0\n')
++        database=self.path/'data.db'
++        before=database.read_bytes()
++        for _ in range(2):
++            result=self.run_db('stats\nstats\n')
++            self.assertEqual(result.returncode,0)
++            self.assertEqual(result.stdout,'Rows: 100/100\nAvailable: 0\n'*2)
++            self.assertEqual(database.read_bytes(),before)
++            self.assertFalse((self.path/'data.db.tmp').exists())
++
++    def test_stats_malformed_arguments_preserve_state(self):
++        invalid=['stats 0','stats extra','stats extra more','stats\textra',
++                 'stats '+'x'*100]
++        for populated in (False,True):
++            if populated:
++                self.assertEqual(self.run_db('insert 0 zero\n').returncode,0)
++            database=self.path/'data.db'
++            before=database.read_bytes() if populated else None
++            for _ in range(2):
++                result=self.run_db('\n'.join(invalid)+'\nstats\nselect\n.help\n')
++                self.assertEqual(result.returncode,0)
++                self.assertEqual(result.stdout.splitlines()[:-1],
++                                 ['Error: invalid statement.']*len(invalid)
++                                 +(['Rows: 1/100','Available: 99','(0, zero)','Executed.']
++                                   if populated else ['Rows: 0/100','Available: 100','Executed.']))
++                self.assertIn('; stats;',result.stdout)
++                if populated:
++                    self.assertEqual(database.read_bytes(),before)
++                else:
++                    self.assertEqual(list(self.path.iterdir()),[])
++                self.assertFalse((self.path/'data.db.tmp').exists())
++
++    def test_stats_tracks_mutations(self):
++        result=self.run_db('insert 7 seven\nstats\nrename 7 new\nstats\n'
++                           'find 7\ndelete 7\nstats\ninsert 0 zero\nclear\nstats\n')
++        self.assertEqual(result.returncode,0)
++        self.assertEqual(result.stdout.splitlines(),[
++            'Executed.','Rows: 1/100','Available: 99','Executed.',
++            'Rows: 1/100','Available: 99','(7, new)','Executed.',
++            'Rows: 0/100','Available: 100','Executed.','Executed.',
++            'Rows: 0/100','Available: 100'])
++
+ if __name__=='__main__':
+     unittest.main(verbosity=2)
