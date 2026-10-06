@@ -1,0 +1,180 @@
+{
+  "kind": "c",
+  "source": "$REPO/examples/c-dbms",
+  "source_hashes": {
+    "Makefile": "dc61941a38a9cc43ad33d474fc24e202aadbbe22bc9dde41be3c2ad14af4614e",
+    "README.md": "0314689b72a5e6a621b5a1d4d2ad2af3e08ac5074781749c9d17eb36f224fd11",
+    "src/db.c": "4eab69ab16111ae86b946fc0149a33d2b92ca5841a8904e8da33878e535cb8c9",
+    "tests/test_db.py": "12085ea2dee1864e0d79ad7b07bdfe3811526398818704aaac22e77b354c7047",
+    ".gitignore": "c9d160fa07db91c3568eea8dbc27aefeea634de675b07925e440bba46f517030"
+  },
+  "baseline_requests": [
+    {
+      "request": {
+        "tool": "shell",
+        "operation": "exec",
+        "argv": [
+          "/Library/Frameworks/Python.framework/Versions/3.12/bin/python3.12",
+          "tests/test_db.py",
+          "-k",
+          "count"
+        ]
+      },
+      "result": {
+        "decision": "DENY",
+        "matched_rule": "SH-PROFILE",
+        "reason": "Command argv/cwd is not in the operator profile. Use an approved command or ask the operator to add a narrow profile.",
+        "executed": false,
+        "exit_code": null,
+        "stdout": "",
+        "stderr": "",
+        "run_id": "b2d1ae40670f47d4ba47deeb13a34c0c",
+        "audit_event_id": "e7bb8c6982e6492aa950126cd6bd3c1d"
+      }
+    },
+    {
+      "request": {
+        "tool": "shell",
+        "operation": "exec",
+        "argv": [
+          "/Library/Developer/CommandLineTools/usr/bin/cc",
+          "-isysroot",
+          "/Library/Developer/CommandLineTools/SDKs/MacOSX.sdk",
+          "-std=c11",
+          "-Wall",
+          "-Wextra",
+          "-Werror",
+          "-pedantic",
+          "-O0",
+          "-g",
+          "src/db.c",
+          "-o",
+          "build/minidb"
+        ]
+      },
+      "result": {
+        "decision": "DENY",
+        "matched_rule": "SH-PROFILE",
+        "reason": "Command argv/cwd is not in the operator profile. Use an approved command or ask the operator to add a narrow profile.",
+        "executed": false,
+        "exit_code": null,
+        "stdout": "",
+        "stderr": "",
+        "run_id": "b2d1ae40670f47d4ba47deeb13a34c0c",
+        "audit_event_id": "05120f7db728452ab030b75271acf611"
+      }
+    },
+    {
+      "request": {
+        "tool": "filesystem",
+        "operation": "search",
+        "path": "src",
+        "query": "parse_id"
+      },
+      "result": {
+        "decision": "DENY",
+        "matched_rule": "CORE-SCHEMA",
+        "reason": "Unknown tool or operation.",
+        "executed": false,
+        "exit_code": null,
+        "stdout": "",
+        "stderr": "",
+        "run_id": "b2d1ae40670f47d4ba47deeb13a34c0c",
+        "audit_event_id": "f5faf14f46704292889f8069794d29ad"
+      }
+    },
+    {
+      "request": {
+        "tool": "filesystem",
+        "operation": "read",
+        "path": "src/db.c",
+        "start_line": 1,
+        "end_line": 20
+      },
+      "result": {
+        "decision": "DENY",
+        "matched_rule": "CORE-SCHEMA",
+        "reason": "Missing or unexpected fields.",
+        "executed": false,
+        "exit_code": null,
+        "stdout": "",
+        "stderr": "",
+        "run_id": "b2d1ae40670f47d4ba47deeb13a34c0c",
+        "audit_event_id": "7d422feea4bf4cecb7a37505cd7fbea2"
+      }
+    },
+    {
+      "request": {
+        "tool": "filesystem",
+        "operation": "edit",
+        "path": "src/db.c",
+        "old_text": "[OMITTED]",
+        "new_text": "[OMITTED]",
+        "expected_sha256": "4eab69ab16111ae86b946fc0149a33d2b92ca5841a8904e8da33878e535cb8c9"
+      },
+      "result": {
+        "decision": "DENY",
+        "matched_rule": "CORE-SCHEMA",
+        "reason": "Unknown tool or operation.",
+        "executed": false,
+        "exit_code": null,
+        "stdout": "",
+        "stderr": "",
+        "run_id": "b2d1ae40670f47d4ba47deeb13a34c0c",
+        "audit_event_id": "80a1c4c9fa0c442cbae6509b03bfe37b"
+      }
+    },
+    {
+      "request": {
+        "tool": "git",
+        "operation": "diff",
+        "staged": true
+      },
+      "result": {
+        "decision": "DENY",
+        "matched_rule": "CORE-SCHEMA",
+        "reason": "Missing or unexpected fields.",
+        "executed": false,
+        "exit_code": null,
+        "stdout": "",
+        "stderr": "",
+        "run_id": "b2d1ae40670f47d4ba47deeb13a34c0c",
+        "audit_event_id": "821dcd5e43a6449cb312edabf6abc97c"
+      }
+    }
+  ],
+  "full_checks": [
+    {
+      "decision": "ALLOW",
+      "matched_rule": "SH-PROFILE",
+      "reason": "Bounded local capability allowed.",
+      "executed": true,
+      "exit_code": 0,
+      "stdout": "",
+      "stderr": "",
+      "run_id": "b2d1ae40670f47d4ba47deeb13a34c0c",
+      "audit_event_id": "30af8c057bf2489d81e37336638cbc0a",
+      "timed_out": false,
+      "output_truncated": false
+    },
+    {
+      "decision": "ALLOW",
+      "matched_rule": "SH-PROFILE",
+      "reason": "Bounded local capability allowed.",
+      "executed": true,
+      "exit_code": 0,
+      "stdout": "",
+      "stderr": "test_capacity_and_eof (__main__.DatabaseTests.test_capacity_and_eof) ... ok\ntest_corrupt_and_truncated_data_rejected (__main__.DatabaseTests.test_corrupt_and_truncated_data_rejected) ... ok\ntest_count_empty_is_read_only (__main__.DatabaseTests.test_count_empty_is_read_only) ... ok\ntest_count_existing_binary_format (__main__.DatabaseTests.test_count_existing_binary_format) ... ok\ntest_count_zero_duplicates_and_restart (__main__.DatabaseTests.test_count_zero_duplicates_and_restart) ... ok\ntest_duplicate_preserves_row (__main__.DatabaseTests.test_duplicate_preserves_row) ... ok\ntest_insert_select_and_restart (__main__.DatabaseTests.test_insert_select_and_restart) ... ok\ntest_invalid_input_never_creates_database (__main__.DatabaseTests.test_invalid_input_never_creates_database) ... ok\ntest_overlong_input_recovery (__main__.DatabaseTests.test_overlong_input_recovery) ... ok\ntest_persistence_failure_is_reported_and_rolled_back (__main__.DatabaseTests.test_persistence_failure_is_reported_and_rolled_back) ... ok\ntest_zero_and_uint32_max (__main__.DatabaseTests.test_zero_and_uint32_max) ... ok\n\n----------------------------------------------------------------------\nRan 11 tests in 0.731s\n\nOK\n",
+      "run_id": "b2d1ae40670f47d4ba47deeb13a34c0c",
+      "audit_event_id": "e76adb53d0214654ba2329f35fc6c8c9",
+      "timed_out": false,
+      "output_truncated": false
+    }
+  ],
+  "setup_and_baseline_seconds": 1.335,
+  "tasks": [
+    "Add `find <uint32 id>` to the C DBMS. Print exactly `(id, name)` when found and `Not found.` otherwise. Reject malformed/negative/overflow/extra arguments without changing data. Preserve insert/select/count and GDB1 format. Add tests and README. Use a selected test filter for the new feature, then full tests. Compile release and debug, inspect staged diff, and commit locally.",
+    "Refactor row output so select and find share a small helper. Preserve exact outputs and persistence behavior. Use bounded search/read and hash-bound edit when appropriate, run selected find tests and the full suite, inspect staged diff, and commit locally.",
+    "Strengthen find regression coverage for empty database, zero/max ids, duplicate inserts, restart persistence, missing ids and invalid syntax. Confirm read-only find never creates or changes the database. Update README if useful. Run filtered and full tests, inspect staged diff, and commit locally."
+  ]
+}

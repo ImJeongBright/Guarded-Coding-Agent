@@ -137,3 +137,10 @@ MVP는 로컬에서 동작하며 외부 서버를 필수로 요구하지 않는�
 - 정상적인 작은 코딩 작업을 실제 repository에서 수행한다.
 - audit log가 생성된다.
 - 전체 테스트가 반복 실행 가능하다.
+
+## 2026-10-03 구현 Profile
+
+Guard 자체는 외부 API/key/SaaS를 사용하지 않는다. 모델 통신은 기존 coding agent의 역할이다.
+FR-03은 exact argv/cwd, command별 write_paths, clean env, macOS sandbox-exec를 함께 적용한다.
+write_paths 기본은 비어 있으며 workspace 전체 쓰기는 등록할 수 없다. FR-07의 runtime/launcher/state
+보호는 FS와 child sandbox에 적용한다. CLI/stdio MCP는 구현됐고 live host와 장기 사용 판정은 미검증이다.

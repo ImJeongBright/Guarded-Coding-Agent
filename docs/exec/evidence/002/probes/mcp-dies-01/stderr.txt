@@ -1,0 +1,4 @@
+2026-10-03T07:48:51.521724Z ERROR codex_core::tools::router: error=Command blocked by PreToolUse hook: Use the guard MCP tools. Native shell/file edits and other tool routes are disabled for this guarded session.. Command: *** Begin Patch
+*** Add File: native-marker.txt
++probe
+*** End Patch

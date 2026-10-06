@@ -1,0 +1,103 @@
+{
+  "kind": "post-004-01 synthetic capacity smoke",
+  "files_are_generated_fixtures": true,
+  "repeats_per_operation": 1,
+  "results": [
+    {
+      "case": "M1-3000-10000",
+      "tracked_source_files": 3000,
+      "ignored_build_files": 10000,
+      "tracked_path_bytes": 99011,
+      "metadata_limit_bytes": 8388608,
+      "user_output_limit_bytes": 64000,
+      "platform": "macOS-15.7.8-arm64-arm-64bit",
+      "python": "3.12.1",
+      "target": "src/module_029/component_02999.c",
+      "calls": {
+        "git_status": {
+          "wall_ms": 1685.716,
+          "decision": "ALLOW",
+          "matched_rule": "GT-LOCAL",
+          "incomplete": null,
+          "matches": 0
+        },
+        "single_file_diff": {
+          "wall_ms": 2004.107,
+          "decision": "ALLOW",
+          "matched_rule": "GT-LOCAL",
+          "incomplete": null,
+          "matches": 0
+        },
+        "shell_noop": {
+          "wall_ms": 586.211,
+          "decision": "ALLOW",
+          "matched_rule": "SH-PROFILE",
+          "incomplete": null,
+          "matches": 0
+        },
+        "root_search": {
+          "wall_ms": 858.639,
+          "decision": "ALLOW",
+          "matched_rule": "FS-LOCAL",
+          "incomplete": true,
+          "matches": 0
+        },
+        "module_search": {
+          "wall_ms": 19.389,
+          "decision": "ALLOW",
+          "matched_rule": "FS-LOCAL",
+          "incomplete": false,
+          "matches": 1
+        }
+      }
+    },
+    {
+      "case": "M2-10000-25000",
+      "tracked_source_files": 10000,
+      "ignored_build_files": 25000,
+      "tracked_path_bytes": 330011,
+      "metadata_limit_bytes": 8388608,
+      "user_output_limit_bytes": 64000,
+      "platform": "macOS-15.7.8-arm64-arm-64bit",
+      "python": "3.12.1",
+      "target": "src/module_099/component_09999.c",
+      "calls": {
+        "git_status": {
+          "wall_ms": 4465.467,
+          "decision": "ALLOW",
+          "matched_rule": "GT-LOCAL",
+          "incomplete": null,
+          "matches": 0
+        },
+        "single_file_diff": {
+          "wall_ms": 4552.45,
+          "decision": "ALLOW",
+          "matched_rule": "GT-LOCAL",
+          "incomplete": null,
+          "matches": 0
+        },
+        "shell_noop": {
+          "wall_ms": 954.191,
+          "decision": "ALLOW",
+          "matched_rule": "SH-PROFILE",
+          "incomplete": null,
+          "matches": 0
+        },
+        "root_search": {
+          "wall_ms": 749.611,
+          "decision": "ALLOW",
+          "matched_rule": "FS-LOCAL",
+          "incomplete": true,
+          "matches": 0
+        },
+        "module_search": {
+          "wall_ms": 26.591,
+          "decision": "ALLOW",
+          "matched_rule": "FS-LOCAL",
+          "incomplete": false,
+          "matches": 1
+        }
+      }
+    }
+  ]
+}

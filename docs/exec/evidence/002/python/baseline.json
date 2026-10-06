@@ -1,0 +1,13 @@
+{
+  "decision": "ALLOW",
+  "matched_rule": "SH-PROFILE",
+  "reason": "Bounded local capability allowed.",
+  "executed": true,
+  "exit_code": 1,
+  "stdout": "",
+  "stderr": "test_debits (test_ledger.LedgerTests.test_debits) ... FAIL\ntest_decimal_precision (test_ledger.LedgerTests.test_decimal_precision) ... ok\ntest_empty (test_ledger.LedgerTests.test_empty) ... ok\ntest_multiple_accounts (test_ledger.LedgerTests.test_multiple_accounts) ... ok\n\n======================================================================\nFAIL: test_debits (test_ledger.LedgerTests.test_debits)\n----------------------------------------------------------------------\nTraceback (most recent call last):\n  File \"$RUN/workspace/test_ledger.py\", line 9, in test_debits\n    self.assertEqual(balances([(\"a\", \"10.00\"), (\"a\", \"-3.10\")]), {\"a\": Decimal(\"6.90\")})\nAssertionError: {'a': Decimal('13.10')} != {'a': Decimal('6.90')}\n- {'a': Decimal('13.10')}\n?                ^^ ^\n\n+ {'a': Decimal('6.90')}\n?                ^ ^\n\n\n----------------------------------------------------------------------\nRan 4 tests in 0.001s\n\nFAILED (failures=1)\n",
+  "run_id": "025268d49e284d97a2276246906811a7",
+  "audit_event_id": "80f19214a8664d7492199604d3db8f76",
+  "timed_out": false,
+  "output_truncated": false
+}

@@ -1,0 +1,41 @@
+{
+  "synthetic_failure_fixture": true,
+  "verifier_passed": true,
+  "tool_calls": 0,
+  "new_commit_after_session": false,
+  "model_final": "Synthetic failure: no Guard tools were used.",
+  "checks": [
+    {
+      "label": "release build",
+      "executed": true,
+      "exit_code": 0
+    },
+    {
+      "label": "project tests",
+      "executed": true,
+      "exit_code": 0
+    },
+    {
+      "label": "independent behavior",
+      "executed": true,
+      "exit_code": 0
+    },
+    {
+      "label": "debug build",
+      "executed": true,
+      "exit_code": 0
+    },
+    {
+      "label": "debug independent behavior",
+      "executed": true,
+      "exit_code": 0
+    }
+  ],
+  "git_clean": true,
+  "002": {
+    "verifier_passed": true,
+    "tool_calls": 0,
+    "synthetic_cli_exit_code": 1,
+    "new_commit_after_session": false
+  }
+}

@@ -1,0 +1,7 @@
+You are acting as user X's coding agent for the third M1 development task. Use only Guard MCP `guard_filesystem`, `guard_shell`, and `guard_git`. Native filesystem/shell/patch/Git routes are disabled. Do not change policy, bypass a denial, install packages, or push. Start from the current clean commit and preserve `delete` and read-only `find` behavior.
+
+Add `rename <uint32 id> <new-name>` to change the name of one existing row. Keep its ID, position, and total count unchanged. A missing ID prints `Error: no such id.` without changing storage. Names follow the existing 1–31 byte single-token rule; malformed, empty, oversized, or extra arguments must be rejected without mutation. Use the existing GDB1 and atomic save path. If persistence fails, restore the original in-memory name as well as leaving the file unchanged. Update `.help` and README.
+
+Add process-level tests for first/middle/last rows, id 0 and UINT32_MAX, find/select/count visibility, restart persistence, missing/malformed names, and persistence failure/rollback. Run registered `build` and full `tests` profiles, inspect the explicit changed-file diff, stage only changed files, and commit locally. Do not push.
+
+The repository remains M1: 3,000 tracked files and 10,000 ignored build fixtures. If searching, use the exact `exclude_dirs` feature for the confirmed `build` subtree or narrow to a module path. Report commit, test results, and any denial, retry, incomplete result, manual narrowing, or other Guard friction.

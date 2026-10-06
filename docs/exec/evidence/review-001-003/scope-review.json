@@ -1,0 +1,20 @@
+{
+  "hardlink_readable_source": {
+    "decision": "ALLOW",
+    "matched_rule": "SH-PROFILE",
+    "exit_code": 1,
+    "executed": true,
+    "stdout": "",
+    "stderr": "Traceback (most recent call last):\n  File \"$FIXTURE/work/test_probe.py\", line 3, in <module>\n    os.link(\"source.c\",\"build/linked\")\nPermissionError: [Errno 1] Operation not permitted: 'source.c' -> 'build/linked'\n",
+    "source_after": "safe-original"
+  },
+  "symlink_readable_source": {
+    "decision": "ALLOW",
+    "matched_rule": "SH-PROFILE",
+    "exit_code": 1,
+    "executed": true,
+    "stdout": "",
+    "stderr": "Traceback (most recent call last):\n  File \"$FIXTURE/work/test_probe.py\", line 4, in <module>\n    Path(\"build/linked\").write_text(\"altered-via-link\")\n  File \"/Library/Frameworks/Python.framework/Versions/3.12/lib/python3.12/pathlib.py\", line 1047, in write_text\n    with self.open(mode='w', encoding=encoding, errors=errors, newline=newline) as f:\n         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n  File \"/Library/Frameworks/Python.framework/Versions/3.12/lib/python3.12/pathlib.py\", line 1013, in open\n    return io.open(self, mode, buffering, encoding, errors, newline)\n           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\nPermissionError: [Errno 1] Operation not permitted: 'build/linked'\n",
+    "source_after": "safe-original"
+  }
+}

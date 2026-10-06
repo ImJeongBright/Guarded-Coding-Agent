@@ -1,0 +1,19 @@
+{
+  "persona": "X (synthetic role-play, actual local tool execution)",
+  "policy_version": "001",
+  "action_count": 35,
+  "decisions": {
+    "ALLOW": 26,
+    "DENY": 7,
+    "REQUIRE_APPROVAL": 2
+  },
+  "normal_actions": 25,
+  "normal_approvals": 0,
+  "normal_denials": 0,
+  "intentional_test_failures": 1,
+  "operator_grants": 1,
+  "db_tests": 11,
+  "task_completed": true,
+  "trace": "$REPO/.guard-runs/user-x-003/trace.json",
+  "audit": "$REPO/.guard-runs/user-x-003/state/audit.jsonl"
+}

@@ -1,0 +1,71 @@
+{
+  "version": "review-fix-c-001",
+  "commands": [
+    {
+      "id": "c-build",
+      "argv": [
+        "/Library/Developer/CommandLineTools/usr/bin/cc",
+        "-isysroot",
+        "/Library/Developer/CommandLineTools/SDKs/MacOSX.sdk",
+        "-std=c11",
+        "-Wall",
+        "-Wextra",
+        "-Werror",
+        "-pedantic",
+        "-O2",
+        "src/db.c",
+        "-o",
+        "build/minidb"
+      ],
+      "cwd": ".",
+      "write_paths": [
+        "build"
+      ],
+      "variants": {
+        "debug": [
+          "/Library/Developer/CommandLineTools/usr/bin/cc",
+          "-isysroot",
+          "/Library/Developer/CommandLineTools/SDKs/MacOSX.sdk",
+          "-std=c11",
+          "-Wall",
+          "-Wextra",
+          "-Werror",
+          "-pedantic",
+          "-O0",
+          "-g",
+          "src/db.c",
+          "-o",
+          "build/minidb"
+        ]
+      }
+    },
+    {
+      "id": "c-tests",
+      "argv": [
+        "/Library/Frameworks/Python.framework/Versions/3.12/bin/python3.12",
+        "tests/test_db.py"
+      ],
+      "cwd": ".",
+      "write_paths": [
+        "build/test-data"
+      ],
+      "filter": {
+        "kind": "python-unittest-literal",
+        "position": 2
+      }
+    },
+    {
+      "id": "c-db",
+      "argv": [
+        "$RUN/live/c/workspace/build/minidb"
+      ],
+      "cwd": ".",
+      "write_paths": [
+        "data.db",
+        "data.db.tmp"
+      ]
+    }
+  ],
+  "git_remotes": {},
+  "approval_ttl": 300
+}

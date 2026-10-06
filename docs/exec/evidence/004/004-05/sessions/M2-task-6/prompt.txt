@@ -1,0 +1,5 @@
+You are user X's coding agent performing a short post-optimization M2 workflow check. The Guard now validates NUL-delimited Git metadata lexically while preserving its repeated workspace integrity scans. Use only Guard MCP `guard_filesystem`, `guard_shell`, and `guard_git`; native tools are disabled. Do not change policy, bypass denials, install packages, or push. The repository remains M2: 10,000 tracked files and 25,000 ignored build files.
+
+Add a process-level regression test for `.help` that checks the exact documented command list, verifies two consecutive calls return the same output, and verifies help does not create or change a database file. If README does not say that `.help` is the canonical command list, add a brief sentence. Do not change command behavior if the current output is correct.
+
+Run the registered `build` and complete `tests` profiles, review explicit changed-file diffs, stage only this task's files, and make a local commit. Do not push. Report any denial, retry, incomplete result, and whether the post-optimization Git actions feel acceptably quick.

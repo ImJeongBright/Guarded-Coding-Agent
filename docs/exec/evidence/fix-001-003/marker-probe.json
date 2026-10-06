@@ -1,0 +1,45 @@
+{
+  "quiet": 1073741824,
+  "host": [
+    0,
+    0
+  ],
+  "setsid": {
+    "exit_code": 0,
+    "stdout": "79416\n",
+    "stderr": "",
+    "child_policy": [
+      0,
+      1
+    ]
+  },
+  "spawn": {
+    "exit_code": 0,
+    "stdout": "79418\n",
+    "stderr": "",
+    "child_policy": [
+      0,
+      1
+    ]
+  },
+  "resandbox": {
+    "exit_code": 0,
+    "stdout": "-1 b'Operation not permitted'\n",
+    "stderr": "sandbox initialization failed: Operation not permitted\n"
+  },
+  "narrow_resandbox": {
+    "exit_code": 0,
+    "stdout": "",
+    "stderr": "sandbox initialization failed: Operation not permitted\n"
+  },
+  "narrow_apply_bytecode": {
+    "exit_code": 0,
+    "stdout": "",
+    "stderr": ""
+  },
+  "permissive_apply_bytecode": {
+    "exit_code": 0,
+    "stdout": "",
+    "stderr": ""
+  }
+}

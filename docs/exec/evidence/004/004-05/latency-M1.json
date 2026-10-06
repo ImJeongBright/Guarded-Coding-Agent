@@ -1,0 +1,225 @@
+{
+  "guard_filesystem:edit": {
+    "calls": 20,
+    "median_ms": 1.639,
+    "p90_ms": 3.448,
+    "max_ms": 3.663,
+    "samples_ms": [
+      2.815,
+      1.37,
+      1.858,
+      1.631,
+      1.472,
+      1.353,
+      1.492,
+      3.663,
+      2.469,
+      1.605,
+      1.644,
+      1.747,
+      3.079,
+      3.513,
+      1.635,
+      1.767,
+      1.502,
+      1.364,
+      1.393,
+      3.441
+    ],
+    "component_medians_ms": {
+      "audit": 0.311,
+      "decision": 0.02,
+      "execution": 0.66,
+      "normalization": 0.584,
+      "other": 0.071,
+      "total": 1.639
+    }
+  },
+  "guard_filesystem:list": {
+    "calls": 8,
+    "median_ms": 1.142,
+    "p90_ms": 1.633,
+    "max_ms": 1.646,
+    "samples_ms": [
+      1.627,
+      1.646,
+      1.022,
+      1.127,
+      1.047,
+      1.157,
+      1.362,
+      1.029
+    ],
+    "component_medians_ms": {
+      "audit": 0.322,
+      "decision": 0.026,
+      "execution": 0.181,
+      "normalization": 0.557,
+      "other": 0.066,
+      "total": 1.142
+    }
+  },
+  "guard_filesystem:read": {
+    "calls": 25,
+    "median_ms": 1.377,
+    "p90_ms": 2.245,
+    "max_ms": 3.007,
+    "samples_ms": [
+      1.77,
+      1.386,
+      1.241,
+      1.221,
+      1.226,
+      1.377,
+      1.756,
+      1.411,
+      2.727,
+      1.454,
+      1.251,
+      1.384,
+      1.304,
+      1.223,
+      1.231,
+      3.007,
+      1.285,
+      2.221,
+      1.188,
+      1.418,
+      1.226,
+      1.285,
+      1.429,
+      2.261,
+      1.207
+    ],
+    "component_medians_ms": {
+      "audit": 0.358,
+      "decision": 0.019,
+      "execution": 0.35,
+      "normalization": 0.535,
+      "other": 0.091,
+      "total": 1.377
+    }
+  },
+  "guard_filesystem:search": {
+    "calls": 2,
+    "median_ms": 492.609,
+    "p90_ms": 494.944,
+    "max_ms": 495.528,
+    "samples_ms": [
+      495.528,
+      489.69
+    ],
+    "component_medians_ms": {
+      "audit": 1.575,
+      "decision": 0.018,
+      "execution": 490.069,
+      "normalization": 0.875,
+      "other": 0.072,
+      "total": 492.609
+    }
+  },
+  "guard_git:add": {
+    "calls": 3,
+    "median_ms": 1431.133,
+    "p90_ms": 1438.193,
+    "max_ms": 1439.958,
+    "samples_ms": [
+      1439.958,
+      1431.133,
+      1418.384
+    ],
+    "component_medians_ms": {
+      "audit": 1.2,
+      "decision": 0.034,
+      "execution": 188.149,
+      "normalization": 1241.594,
+      "other": 0.135,
+      "total": 1431.133
+    }
+  },
+  "guard_git:commit": {
+    "calls": 3,
+    "median_ms": 1470.005,
+    "p90_ms": 1483.578,
+    "max_ms": 1486.971,
+    "samples_ms": [
+      1486.971,
+      1436.411,
+      1470.005
+    ],
+    "component_medians_ms": {
+      "audit": 0.513,
+      "decision": 0.037,
+      "execution": 241.318,
+      "normalization": 1224.475,
+      "other": 0.13,
+      "total": 1470.005
+    }
+  },
+  "guard_git:diff": {
+    "calls": 3,
+    "median_ms": 1623.591,
+    "p90_ms": 1625.853,
+    "max_ms": 1626.419,
+    "samples_ms": [
+      1626.419,
+      1594.781,
+      1623.591
+    ],
+    "component_medians_ms": {
+      "audit": 0.935,
+      "decision": 0.031,
+      "execution": 190.393,
+      "normalization": 1405.133,
+      "other": 0.437,
+      "total": 1623.591
+    }
+  },
+  "guard_git:status": {
+    "calls": 9,
+    "median_ms": 1464.356,
+    "p90_ms": 1508.441,
+    "max_ms": 1508.591,
+    "samples_ms": [
+      1508.591,
+      1462.75,
+      1474.843,
+      1497.531,
+      1423.943,
+      1458.772,
+      1508.403,
+      1446.619,
+      1464.356
+    ],
+    "component_medians_ms": {
+      "audit": 0.659,
+      "decision": 0.038,
+      "execution": 206.765,
+      "normalization": 1254.277,
+      "other": 0.132,
+      "total": 1464.356
+    }
+  },
+  "guard_shell:run": {
+    "calls": 6,
+    "median_ms": 911.274,
+    "p90_ms": 1076.521,
+    "max_ms": 1078.817,
+    "samples_ms": [
+      856.753,
+      965.795,
+      796.923,
+      1074.224,
+      739.331,
+      1078.817
+    ],
+    "component_medians_ms": {
+      "audit": 0.559,
+      "decision": 0.016,
+      "execution": 606.353,
+      "normalization": 307.104,
+      "other": 0.161,
+      "total": 911.274
+    }
+  }
+}

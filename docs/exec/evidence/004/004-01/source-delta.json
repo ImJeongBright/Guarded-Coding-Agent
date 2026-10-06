@@ -1,0 +1,19 @@
+{
+  "added": {
+    "tests/test_scale_git_metadata.py": "8006322fbb6280537d07888ecc1b5f2882832f5754af79a5c0ab8bf4b0f7f6f2"
+  },
+  "changed": {
+    "guarded_agent/domain.py": {
+      "after": "e4a86becb8336ed7cdc73895817238faef363e4c9a30684ab8c65366ac9312e9",
+      "before": "6dd1c083fa15de62d6c65eb0b46ae3bc009740182263c0fe9f9766e0ee1b46ee"
+    },
+    "guarded_agent/git.py": {
+      "after": "6514bb47915169e34f0f697c7724fde66ffb602fa0bfa1542871672158b97361",
+      "before": "199cf14b95c44b1610c9df230bfcf8959334c47420e544510df863f262201b43"
+    },
+    "guarded_agent/sandbox.py": {
+      "after": "d1c8b07e0ef5a05d7132087c20e80241011544909eec2efe3e8f084850d3b13a",
+      "before": "96f633221bbda027bba3b3ab1b609b5e5e953a0e648290f5d8cac1bc5af31c85"
+    }
+  }
+}

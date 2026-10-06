@@ -1,0 +1,69 @@
+{
+  "empty_query": {
+    "request": {
+      "operation": "search",
+      "path": ".",
+      "glob": "AGENTS.md",
+      "query": ""
+    },
+    "before": {
+      "decision": "DENY",
+      "matched_rule": "FS-SEARCH",
+      "reason": "Use a non-empty literal single-line query of at most 256 characters.",
+      "executed": false,
+      "exit_code": null,
+      "stdout": "",
+      "stderr": "",
+      "run_id": "ffa45571054447ef9eebcf966a83924f",
+      "audit_event_id": "32552f2a02af46c78553f7836eaa3643",
+      "timings_ms": {
+        "normalization": 0.40120899211615324,
+        "decision": 0.0,
+        "audit": 0.19341695588082075,
+        "execution": 0.0,
+        "total": 0.6403750157915056,
+        "other": 0.045749067794531584
+      }
+    },
+    "after": {
+      "decision": "ALLOW",
+      "matched_rule": "FS-LOCAL",
+      "reason": "Bounded local capability allowed.",
+      "executed": true,
+      "exit_code": 0,
+      "stdout": "",
+      "stderr": "",
+      "run_id": "a4011fcf7e2f44f89420b9c95386ff25",
+      "audit_event_id": "26340272de0a43fd9f7bc674442186da",
+      "matches": [],
+      "truncated": false,
+      "scanned_entries": 20,
+      "scanned_bytes": 0,
+      "timings_ms": {
+        "normalization": 0.40716701187193394,
+        "decision": 0.028499984182417393,
+        "audit": 0.27945899637416005,
+        "execution": 4.3018750147894025,
+        "total": 5.071833962574601,
+        "other": 0.05483295535668731
+      }
+    }
+  },
+  "git_diagnostics": {
+    "before_nonempty_stderr": 5,
+    "after_nonempty_stderr": 0,
+    "before_sample": "git: error: couldn't create cache file '/var/folders/c3/dz20673d3ld80mj1_sl129180000gn/T/xcrun_db-MUSz7vuO' (errno=Operation not permitted)\ngit: error: couldn't create cache file '/var/folders/c3/dz20673d3ld80mj1_sl129180000gn/T/xcrun_db-GRQrWspt' (errno=Operation not permitted)\nwarning: unable to access '/etc/gitattributes': Operation not permitted\n",
+    "after_sample": ""
+  },
+  "security_state_truncation": {
+    "test": "test_shell_git.ShellGitTests.test_truncated_git_state_query_stops_before_executor",
+    "before": "Truncated query fixture reached executor spy: matched_rule EXEC-ERROR",
+    "after": "GT-STATE, executor not called",
+    "actual_large_repository_exploit_reproduced": false
+  },
+  "edit_temp_collision": {
+    "test": "test_workflow_003.WorkflowTests.test_edit_temp_collision_never_deletes_preexisting_file",
+    "before": "Forced UUID collision caused preexisting ordinary temp-name file to be deleted during cleanup",
+    "after": "O_EXCL failure preserves original target and preexisting file; cleanup starts only after successful creation"
+  }
+}

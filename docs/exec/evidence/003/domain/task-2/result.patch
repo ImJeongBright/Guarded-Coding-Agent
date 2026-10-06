@@ -1,0 +1,104 @@
+commit 9bf485709503283c03bf12e65670f42ea972720f
+Author:     User X <user-x@example.invalid>
+AuthorDate: Sun Oct 4 10:44:16 2026 +0000
+Commit:     User X <user-x@example.invalid>
+CommitDate: Sun Oct 4 10:44:16 2026 +0000
+
+    Refactor forecast direction classification and handle unknown changes
+
+diff --git a/src/decision-feedback.ts b/src/decision-feedback.ts
+index 955eb18..8376e93 100644
+--- a/src/decision-feedback.ts
++++ b/src/decision-feedback.ts
+@@ -39,7 +39,7 @@ type EvaluationInput = {
+   reason: string;
+   action: string;
+   openedSources: number;
+-  actualChanges: Record<string, number | null>;
++  actualChanges: Record<string, number | null | undefined>;
+ };
+ 
+ const assets = [
+@@ -82,8 +82,8 @@ const rules = [
+   },
+ ] as const;
+ 
+-function direction(change: number | null, key: string): Direction {
+-  if (change === null) return 'flat';
++export function directionForChange(change: number | null | undefined, key: string): Direction | null {
++  if (change === null || change === undefined || !Number.isFinite(change)) return null;
+   const threshold = key.includes('10Y') ? 1 : 0.05;
+   return change > threshold ? 'up' : change < -threshold ? 'down' : 'flat';
+ }
+@@ -101,10 +101,7 @@ export function evaluateDecision(input: EvaluationInput): DecisionFeedback {
+   const uncertaintyTerms = ['가능', '수 있', '단정', '불확실', '다만', '반면'].filter(term => text.includes(term));
+ 
+   const forecasts = assets.map(([key, name]) => {
+-    const actualValue = input.actualChanges[key];
+-    const actual = actualValue === undefined || actualValue === null
+-      ? null
+-      : direction(actualValue, key);
++    const actual = directionForChange(input.actualChanges[key], key);
+     const predicted = input.predictions[key] ?? 'flat';
+     return { key, name, predicted, actual, correct: actual === null ? null : predicted === actual };
+   });
+diff --git a/test/simulation.test.mjs b/test/simulation.test.mjs
+index 2def988..1ee2dd6 100644
+--- a/test/simulation.test.mjs
++++ b/test/simulation.test.mjs
+@@ -1,7 +1,7 @@
+ import assert from 'node:assert/strict';
+ import test from 'node:test';
+ import { allocationForStrategy, applyFinanceAction, copyFinance, monthlyGap, netAssets, replayChoice, sumMoney } from '../src/simulation.ts';
+-import { evaluateDecision } from '../src/decision-feedback.ts';
++import { directionForChange, evaluateDecision } from '../src/decision-feedback.ts';
+ import { annualEventChanges, annualIntervals } from '../src/annual-scenario.ts';
+ 
+ const initial = () => ({ portfolio: { cash: 80, savings: 60, etf: 40, bond: 20, dollar: 0 }, allocation: { cash: 10, savings: 10, etf: 5, bond: 5 }, available: 30, debt: 0, monthlyPayment: 0, reservedCash: 0 });
+@@ -213,6 +213,46 @@ test('forecast luck is capped and never outweighs a well-supported judgment proc
+   assert.equal(lucky.forecasts[2].name, '미국 10년물 국채금리');
+ });
+ 
++test('forecast classification preserves finite thresholds and returns null for unknown changes', () => {
++  for (const key of ['S&P 500', 'NASDAQ-100', 'Broad U.S. Dollar Index', 'US 10Y Treasury yield']) {
++    const threshold = key.includes('10Y') ? 1 : 0.05;
++    for (const [change, expected] of [
++      [-threshold - 0.001, 'down'], [-threshold, 'flat'], [-threshold / 2, 'flat'],
++      [-0, 'flat'], [0, 'flat'], [threshold / 2, 'flat'], [threshold, 'flat'],
++      [threshold + 0.001, 'up'], [-Number.MAX_VALUE, 'down'], [Number.MAX_VALUE, 'up'],
++    ]) {
++      assert.equal(directionForChange(change, key), expected, `${key}: ${change}`);
++    }
++    for (const change of [null, undefined, NaN, Infinity, -Infinity]) {
++      assert.equal(directionForChange(change, key), null);
++    }
++  }
++});
++
++test('forecast unknown actual changes withhold prediction points while preserving known results', () => {
++  const predictions = { 'S&P 500': 'down', 'NASDAQ-100': 'down', 'US 10Y Treasury yield': 'up', 'Broad U.S. Dollar Index': 'up' };
++  const input = { marketIndex: 0, predictions, reason: '', action: 'defensive', openedSources: 0, actualChanges };
++  const known = evaluateDecision(input);
++  assert.deepEqual(known.score, { evidence: 0, causality: 0, prediction: 5, action: 25, uncertainty: 0, total: 30 });
++  assert.deepEqual(known.forecasts.map(item => [item.actual, item.correct]), [
++    ['down', true], ['down', true], ['up', true], ['up', true],
++  ]);
++  for (const key of Object.keys(actualChanges)) {
++    for (const change of [null, undefined, NaN, Infinity, -Infinity]) {
++      const feedback = evaluateDecision({ ...input, actualChanges: { ...actualChanges, [key]: change } });
++      assert.deepEqual(feedback.score, { ...known.score, prediction: 0, total: 25 });
++      assert.deepEqual(feedback.forecasts, known.forecasts.map(item =>
++        item.key === key ? { ...item, actual: null, correct: null } : item));
++    }
++    const missing = { ...actualChanges };
++    delete missing[key];
++    const feedback = evaluateDecision({ ...input, actualChanges: missing });
++    assert.equal(feedback.score.prediction, 0);
++    assert.deepEqual(feedback.forecasts, known.forecasts.map(item =>
++      item.key === key ? { ...item, actual: null, correct: null } : item));
++  }
++});
++
+ test('forecast results stay locked until actual market changes are supplied', () => {
+   const locked = evaluateDecision({
+     marketIndex: 0,

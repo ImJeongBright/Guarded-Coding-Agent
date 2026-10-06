@@ -1,0 +1,19 @@
+{
+  "policy": {
+    "version": "scale-post-004-02",
+    "commands": [
+      {
+        "argv": [
+          "/Library/Frameworks/Python.framework/Versions/3.12/bin/python3.12",
+          "-B",
+          "-c",
+          "print(\"guard-medium-ok\")"
+        ],
+        "executable": "/Library/Frameworks/Python.framework/Versions/3.12/bin/python3.12"
+      }
+    ],
+    "git_remotes": {},
+    "git_executable": "/Library/Developer/CommandLineTools/usr/bin/git"
+  },
+  "policy_digest": "215d1a5082ed9e4558c2d3f6e7f8d7cadbb80f59bbb086c09b41b1e27ac2b1eb"
+}

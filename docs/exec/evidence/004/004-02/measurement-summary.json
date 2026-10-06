@@ -1,0 +1,203 @@
+{
+  "kind": "post-004-02 repeated synthetic capacity measurement",
+  "fixture_only": true,
+  "calls_per_operation": 3,
+  "results": [
+    {
+      "fixture": "M1-3000-10000",
+      "tracked_files": 3000,
+      "ignored_build_files": 10000,
+      "fixture_root": "$REPO/.guard-runs/scale-probe-02/M1-3000-10000/workspace",
+      "repeats_per_operation": 3,
+      "platform": "macOS-15.7.8-arm64-arm-64bit",
+      "python": "3.12.1",
+      "calls": {
+        "git_status": {
+          "samples_ms": [
+            2317.518,
+            1705.306,
+            1594.295
+          ],
+          "median_ms": 1705.306,
+          "max_ms": 2317.518,
+          "decisions": [
+            "ALLOW",
+            "ALLOW",
+            "ALLOW"
+          ],
+          "rules": [
+            "GT-LOCAL",
+            "GT-LOCAL",
+            "GT-LOCAL"
+          ],
+          "workspace_scan_count_per_call": [
+            3,
+            3,
+            3
+          ],
+          "workspace_scan_total_ms_per_call": [
+            812.258,
+            465.833,
+            440.6
+          ]
+        },
+        "single_file_diff": {
+          "samples_ms": [
+            1799.443,
+            2529.405,
+            1737.409
+          ],
+          "median_ms": 1799.443,
+          "max_ms": 2529.405,
+          "decisions": [
+            "ALLOW",
+            "ALLOW",
+            "ALLOW"
+          ],
+          "rules": [
+            "GT-LOCAL",
+            "GT-LOCAL",
+            "GT-LOCAL"
+          ],
+          "workspace_scan_count_per_call": [
+            3,
+            3,
+            3
+          ],
+          "workspace_scan_total_ms_per_call": [
+            450.65,
+            563.605,
+            464.803
+          ]
+        },
+        "shell_noop": {
+          "samples_ms": [
+            402.9,
+            403.551,
+            381.614
+          ],
+          "median_ms": 402.9,
+          "max_ms": 403.551,
+          "decisions": [
+            "ALLOW",
+            "ALLOW",
+            "ALLOW"
+          ],
+          "rules": [
+            "SH-PROFILE",
+            "SH-PROFILE",
+            "SH-PROFILE"
+          ],
+          "workspace_scan_count_per_call": [
+            2,
+            2,
+            2
+          ],
+          "workspace_scan_total_ms_per_call": [
+            284.541,
+            293.141,
+            297.511
+          ]
+        }
+      }
+    },
+    {
+      "fixture": "M2-10000-25000",
+      "tracked_files": 10000,
+      "ignored_build_files": 25000,
+      "fixture_root": "$REPO/.guard-runs/scale-probe-02/M2-10000-25000/workspace",
+      "repeats_per_operation": 3,
+      "platform": "macOS-15.7.8-arm64-arm-64bit",
+      "python": "3.12.1",
+      "calls": {
+        "git_status": {
+          "samples_ms": [
+            5090.624,
+            5229.689,
+            4511.343
+          ],
+          "median_ms": 5090.624,
+          "max_ms": 5229.689,
+          "decisions": [
+            "ALLOW",
+            "ALLOW",
+            "ALLOW"
+          ],
+          "rules": [
+            "GT-LOCAL",
+            "GT-LOCAL",
+            "GT-LOCAL"
+          ],
+          "workspace_scan_count_per_call": [
+            3,
+            3,
+            3
+          ],
+          "workspace_scan_total_ms_per_call": [
+            1629.511,
+            1248.859,
+            990.767
+          ]
+        },
+        "single_file_diff": {
+          "samples_ms": [
+            4605.448,
+            4530.017,
+            4582.394
+          ],
+          "median_ms": 4582.394,
+          "max_ms": 4605.448,
+          "decisions": [
+            "ALLOW",
+            "ALLOW",
+            "ALLOW"
+          ],
+          "rules": [
+            "GT-LOCAL",
+            "GT-LOCAL",
+            "GT-LOCAL"
+          ],
+          "workspace_scan_count_per_call": [
+            3,
+            3,
+            3
+          ],
+          "workspace_scan_total_ms_per_call": [
+            878.128,
+            910.3,
+            986.646
+          ]
+        },
+        "shell_noop": {
+          "samples_ms": [
+            694.675,
+            696.312,
+            704.075
+          ],
+          "median_ms": 696.312,
+          "max_ms": 704.075,
+          "decisions": [
+            "ALLOW",
+            "ALLOW",
+            "ALLOW"
+          ],
+          "rules": [
+            "SH-PROFILE",
+            "SH-PROFILE",
+            "SH-PROFILE"
+          ],
+          "workspace_scan_count_per_call": [
+            2,
+            2,
+            2
+          ],
+          "workspace_scan_total_ms_per_call": [
+            580.872,
+            579.896,
+            588.437
+          ]
+        }
+      }
+    }
+  ]
+}

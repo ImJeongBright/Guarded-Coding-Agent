@@ -1,0 +1,108 @@
+commit a470fb289c9cecacfbe220e721d246621e40b776
+Author:     User X <user-x@example.invalid>
+AuthorDate: Sun Oct 4 10:25:02 2026 +0000
+Commit:     User X <user-x@example.invalid>
+CommitDate: Sun Oct 4 10:25:02 2026 +0000
+
+    Add read-only find command with validation and tests
+
+diff --git a/README.md b/README.md
+index ffc3e36..e979b77 100644
+--- a/README.md
++++ b/README.md
+@@ -1,11 +1,14 @@
+ # C언어 DBMS 엔진 간단 실험
+ 
+-C11로 구현한 작은 영속 row store. `insert <uint32 id> <name>`, `select`, `count`, `.exit`, `.help`를 지원한다.
++C11로 구현한 작은 영속 row store. `insert <uint32 id> <name>`, `select`, `count`, `find <uint32 id>`, `.exit`, `.help`를 지원한다.
+ 100개 row, 고유 id(0부터 4294967295까지), 이름 최대 31바이트.
+ `count`는 현재 row 수를 `Count: N` 한 줄로 출력한다. 재시작 후에도 저장된 row 수를 표시하며,
+ 중복 id로 거절된 insert는 row 수를 바꾸지 않는다. `data.db`는 GDB1 magic/count와 little-endian id,
+ 32바이트 name으로 저장한다. 임시 파일을 flush/fsync하고 rename해 매 insert를 저장한다.
++`find <uint32 id>`는 해당 row가 있으면 `(id, name)` 한 줄만, 없으면 `Not found.`를 출력한다.
++음수, 범위 초과, 잘못된 id, 누락되거나 추가된 인자는 거절하며 데이터를 변경하지 않는다.
++예: `find 0`, `find 4294967295`. 조회는 재시작 후에도 동작하며 GDB1 파일을 변경하지 않는다.
+ 트랜잭션, SQL 전체 문법, 동시 쓰기, index, directory fsync를 포함한 crash durability는 실험 범위 밖이다.
+ 
+ Guard 설정과 재현은 [사용 가이드](../../docs/10-local-usage.md)를 참고한다.
+-컴파일 후 `tests/test_db.py`에 있는 11개의 실제 프로세스·파일 영속성 테스트를 실행한다.
++컴파일 후 `tests/test_db.py`에 있는 14개의 실제 프로세스·파일 영속성 테스트를 실행한다.
+diff --git a/src/db.c b/src/db.c
+index fbdf317..bb23985 100644
+--- a/src/db.c
++++ b/src/db.c
+@@ -80,7 +80,7 @@ static void insert(Table *table, uint32_t id, const char *name) {
+ }
+ static int dispatch(Table *table, const char *line) {
+     if (strcmp(line, ".exit") == 0) return 1;
+-    if (strcmp(line, ".help") == 0) { puts("insert <uint32 id> <name>; select; count; .exit"); return 0; }
++    if (strcmp(line, ".help") == 0) { puts("insert <uint32 id> <name>; select; count; find <uint32 id>; .exit"); return 0; }
+     if (strcmp(line, "select") == 0) {
+         for (uint32_t i = 0; i < table->count; ++i)
+             printf("(%u, %s)\n", (unsigned)table->rows[i].id, table->rows[i].name);
+@@ -93,6 +93,15 @@ static int dispatch(Table *table, const char *line) {
+     int fields = sscanf(line, "%15s %31s %31s %1s", command, id_text, name, extra);
+     if (fields == 3 && strcmp(command, "insert") == 0 && parse_id(id_text, &id) == 0)
+         insert(table, id, name);
++    else if (fields == 2 && strcmp(command, "find") == 0 && parse_id(id_text, &id) == 0) {
++        for (uint32_t i = 0; i < table->count; ++i) {
++            if (table->rows[i].id == id) {
++                printf("(%u, %s)\n", (unsigned)id, table->rows[i].name);
++                return 0;
++            }
++        }
++        puts("Not found.");
++    }
+     else puts("Error: invalid statement.");
+     return 0;
+ }
+diff --git a/tests/test_db.py b/tests/test_db.py
+index 40c7165..6d48559 100644
+--- a/tests/test_db.py
++++ b/tests/test_db.py
+@@ -66,6 +66,45 @@ class DatabaseTests(unittest.TestCase):
+             'Count: 1','(0, legacy)','Executed.','Error: invalid statement.'])
+         self.assertEqual((self.path/'data.db').read_bytes(),data)
+ 
++    def test_find_empty_is_read_only(self):
++        result=self.run_db('find 0\nfind 4294967295\n.exit\n')
++        self.assertEqual(result.returncode,0)
++        self.assertEqual(result.stdout,'Not found.\nNot found.\n')
++        self.assertFalse((self.path/'data.db').exists())
++
++    def test_find_boundaries_and_restart(self):
++        result=self.run_db('insert 0 zero\ninsert 42 alice\ninsert 4294967295 max\nfind 42\nfind 0\nfind 4294967295\nfind 1\n.exit\n')
++        self.assertEqual(result.returncode,0)
++        self.assertEqual(result.stdout.splitlines(),[
++            'Executed.','Executed.','Executed.','(42, alice)',
++            '(0, zero)','(4294967295, max)','Not found.'])
++        expected=(b'GDB1'+struct.pack('<I',3)+struct.pack('<I32s',0,b'zero')
++                  +struct.pack('<I32s',42,b'alice')
++                  +struct.pack('<I32s',4294967295,b'max'))
++        self.assertEqual((self.path/'data.db').read_bytes(),expected)
++        result=self.run_db('find 42\nfind 1\ncount\n.exit\n')
++        self.assertEqual(result.returncode,0)
++        self.assertEqual(result.stdout,'(42, alice)\nNot found.\nCount: 3\n')
++        self.assertEqual((self.path/'data.db').read_bytes(),expected)
++
++    def test_find_invalid_arguments_preserve_data(self):
++        commands=['find','find -1','find +1','find 4294967296',
++                  'find 9999999999999999999999999999999999999999',
++                  'find 1x','find 1.0','find abc','find 0 extra',
++                  'find 0 extra more']
++        invalid='\n'.join(commands)+'\n'
++        result=self.run_db(invalid+'.exit\n')
++        self.assertEqual(result.returncode,0)
++        self.assertEqual(result.stdout,'Error: invalid statement.\n'*len(commands))
++        self.assertFalse((self.path/'data.db').exists())
++        data=b'GDB1'+struct.pack('<I',1)+struct.pack('<I32s',0,b'legacy')
++        (self.path/'data.db').write_bytes(data)
++        result=self.run_db(invalid+'find 0\ncount\nselect\n.exit\n')
++        self.assertEqual(result.returncode,0)
++        self.assertEqual(result.stdout,'Error: invalid statement.\n'*len(commands)
++                         +'(0, legacy)\nCount: 1\n(0, legacy)\nExecuted.\n')
++        self.assertEqual((self.path/'data.db').read_bytes(),data)
++
+     def test_invalid_input_never_creates_database(self):
+         result=self.run_db('insert -1 bad\ninsert 4294967296 bad\ninsert 1 '+'a'*32+'\ninsert 2 ok extra\ninsert 1x bad\n.exit\n')
+         self.assertEqual(result.stdout.count('invalid statement'),5)

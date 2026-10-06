@@ -1,0 +1,16 @@
+{
+  "date": "2026-10-04T10:29:21.397146+00:00",
+  "policy_version": "001",
+  "python": "3.12.1",
+  "platform": "macOS-15.7.8-arm64-arm-64bit",
+  "base_commit": "b93ba56",
+  "working_tree": "uncommitted MVP implementation",
+  "tests": 93,
+  "failures": [
+    "test_workflow_003.ProfileTests.test_discovery_no_execution_and_reviewed_apply"
+  ],
+  "errors": [],
+  "skipped": [],
+  "passed": false,
+  "elapsed_seconds": 8.5
+}

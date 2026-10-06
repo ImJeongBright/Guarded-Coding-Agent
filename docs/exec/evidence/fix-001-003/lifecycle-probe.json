@@ -1,0 +1,92 @@
+[
+  {
+    "rules": "(deny syscall-unix (syscall-number 82 147))",
+    "case": "detach",
+    "exit_code": 1,
+    "stdout": "",
+    "stderr": "Traceback (most recent call last):\n  File \"<string>\", line 1, in <module>\n  File \"/Library/Frameworks/Python.framework/Versions/3.12/lib/python3.12/subprocess.py\", line 548, in run\n    with Popen(*popenargs, **kwargs) as process:\n         ^^^^^^^^^^^^^^^^^^^^^^^^^^^\n  File \"/Library/Frameworks/Python.framework/Versions/3.12/lib/python3.12/subprocess.py\", line 1026, in __init__\n    self._execute_child(args, executable, preexec_fn, close_fds,\n  File \"/Library/Frameworks/Python.framework/Versions/3.12/lib/python3.12/subprocess.py\", line 1950, in _execute_child\n    raise child_exception_type(errno_num, err_msg, err_filename)\nPermissionError: [Errno 1] Operation not permitted\n",
+    "timed_out": false,
+    "output_truncated": false
+  },
+  {
+    "rules": "(deny syscall-unix (syscall-number 82 147))",
+    "case": "normal_child",
+    "exit_code": 0,
+    "stdout": "123\n",
+    "stderr": "",
+    "timed_out": false,
+    "output_truncated": false
+  },
+  {
+    "rules": "(deny syscall-unix (syscall-number 82 147))",
+    "case": "posix_spawn",
+    "exit_code": 0,
+    "stdout": "spawned\n",
+    "stderr": "",
+    "timed_out": false,
+    "output_truncated": false
+  },
+  {
+    "rules": "(deny syscall-unix (syscall-number 82 147))",
+    "case": "compile",
+    "exit_code": 0,
+    "stdout": "",
+    "stderr": "",
+    "timed_out": false,
+    "output_truncated": false
+  },
+  {
+    "rules": "(deny syscall-unix (syscall-number 82 147))",
+    "case": "node_spawn",
+    "exit_code": 0,
+    "stdout": "0 undefined\n",
+    "stderr": "",
+    "timed_out": false,
+    "output_truncated": false
+  },
+  {
+    "rules": "(deny syscall-unix (syscall-number 82 147 244) (with errno 78))",
+    "case": "detach",
+    "exit_code": 1,
+    "stdout": "",
+    "stderr": "python3.12: posix_spawn: /Library/Frameworks/Python.framework/Versions/3.12/Resources/Python.app/Contents/MacOS/Python: Undefined error: 0\n",
+    "timed_out": false,
+    "output_truncated": false
+  },
+  {
+    "rules": "(deny syscall-unix (syscall-number 82 147 244) (with errno 78))",
+    "case": "normal_child",
+    "exit_code": 1,
+    "stdout": "",
+    "stderr": "python3.12: posix_spawn: /Library/Frameworks/Python.framework/Versions/3.12/Resources/Python.app/Contents/MacOS/Python: Undefined error: 0\n",
+    "timed_out": false,
+    "output_truncated": false
+  },
+  {
+    "rules": "(deny syscall-unix (syscall-number 82 147 244) (with errno 78))",
+    "case": "posix_spawn",
+    "exit_code": 1,
+    "stdout": "",
+    "stderr": "python3.12: posix_spawn: /Library/Frameworks/Python.framework/Versions/3.12/Resources/Python.app/Contents/MacOS/Python: Undefined error: 0\n",
+    "timed_out": false,
+    "output_truncated": false
+  },
+  {
+    "rules": "(deny syscall-unix (syscall-number 82 147 244) (with errno 78))",
+    "case": "compile",
+    "exit_code": 1,
+    "stdout": "",
+    "stderr": "cc: error: unable to execute command: posix_spawn failed: Function not implemented\n",
+    "timed_out": false,
+    "output_truncated": false
+  },
+  {
+    "rules": "(deny syscall-unix (syscall-number 82 147 244) (with errno 78))",
+    "case": "node_spawn",
+    "exit_code": -6,
+    "stdout": "",
+    "stderr": "Assertion failed: (err != ENOSYS), function uv__spawn_and_init_child_posix_spawn, file process.c, line 806.\n",
+    "timed_out": false,
+    "output_truncated": false
+  }
+]

@@ -1,0 +1,493 @@
+{
+  "purpose": "Path-scrubbed portable copies for review; original sessions and workspaces remain under .guard-runs/.",
+  "replacements": [
+    "experiment paths -> $RUN",
+    "repository paths -> $REPO",
+    "home-directory paths -> $HOME"
+  ],
+  "files": [
+    {
+      "raw_relative_path": "live-M1/task-1/invocation.json",
+      "portable_path": "sessions/M1-task-1/invocation.json",
+      "raw_sha256": "cbf43e27c333cef83398a72915a4fd507acaef464c7e3bd0d6a9f6c2088e9ef7",
+      "portable_sha256": "fe49279067dff533c488bbca930727c1d51b94f1537db7d2900bb9a4fb6f8078",
+      "path_scrubbed": true
+    },
+    {
+      "raw_relative_path": "live-M1/task-1/preflight.json",
+      "portable_path": "sessions/M1-task-1/preflight.json",
+      "raw_sha256": "3a21fac019e119618b817fd3314db0e40ce85f3c1c874ac9378846c702c45f12",
+      "portable_sha256": "c7f962986202fb448f6ddf168eb6da7e483e432ca36b7e61bf8fed0fb5e38132",
+      "path_scrubbed": true
+    },
+    {
+      "raw_relative_path": "live-M1/task-1/session-baseline.json",
+      "portable_path": "sessions/M1-task-1/session-baseline.json",
+      "raw_sha256": "729f770b16dd1bb854642e4302a1b283241521bc6f27c56028d9957947beead3",
+      "portable_sha256": "529e43273b2d64b00f272ca005c979486276263d4062d3c4c5a8123b05cd8bb2",
+      "path_scrubbed": true
+    },
+    {
+      "raw_relative_path": "live-M1/task-1/session-completion.json",
+      "portable_path": "sessions/M1-task-1/session-completion.json",
+      "raw_sha256": "aeca81c9483f7b66453c27d80270b0bfd3f639b17308a65f19265c70c1cfca24",
+      "portable_sha256": "8dd0712e5382b4996c5fa9470136d1a3aa21ef7afca6350ccf325894aec38558",
+      "path_scrubbed": true
+    },
+    {
+      "raw_relative_path": "live-M1/task-1/exit.json",
+      "portable_path": "sessions/M1-task-1/exit.json",
+      "raw_sha256": "124fd50cb6d223cdd18fedc166d00af7254199b6e6dedf9be82f71db87af6d01",
+      "portable_sha256": "124fd50cb6d223cdd18fedc166d00af7254199b6e6dedf9be82f71db87af6d01",
+      "path_scrubbed": false
+    },
+    {
+      "raw_relative_path": "live-M1/task-1/prompt.txt",
+      "portable_path": "sessions/M1-task-1/prompt.txt",
+      "raw_sha256": "b480fc982df13d4424d7144a66b67ab44e7e91a9823b755c0c807854db97405d",
+      "portable_sha256": "b480fc982df13d4424d7144a66b67ab44e7e91a9823b755c0c807854db97405d",
+      "path_scrubbed": false
+    },
+    {
+      "raw_relative_path": "live-M1/task-1/stderr.txt",
+      "portable_path": "sessions/M1-task-1/stderr.txt",
+      "raw_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "portable_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "path_scrubbed": false
+    },
+    {
+      "raw_relative_path": "live-M1/task-1/events.jsonl",
+      "portable_path": "sessions/M1-task-1/events.jsonl",
+      "raw_sha256": "7d99845b81f2a6bc305ee37cf5cd1ca05ec871806a80deb4d7dc0bab5cce7d83",
+      "portable_sha256": "7d99845b81f2a6bc305ee37cf5cd1ca05ec871806a80deb4d7dc0bab5cce7d83",
+      "path_scrubbed": false
+    },
+    {
+      "raw_relative_path": "live-M1/verification.json",
+      "portable_path": "sessions/M1-task-1/independent-verification.json",
+      "raw_sha256": "3fdec95cd58b967cab85be8b1ad20b4999604316dd4806163a95c445a11fa342",
+      "portable_sha256": "a7af1d0b1c2f8e08ad681b07b353e504e589ba517dd52c5ad68a4655800dccbc",
+      "path_scrubbed": true
+    },
+    {
+      "raw_relative_path": "git-show:M1:00c769d330d77c8d7ae4c81be4f1748bb5bac274",
+      "portable_path": "patches/M1-task-1.patch",
+      "raw_sha256": "badb2b6f7818808bd5131c8979eae07167ffc30ba722add13f6131c37c04a2d3",
+      "portable_sha256": "badb2b6f7818808bd5131c8979eae07167ffc30ba722add13f6131c37c04a2d3",
+      "path_scrubbed": false
+    },
+    {
+      "raw_relative_path": "live-M1/task-2/invocation.json",
+      "portable_path": "sessions/M1-task-2/invocation.json",
+      "raw_sha256": "cbf43e27c333cef83398a72915a4fd507acaef464c7e3bd0d6a9f6c2088e9ef7",
+      "portable_sha256": "fe49279067dff533c488bbca930727c1d51b94f1537db7d2900bb9a4fb6f8078",
+      "path_scrubbed": true
+    },
+    {
+      "raw_relative_path": "live-M1/task-2/preflight.json",
+      "portable_path": "sessions/M1-task-2/preflight.json",
+      "raw_sha256": "3a21fac019e119618b817fd3314db0e40ce85f3c1c874ac9378846c702c45f12",
+      "portable_sha256": "c7f962986202fb448f6ddf168eb6da7e483e432ca36b7e61bf8fed0fb5e38132",
+      "path_scrubbed": true
+    },
+    {
+      "raw_relative_path": "live-M1/task-2/session-baseline.json",
+      "portable_path": "sessions/M1-task-2/session-baseline.json",
+      "raw_sha256": "47545641c258475400c29250e38f3d7c24f705849c93548105e44ef41d0d4e46",
+      "portable_sha256": "7320d67479b2ef78381369738a50e35ae246af6435e8fc02edeb56e5ed770026",
+      "path_scrubbed": true
+    },
+    {
+      "raw_relative_path": "live-M1/task-2/session-completion.json",
+      "portable_path": "sessions/M1-task-2/session-completion.json",
+      "raw_sha256": "8016aee2796f242ad028f9424ac6b4478cdb2d327b204b1cc83e0e5e6b113c80",
+      "portable_sha256": "0f8d8ace783fee9af42293b6d2c0f633be486a497d3e6286963f28245e940051",
+      "path_scrubbed": true
+    },
+    {
+      "raw_relative_path": "live-M1/task-2/exit.json",
+      "portable_path": "sessions/M1-task-2/exit.json",
+      "raw_sha256": "124fd50cb6d223cdd18fedc166d00af7254199b6e6dedf9be82f71db87af6d01",
+      "portable_sha256": "124fd50cb6d223cdd18fedc166d00af7254199b6e6dedf9be82f71db87af6d01",
+      "path_scrubbed": false
+    },
+    {
+      "raw_relative_path": "live-M1/task-2/prompt.txt",
+      "portable_path": "sessions/M1-task-2/prompt.txt",
+      "raw_sha256": "818ffd15f8766d35e0e8486c89355eb49b9a1eec5326fa7ef47c4072e0e2b2d1",
+      "portable_sha256": "818ffd15f8766d35e0e8486c89355eb49b9a1eec5326fa7ef47c4072e0e2b2d1",
+      "path_scrubbed": false
+    },
+    {
+      "raw_relative_path": "live-M1/task-2/stderr.txt",
+      "portable_path": "sessions/M1-task-2/stderr.txt",
+      "raw_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "portable_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "path_scrubbed": false
+    },
+    {
+      "raw_relative_path": "live-M1/task-2/events.jsonl",
+      "portable_path": "sessions/M1-task-2/events.jsonl",
+      "raw_sha256": "aff2a2b9d30f1b3532fdb1f9f0064d45a3e0abe298008bfb26f846dd4044a6d2",
+      "portable_sha256": "aff2a2b9d30f1b3532fdb1f9f0064d45a3e0abe298008bfb26f846dd4044a6d2",
+      "path_scrubbed": false
+    },
+    {
+      "raw_relative_path": "live-M1/verification-task-2.json",
+      "portable_path": "sessions/M1-task-2/independent-verification.json",
+      "raw_sha256": "2ca81257add57e56262ae8c861db2c80a561240ab3be356b7f2efab2f201afaf",
+      "portable_sha256": "2ca81257add57e56262ae8c861db2c80a561240ab3be356b7f2efab2f201afaf",
+      "path_scrubbed": false
+    },
+    {
+      "raw_relative_path": "git-show:M1:66fb835f613abbd0a755e008c7c455917e791ba9",
+      "portable_path": "patches/M1-task-2.patch",
+      "raw_sha256": "f7dec9714b524b1e49f6581398103fd7479d0ac62a17e91c6daa1df837bcec10",
+      "portable_sha256": "f7dec9714b524b1e49f6581398103fd7479d0ac62a17e91c6daa1df837bcec10",
+      "path_scrubbed": false
+    },
+    {
+      "raw_relative_path": "live-M1/task-3/invocation.json",
+      "portable_path": "sessions/M1-task-3/invocation.json",
+      "raw_sha256": "cbf43e27c333cef83398a72915a4fd507acaef464c7e3bd0d6a9f6c2088e9ef7",
+      "portable_sha256": "fe49279067dff533c488bbca930727c1d51b94f1537db7d2900bb9a4fb6f8078",
+      "path_scrubbed": true
+    },
+    {
+      "raw_relative_path": "live-M1/task-3/preflight.json",
+      "portable_path": "sessions/M1-task-3/preflight.json",
+      "raw_sha256": "3a21fac019e119618b817fd3314db0e40ce85f3c1c874ac9378846c702c45f12",
+      "portable_sha256": "c7f962986202fb448f6ddf168eb6da7e483e432ca36b7e61bf8fed0fb5e38132",
+      "path_scrubbed": true
+    },
+    {
+      "raw_relative_path": "live-M1/task-3/session-baseline.json",
+      "portable_path": "sessions/M1-task-3/session-baseline.json",
+      "raw_sha256": "099d48057c2273a74783279c228a4f927f3e240ba854ea952a7792625f51b6e4",
+      "portable_sha256": "d16709ffc39abed9b22097e379da59711b7d28515b2efeb6d913d9aadb6171c7",
+      "path_scrubbed": true
+    },
+    {
+      "raw_relative_path": "live-M1/task-3/session-completion.json",
+      "portable_path": "sessions/M1-task-3/session-completion.json",
+      "raw_sha256": "c2ebf3c354bc43a495b625c44a4a27f477a7b3c2cacdadd87dbbe8aa399688c5",
+      "portable_sha256": "29b485fa0ed4832da8a34d951e7878e4fc358b85859ba1f8e3f350259f0c33e5",
+      "path_scrubbed": true
+    },
+    {
+      "raw_relative_path": "live-M1/task-3/exit.json",
+      "portable_path": "sessions/M1-task-3/exit.json",
+      "raw_sha256": "124fd50cb6d223cdd18fedc166d00af7254199b6e6dedf9be82f71db87af6d01",
+      "portable_sha256": "124fd50cb6d223cdd18fedc166d00af7254199b6e6dedf9be82f71db87af6d01",
+      "path_scrubbed": false
+    },
+    {
+      "raw_relative_path": "live-M1/task-3/prompt.txt",
+      "portable_path": "sessions/M1-task-3/prompt.txt",
+      "raw_sha256": "8ead36e1e2f5993dce3a8451ec8b6daf7884177f7c9afcb5d7a75ccb14c8bb03",
+      "portable_sha256": "8ead36e1e2f5993dce3a8451ec8b6daf7884177f7c9afcb5d7a75ccb14c8bb03",
+      "path_scrubbed": false
+    },
+    {
+      "raw_relative_path": "live-M1/task-3/stderr.txt",
+      "portable_path": "sessions/M1-task-3/stderr.txt",
+      "raw_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "portable_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "path_scrubbed": false
+    },
+    {
+      "raw_relative_path": "live-M1/task-3/events.jsonl",
+      "portable_path": "sessions/M1-task-3/events.jsonl",
+      "raw_sha256": "023f10b1acc92c5d8df1dcf3df20a4e032f4cc9ba8d055be451e72d7a7e0debb",
+      "portable_sha256": "023f10b1acc92c5d8df1dcf3df20a4e032f4cc9ba8d055be451e72d7a7e0debb",
+      "path_scrubbed": false
+    },
+    {
+      "raw_relative_path": "live-M1/verification-task-3.json",
+      "portable_path": "sessions/M1-task-3/independent-verification.json",
+      "raw_sha256": "79ca3a75fbf43991d7ca0b40f55da63a240735a3d1ee5f3770fc9df51e422339",
+      "portable_sha256": "79ca3a75fbf43991d7ca0b40f55da63a240735a3d1ee5f3770fc9df51e422339",
+      "path_scrubbed": false
+    },
+    {
+      "raw_relative_path": "git-show:M1:fcdf52034135c261c570230b5a4ff0bb9d7d9fb2",
+      "portable_path": "patches/M1-task-3.patch",
+      "raw_sha256": "ae53406fcdecba21c2e09d10c130fb30eac519b206bef2efbf9a8085ca92a300",
+      "portable_sha256": "ae53406fcdecba21c2e09d10c130fb30eac519b206bef2efbf9a8085ca92a300",
+      "path_scrubbed": false
+    },
+    {
+      "raw_relative_path": "live-M2/task-4/invocation.json",
+      "portable_path": "sessions/M2-task-4/invocation.json",
+      "raw_sha256": "bdfe55d925e9d0abcf15c8087ce930043d6208acb80577dba11be1f013cbae79",
+      "portable_sha256": "496f338449d313804d80f7244871a016da0cc9c1f012b7e7443e1bd70d780a5c",
+      "path_scrubbed": true
+    },
+    {
+      "raw_relative_path": "live-M2/task-4/preflight.json",
+      "portable_path": "sessions/M2-task-4/preflight.json",
+      "raw_sha256": "8373cb85f399609f11a6e5a74e7d1450589f283298be1cf1120f995ffbbb9aa7",
+      "portable_sha256": "ccfe1e095938a4a6ba1300778858cfe1702ef6620f84fd0e9ff3fa084fcee711",
+      "path_scrubbed": true
+    },
+    {
+      "raw_relative_path": "live-M2/task-4/session-baseline.json",
+      "portable_path": "sessions/M2-task-4/session-baseline.json",
+      "raw_sha256": "ad25093eeba368632c881a9b24b494fd893ead93faf8f054701100b26542b4c4",
+      "portable_sha256": "251be8588bedd95c9368a780b93a7e9d4846725961452f6533cee351ed42eb90",
+      "path_scrubbed": true
+    },
+    {
+      "raw_relative_path": "live-M2/task-4/session-completion.json",
+      "portable_path": "sessions/M2-task-4/session-completion.json",
+      "raw_sha256": "bfc226182022bd5f46c13ef9002e0991298306f6b44beff9accdb05595a231f3",
+      "portable_sha256": "a357305b4ede6bfbc99a83a688c785c1cf2af4b97d69f1d36fa1294095e496f5",
+      "path_scrubbed": true
+    },
+    {
+      "raw_relative_path": "live-M2/task-4/exit.json",
+      "portable_path": "sessions/M2-task-4/exit.json",
+      "raw_sha256": "124fd50cb6d223cdd18fedc166d00af7254199b6e6dedf9be82f71db87af6d01",
+      "portable_sha256": "124fd50cb6d223cdd18fedc166d00af7254199b6e6dedf9be82f71db87af6d01",
+      "path_scrubbed": false
+    },
+    {
+      "raw_relative_path": "live-M2/task-4/prompt.txt",
+      "portable_path": "sessions/M2-task-4/prompt.txt",
+      "raw_sha256": "b866a001ae25422114b54b9e8c250b4b3683ba1ea51701dd5352adb5b9a4eed7",
+      "portable_sha256": "b866a001ae25422114b54b9e8c250b4b3683ba1ea51701dd5352adb5b9a4eed7",
+      "path_scrubbed": false
+    },
+    {
+      "raw_relative_path": "live-M2/task-4/stderr.txt",
+      "portable_path": "sessions/M2-task-4/stderr.txt",
+      "raw_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "portable_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "path_scrubbed": false
+    },
+    {
+      "raw_relative_path": "live-M2/task-4/events.jsonl",
+      "portable_path": "sessions/M2-task-4/events.jsonl",
+      "raw_sha256": "3239c1f01dbe4d19fd6341b719b7192dd76f99e62dba176db45500328e582d5f",
+      "portable_sha256": "3239c1f01dbe4d19fd6341b719b7192dd76f99e62dba176db45500328e582d5f",
+      "path_scrubbed": false
+    },
+    {
+      "raw_relative_path": "live-M2/verification-task-4.json",
+      "portable_path": "sessions/M2-task-4/independent-verification.json",
+      "raw_sha256": "a554ba0fea6e5252fb76b015ccd0e0312e4e9eac8da9b97215f2cea5b43087d7",
+      "portable_sha256": "a554ba0fea6e5252fb76b015ccd0e0312e4e9eac8da9b97215f2cea5b43087d7",
+      "path_scrubbed": false
+    },
+    {
+      "raw_relative_path": "git-show:M2:70f5c6bb6d18ac08326dbab2fdb5ef762744a94e",
+      "portable_path": "patches/M2-task-4.patch",
+      "raw_sha256": "6a01ec34265b89120c67f16476da12f9b75401774b5cd9ef506b161a0e51351d",
+      "portable_sha256": "6a01ec34265b89120c67f16476da12f9b75401774b5cd9ef506b161a0e51351d",
+      "path_scrubbed": false
+    },
+    {
+      "raw_relative_path": "live-M2/task-5/invocation.json",
+      "portable_path": "sessions/M2-task-5/invocation.json",
+      "raw_sha256": "bdfe55d925e9d0abcf15c8087ce930043d6208acb80577dba11be1f013cbae79",
+      "portable_sha256": "496f338449d313804d80f7244871a016da0cc9c1f012b7e7443e1bd70d780a5c",
+      "path_scrubbed": true
+    },
+    {
+      "raw_relative_path": "live-M2/task-5/preflight.json",
+      "portable_path": "sessions/M2-task-5/preflight.json",
+      "raw_sha256": "8373cb85f399609f11a6e5a74e7d1450589f283298be1cf1120f995ffbbb9aa7",
+      "portable_sha256": "ccfe1e095938a4a6ba1300778858cfe1702ef6620f84fd0e9ff3fa084fcee711",
+      "path_scrubbed": true
+    },
+    {
+      "raw_relative_path": "live-M2/task-5/session-baseline.json",
+      "portable_path": "sessions/M2-task-5/session-baseline.json",
+      "raw_sha256": "fefd043546bcadfd87907abc3af45b2a9d2952db833f0e86e20258c3311a31ea",
+      "portable_sha256": "7dd93480e9ed36fe84c607149d9a39e6046a9698f677c328cc8cc9cc7893feab",
+      "path_scrubbed": true
+    },
+    {
+      "raw_relative_path": "live-M2/task-5/session-completion.json",
+      "portable_path": "sessions/M2-task-5/session-completion.json",
+      "raw_sha256": "0aaac1b303307372209029c06efb0523b7f3aa79332b2131323929eeb87f9483",
+      "portable_sha256": "43e16e5f890f73c699762980f559f0eed66c6e821eef7cc440ac73ce2a205b97",
+      "path_scrubbed": true
+    },
+    {
+      "raw_relative_path": "live-M2/task-5/exit.json",
+      "portable_path": "sessions/M2-task-5/exit.json",
+      "raw_sha256": "124fd50cb6d223cdd18fedc166d00af7254199b6e6dedf9be82f71db87af6d01",
+      "portable_sha256": "124fd50cb6d223cdd18fedc166d00af7254199b6e6dedf9be82f71db87af6d01",
+      "path_scrubbed": false
+    },
+    {
+      "raw_relative_path": "live-M2/task-5/prompt.txt",
+      "portable_path": "sessions/M2-task-5/prompt.txt",
+      "raw_sha256": "5bb1913ad94067d9bcaed1af8ca6e973899f548be4ac67cd3b82ba74f092677d",
+      "portable_sha256": "5bb1913ad94067d9bcaed1af8ca6e973899f548be4ac67cd3b82ba74f092677d",
+      "path_scrubbed": false
+    },
+    {
+      "raw_relative_path": "live-M2/task-5/stderr.txt",
+      "portable_path": "sessions/M2-task-5/stderr.txt",
+      "raw_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "portable_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "path_scrubbed": false
+    },
+    {
+      "raw_relative_path": "live-M2/task-5/events.jsonl",
+      "portable_path": "sessions/M2-task-5/events.jsonl",
+      "raw_sha256": "4cc9b67eabc1208972b42230b99c60b1eb4c778665b73bb8c149d4c923a25750",
+      "portable_sha256": "4cc9b67eabc1208972b42230b99c60b1eb4c778665b73bb8c149d4c923a25750",
+      "path_scrubbed": false
+    },
+    {
+      "raw_relative_path": "live-M2/verification-task-5.json",
+      "portable_path": "sessions/M2-task-5/independent-verification.json",
+      "raw_sha256": "b912fb6d610ca97970a65b9ef57d405a5d0b779b64f12e01e6ff73db8822a4d2",
+      "portable_sha256": "b912fb6d610ca97970a65b9ef57d405a5d0b779b64f12e01e6ff73db8822a4d2",
+      "path_scrubbed": false
+    },
+    {
+      "raw_relative_path": "git-show:M2:e684ad9aec7611f2ef3933d65a7f0b9fecfb7e02",
+      "portable_path": "patches/M2-task-5.patch",
+      "raw_sha256": "ee24f78bd773550294afe11c975484b7238a64b51ac24cbc34d7de8741059650",
+      "portable_sha256": "ee24f78bd773550294afe11c975484b7238a64b51ac24cbc34d7de8741059650",
+      "path_scrubbed": false
+    },
+    {
+      "raw_relative_path": "live-M2/task-6/invocation.json",
+      "portable_path": "sessions/M2-task-6/invocation.json",
+      "raw_sha256": "bdfe55d925e9d0abcf15c8087ce930043d6208acb80577dba11be1f013cbae79",
+      "portable_sha256": "496f338449d313804d80f7244871a016da0cc9c1f012b7e7443e1bd70d780a5c",
+      "path_scrubbed": true
+    },
+    {
+      "raw_relative_path": "live-M2/task-6/preflight.json",
+      "portable_path": "sessions/M2-task-6/preflight.json",
+      "raw_sha256": "8373cb85f399609f11a6e5a74e7d1450589f283298be1cf1120f995ffbbb9aa7",
+      "portable_sha256": "ccfe1e095938a4a6ba1300778858cfe1702ef6620f84fd0e9ff3fa084fcee711",
+      "path_scrubbed": true
+    },
+    {
+      "raw_relative_path": "live-M2/task-6/session-baseline.json",
+      "portable_path": "sessions/M2-task-6/session-baseline.json",
+      "raw_sha256": "f09a642c22b6edfd759e04935910d774352d7a8aa452d7059c0c4d45230d3538",
+      "portable_sha256": "fa7e46a1d1dbb0e268210a490aa06a49db56cf4e292b232f053d599989381aa0",
+      "path_scrubbed": true
+    },
+    {
+      "raw_relative_path": "live-M2/task-6/session-completion.json",
+      "portable_path": "sessions/M2-task-6/session-completion.json",
+      "raw_sha256": "21c5bdd70db344d094d0e64632abd6c494128f0849e17c6f20bda500350b1015",
+      "portable_sha256": "075f2bb5f1205a5dafc2ae5d831848e2305556fbf79984c4ebd0a4f2e1fe79d1",
+      "path_scrubbed": true
+    },
+    {
+      "raw_relative_path": "live-M2/task-6/exit.json",
+      "portable_path": "sessions/M2-task-6/exit.json",
+      "raw_sha256": "124fd50cb6d223cdd18fedc166d00af7254199b6e6dedf9be82f71db87af6d01",
+      "portable_sha256": "124fd50cb6d223cdd18fedc166d00af7254199b6e6dedf9be82f71db87af6d01",
+      "path_scrubbed": false
+    },
+    {
+      "raw_relative_path": "live-M2/task-6/prompt.txt",
+      "portable_path": "sessions/M2-task-6/prompt.txt",
+      "raw_sha256": "1009c846f761ceb028582fcfa68f5b8b2265746a8459b2ffdb47b6bdc04073ce",
+      "portable_sha256": "1009c846f761ceb028582fcfa68f5b8b2265746a8459b2ffdb47b6bdc04073ce",
+      "path_scrubbed": false
+    },
+    {
+      "raw_relative_path": "live-M2/task-6/stderr.txt",
+      "portable_path": "sessions/M2-task-6/stderr.txt",
+      "raw_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "portable_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "path_scrubbed": false
+    },
+    {
+      "raw_relative_path": "live-M2/task-6/events.jsonl",
+      "portable_path": "sessions/M2-task-6/events.jsonl",
+      "raw_sha256": "b00652beb291789c8f83f06228e3da452dcd6bd0e300f6ec3c817fb39e02de92",
+      "portable_sha256": "b00652beb291789c8f83f06228e3da452dcd6bd0e300f6ec3c817fb39e02de92",
+      "path_scrubbed": false
+    },
+    {
+      "raw_relative_path": "live-M2/verification-task-6.json",
+      "portable_path": "sessions/M2-task-6/independent-verification.json",
+      "raw_sha256": "4e5882c0214e742ed1311fd63ee17c6cc06ec13919be9cdf015edb82d9cbe170",
+      "portable_sha256": "4e5882c0214e742ed1311fd63ee17c6cc06ec13919be9cdf015edb82d9cbe170",
+      "path_scrubbed": false
+    },
+    {
+      "raw_relative_path": "git-show:M2:0e920239e420e10caf5e925de409917216b2019c",
+      "portable_path": "patches/M2-task-6.patch",
+      "raw_sha256": "1026ec068a052e85f258078c64404ad9f081f0a7fcfb4f8fd3a3e92eb809d73b",
+      "portable_sha256": "1026ec068a052e85f258078c64404ad9f081f0a7fcfb4f8fd3a3e92eb809d73b",
+      "path_scrubbed": false
+    },
+    {
+      "raw_relative_path": "live-M1/fixture.json",
+      "portable_path": "fixtures/M1.json",
+      "raw_sha256": "07375ff27abcc0735ebd904931b1c7f9f5365ccf7dc9347b818caa9285811327",
+      "portable_sha256": "2cf08d78c6436f4efe83af31f7fdf02d16c06e6e10757775d9da098913e49e90",
+      "path_scrubbed": true
+    },
+    {
+      "raw_relative_path": "live-M1/operator-state/policy.json",
+      "portable_path": "host-state/M1/policy.json",
+      "raw_sha256": "96c977fa02ce2b7b9f265070561bff92332b80d730397131fb5396fe411e9131",
+      "portable_sha256": "fbca62a7bca8844870199ec049b9b52c348d506881c1fa5b27ba45720f171cf2",
+      "path_scrubbed": true
+    },
+    {
+      "raw_relative_path": "live-M1/operator-state/audit.jsonl",
+      "portable_path": "host-state/M1/audit.jsonl",
+      "raw_sha256": "f41d7f27b9ce28fd1b353c43f580b101ed45fe4ea3d86a1fade32fc1ce663de5",
+      "portable_sha256": "f41d7f27b9ce28fd1b353c43f580b101ed45fe4ea3d86a1fade32fc1ce663de5",
+      "path_scrubbed": false
+    },
+    {
+      "raw_relative_path": "live-M2/fixture.json",
+      "portable_path": "fixtures/M2.json",
+      "raw_sha256": "5d4381c8bdf9c5baca6d57e6adc401804cbd172223c9b6f90e530bf9f1ee1c3c",
+      "portable_sha256": "70bdad32e431731e0dbb00f3f91741516d3513388191d08e360c830ce95505d7",
+      "path_scrubbed": true
+    },
+    {
+      "raw_relative_path": "live-M2/operator-state/policy.json",
+      "portable_path": "host-state/M2/policy.json",
+      "raw_sha256": "c30592326a2ecbfbf7e7eccf44c784c4c4178baee2ac47bc37cf243ddd468318",
+      "portable_sha256": "3fff0ce2c71cf95b67f4a38b4326a13810b3f8a274e46ab6159f8b2bda8f5ef0",
+      "path_scrubbed": true
+    },
+    {
+      "raw_relative_path": "live-M2/operator-state/audit.jsonl",
+      "portable_path": "host-state/M2/audit.jsonl",
+      "raw_sha256": "beaf0314765b0cfb934a17d603fe7f420b64a236d98ef9195a32a4b8fa0c1477",
+      "portable_sha256": "beaf0314765b0cfb934a17d603fe7f420b64a236d98ef9195a32a4b8fa0c1477",
+      "path_scrubbed": false
+    },
+    {
+      "raw_relative_path": "post-optimization-benchmark.json",
+      "portable_path": "post-optimization-benchmark.json",
+      "raw_sha256": "3295e840b71427af2fdd2dc3b05e9afdebe9ca47a2df24cd22732775fcb79d70",
+      "portable_sha256": "3295e840b71427af2fdd2dc3b05e9afdebe9ca47a2df24cd22732775fcb79d70",
+      "path_scrubbed": false
+    },
+    {
+      "raw_relative_path": "post-optimization-M1/audit.jsonl",
+      "portable_path": "post-optimization-audit/M1.jsonl",
+      "raw_sha256": "c64bf18bf870bdf95066ad53d7aabff9a66608dfab1e0f4a232ef57fee26a09e",
+      "portable_sha256": "c64bf18bf870bdf95066ad53d7aabff9a66608dfab1e0f4a232ef57fee26a09e",
+      "path_scrubbed": false
+    },
+    {
+      "raw_relative_path": "post-optimization-M2/audit.jsonl",
+      "portable_path": "post-optimization-audit/M2.jsonl",
+      "raw_sha256": "b25ae09f88a2a644d87bfb53841d2f1d8de7c9a42b4489c55db12013fcf269ea",
+      "portable_sha256": "b25ae09f88a2a644d87bfb53841d2f1d8de7c9a42b4489c55db12013fcf269ea",
+      "path_scrubbed": false
+    }
+  ]
+}

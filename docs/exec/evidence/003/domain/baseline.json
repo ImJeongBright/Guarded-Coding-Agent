@@ -1,0 +1,138 @@
+{
+  "kind": "domain",
+  "source": "$HOME/studyCollection/MoneyPilot_Backend/packages/domain",
+  "source_hashes": {
+    "package.json": "ad01a3a6df629702de577a5433e1e1fbd6372435a2289889426e81c37a4311bc",
+    "README.md": "5263d57d43781508c31dbf21e5fa4ce8fc15d60d01df20874d89ba2a2298ec10",
+    "src/simulation.ts": "3d793ae1e0713ee20f55e76702e011ba0d93d5cd7b913ba12866826011e07a28",
+    "src/decision-feedback.ts": "04431844bce51e5af0e2e920e9b96d88a128179e1704e2df3543730dded14050",
+    "src/annual-scenario.ts": "5dc0dd83b86106217839c170aee19cac9c794147ccd3ef315bc51e2f953b9637",
+    "test/simulation.test.mjs": "0a0d9b95cda90f22fa81695d9fe517c508c080edfc9fa2afdf3dae9b5cc30352"
+  },
+  "baseline_requests": [
+    {
+      "request": {
+        "tool": "shell",
+        "operation": "exec",
+        "argv": [
+          "$HOME/.nvm/versions/node/v24.20.0/bin/node",
+          "--experimental-strip-types",
+          "--test",
+          "--test-name-pattern",
+          "score",
+          "test/*.test.mjs"
+        ]
+      },
+      "result": {
+        "decision": "DENY",
+        "matched_rule": "SH-PROFILE",
+        "reason": "Command argv/cwd is not in the operator profile. Use an approved command or ask the operator to add a narrow profile.",
+        "executed": false,
+        "exit_code": null,
+        "stdout": "",
+        "stderr": "",
+        "run_id": "390cd0ce0668407bb5795823f984b603",
+        "audit_event_id": "a716a216226444a3b5a7e0fc958ef9c2"
+      }
+    },
+    {
+      "request": {
+        "tool": "filesystem",
+        "operation": "search",
+        "path": "src",
+        "query": "evaluateDecision"
+      },
+      "result": {
+        "decision": "DENY",
+        "matched_rule": "CORE-SCHEMA",
+        "reason": "Unknown tool or operation.",
+        "executed": false,
+        "exit_code": null,
+        "stdout": "",
+        "stderr": "",
+        "run_id": "390cd0ce0668407bb5795823f984b603",
+        "audit_event_id": "0d4d1e6d733f47babee547be642a90a4"
+      }
+    },
+    {
+      "request": {
+        "tool": "filesystem",
+        "operation": "read",
+        "path": "src/decision-feedback.ts",
+        "start_line": 1,
+        "end_line": 20
+      },
+      "result": {
+        "decision": "DENY",
+        "matched_rule": "CORE-SCHEMA",
+        "reason": "Missing or unexpected fields.",
+        "executed": false,
+        "exit_code": null,
+        "stdout": "",
+        "stderr": "",
+        "run_id": "390cd0ce0668407bb5795823f984b603",
+        "audit_event_id": "e3dbec477f87444289d32c1593a1865e"
+      }
+    },
+    {
+      "request": {
+        "tool": "filesystem",
+        "operation": "edit",
+        "path": "src/decision-feedback.ts",
+        "old_text": "[OMITTED]",
+        "new_text": "[OMITTED]",
+        "expected_sha256": "04431844bce51e5af0e2e920e9b96d88a128179e1704e2df3543730dded14050"
+      },
+      "result": {
+        "decision": "DENY",
+        "matched_rule": "CORE-SCHEMA",
+        "reason": "Unknown tool or operation.",
+        "executed": false,
+        "exit_code": null,
+        "stdout": "",
+        "stderr": "",
+        "run_id": "390cd0ce0668407bb5795823f984b603",
+        "audit_event_id": "e017161b8e7740ceb3707b3d5e59e5f8"
+      }
+    },
+    {
+      "request": {
+        "tool": "git",
+        "operation": "diff",
+        "staged": true
+      },
+      "result": {
+        "decision": "DENY",
+        "matched_rule": "CORE-SCHEMA",
+        "reason": "Missing or unexpected fields.",
+        "executed": false,
+        "exit_code": null,
+        "stdout": "",
+        "stderr": "",
+        "run_id": "390cd0ce0668407bb5795823f984b603",
+        "audit_event_id": "874e48a5f7584bec9928cc7ac561995e"
+      }
+    }
+  ],
+  "full_checks": [
+    {
+      "decision": "ALLOW",
+      "matched_rule": "SH-PROFILE",
+      "reason": "Bounded local capability allowed.",
+      "executed": true,
+      "exit_code": 0,
+      "stdout": "✔ bonus is conserved and history is immutable: 비상금 (2.134042ms)\n✔ bonus is conserved and history is immutable: 적금 (0.18075ms)\n✔ bonus is conserved and history is immutable: S&P 500 ETF (0.401375ms)\n✔ bonus is conserved and history is immutable: 채권 (0.244959ms)\n✔ bonus is conserved and history is immutable: 달러 (0.087208ms)\n✔ bonus is conserved and history is immutable: 현금 (0.171417ms)\n✔ bonus is conserved and history is immutable: 소비 (0.203541ms)\n✔ repair cost is never erased: 비상금 (0.183916ms)\n✔ repair cost is never erased: 적금 중도해지 (0.087041ms)\n✔ repair cost is never erased: 투자자산 매도 (0.121792ms)\n✔ repair cost is never erased: 카드 할부 (0.076459ms)\n✔ repair cost is never erased: 소비 축소 (0.056625ms)\n✔ insufficient preferred asset uses explicitly described secondary funds without minting money (0.091083ms)\n✔ an impossible repair is rejected instead of clipping the cost (0.589125ms)\n✔ income reduction keeps allocation within actual resources: ETF 축소 (0.178042ms)\n✔ income reduction keeps allocation within actual resources: 적금 축소 (0.064958ms)\n✔ income reduction keeps allocation within actual resources: 소비 축소 (0.05925ms)\n✔ keeping an unaffordable plan exposes the gap; reserving cash does not double-count assets (0.082917ms)\n✔ post-news actions change the monthly strategy without instantly trading existing holdings (0.145833ms)\n✔ a savings choice changes the next monthly deposit mix without changing current assets (0.074625ms)\n✔ the announcement-day result affects only holdings that existed before the new strategy (0.342625ms)\n✔ the selected strategy changes later automatic deposits and their market exposure (0.710208ms)\n✔ the complete annual calendar contains exactly twelve automatic monthly deposits (3.35575ms)\n✔ a temporary income decrease restores the last chosen strategy after one reduced month (0.186583ms)\n✔ a correct forecast never creates bonus money (0.055833ms)\n✔ restoring a checkpoint and changing a decision replaces, rather than duplicates, its effect (0.04625ms)\n✔ reasoning with sources, evidence and causal links scores above an unsupported guess (0.843167ms)\n✔ forecast luck is capped and never outweighs a well-supported judgment process (0.082875ms)\n✔ forecast results stay locked until actual market changes are supplied (0.077333ms)\n✔ an action aligned with the stock forecast receives a higher consistency score (0.081958ms)\n✔ counterfactual paths replay the same future events after different asset choices (0.129959ms)\n✔ counterfactual emergency choices expose debt and liquidity tradeoffs (0.051ms)\nℹ tests 32\nℹ suites 0\nℹ pass 32\nℹ fail 0\nℹ cancelled 0\nℹ skipped 0\nℹ todo 0\nℹ duration_ms 110.2945\n",
+      "stderr": "",
+      "run_id": "390cd0ce0668407bb5795823f984b603",
+      "audit_event_id": "72567b1f90134544a6792fc958e71dee",
+      "timed_out": false,
+      "output_truncated": false
+    }
+  ],
+  "setup_and_baseline_seconds": 0.317,
+  "tasks": [
+    "Fix evaluateDecision input validation: openedSources must be a nonnegative safe integer; otherwise throw RangeError before producing feedback. Preserve valid-input scoring. Add regression tests, document it, run a selected openedSources test filter and all tests, inspect staged diff and commit locally.",
+    "Refactor forecast classification into exported directionForChange(change, key). Return null for null/undefined/non-finite change, otherwise preserve the existing up/flat/down thresholds. Reuse it in evaluateDecision, treating unknown actual changes as actual=null, correct=null and no prediction points when any actual result is unknown. Add tests, preserve valid-input results, inspect staged diff and commit locally.",
+    "Add deterministic boundary/property regression cases for source counts (including 0 and MAX_SAFE_INTEGER), malformed counts, direction threshold boundaries and non-finite actual changes. Confirm valid feedback scores stay within 0..100 and input objects are unchanged. Update documentation, run selected validation tests and all tests, inspect staged diff and commit locally."
+  ]
+}

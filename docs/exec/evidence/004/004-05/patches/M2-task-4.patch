@@ -1,0 +1,175 @@
+commit 70f5c6bb6d18ac08326dbab2fdb5ef762744a94e
+Author:     User X <user-x@example.invalid>
+AuthorDate: Mon Oct 5 02:46:46 2026 +0000
+Commit:     User X <user-x@example.invalid>
+CommitDate: Mon Oct 5 02:46:46 2026 +0000
+
+    Add atomic clear command with rollback and process tests
+
+diff --git a/README.md b/README.md
+index 3e7e04f..9485619 100644
+--- a/README.md
++++ b/README.md
+@@ -5,7 +5,7 @@ The executable is split across `main.c`, `command.c`, `db.c`, and `storage.c` wi
+ Build the fixed C11 source list into `build/minidb`; tests are process-level and store temporary
+ database files under `build/test-data`. The on-disk GDB1 format is intentionally stable.
+ 
+-Supported commands: `insert <uint32 id> <name>`, `delete <uint32 id>`, `rename <uint32 id> <new-name>`, `find <uint32 id>`, `select`, `count`, `.help`, `.exit`.
++Supported commands: `insert <uint32 id> <name>`, `delete <uint32 id>`, `rename <uint32 id> <new-name>`, `find <uint32 id>`, `select`, `count`, `clear`, `.help`, `.exit`.
+ 
+ Delete removes the matching row while preserving the order of all remaining rows.
+ Ids range from 0 to 4294967295. A successful delete prints `Executed.`; a missing
+@@ -21,6 +21,12 @@ It uses the existing GDB1 atomic save path. If persistence fails, it prints
+ `Error: persistence failed.` and preserves both the original in-memory name
+ and database file.
+ 
++Clear removes every row and takes no arguments. Success prints `Executed.`.
++It persists the empty state through the existing atomic GDB1 save path.
++If persistence fails, it prints `Error: persistence failed.` and restores
++the original in-memory count, leaving the database file unchanged.
++Clearing an already empty database succeeds without writing or creating files.
++
+ Find prints `(id, name)` for a matching row or `Not found.` otherwise.
+ It accepts exactly one decimal id from 0 to 4294967295; missing arguments,
+ negative ids, overflow, and trailing arguments are invalid statements.
+diff --git a/src/command.c b/src/command.c
+index 13c3564..d7fd091 100644
+--- a/src/command.c
++++ b/src/command.c
+@@ -25,8 +25,9 @@ static void print_status(DbStatus status) {
+ int command_dispatch(Table *table, const char *line) {
+     if (strcmp(line, ".exit") == 0) return 1;
+     if (strcmp(line, ".help") == 0) {
+-        puts("insert <uint32 id> <name>; delete <uint32 id>; rename <uint32 id> <new-name>; find <uint32 id>; select; count; .exit"); return 0;
++        puts("insert <uint32 id> <name>; delete <uint32 id>; rename <uint32 id> <new-name>; find <uint32 id>; select; count; clear; .exit"); return 0;
+     }
++    if (strcmp(line, "clear") == 0) { print_status(db_clear(table)); return 0; }
+     if (strcmp(line, "select") == 0) { db_select(table); return 0; }
+     if (strcmp(line, "count") == 0) {
+         printf("Count: %u\n", (unsigned)db_count(table)); return 0;
+diff --git a/src/db.c b/src/db.c
+index 1e884a3..cd0528b 100644
+--- a/src/db.c
++++ b/src/db.c
+@@ -27,6 +27,16 @@ DbStatus db_delete(Table *table, uint32_t id) {
+     *table = next;
+     return DB_OK;
+ }
++DbStatus db_clear(Table *table) {
++    if (table->count == 0) return DB_OK;
++    uint32_t original_count = table->count;
++    table->count = 0;
++    if (db_save(table) != 0) {
++        table->count = original_count;
++        return DB_IO_ERROR;
++    }
++    return DB_OK;
++}
+ DbStatus db_rename(Table *table, uint32_t id, const char *name) {
+     uint32_t index = 0;
+     while (index < table->count && table->rows[index].id != id) ++index;
+diff --git a/src/db.h b/src/db.h
+index 6967e90..56915c6 100644
+--- a/src/db.h
++++ b/src/db.h
+@@ -11,6 +11,7 @@ int db_load(Table *table);
+ int db_save(const Table *table);
+ DbStatus db_insert(Table *table, uint32_t id, const char *name);
+ DbStatus db_delete(Table *table, uint32_t id);
++DbStatus db_clear(Table *table);
+ DbStatus db_rename(Table *table, uint32_t id, const char *name);
+ const Row *db_find(const Table *table, uint32_t id);
+ void db_select(const Table *table);
+diff --git a/tests/test_db.py b/tests/test_db.py
+index 0182694..dd1c973 100644
+--- a/tests/test_db.py
++++ b/tests/test_db.py
+@@ -295,5 +295,88 @@ class DatabaseTests(unittest.TestCase):
+         self.assertEqual(result.stdout,'Executed.\n(9, recovered)\nCount: 3\n')
+         self.assertEqual(self.run_db('find 9\n').stdout,'(9, recovered)\n')
+ 
++
++    def test_clear_rows_queries_restart_and_repeat(self):
++        result=self.run_db('insert 0 zero\ninsert 7 seven\ninsert 4294967295 max\nclear\ncount\nselect\nfind 0\nfind 7\nfind 4294967295\n')
++        self.assertEqual(result.returncode,0)
++        self.assertEqual(result.stdout.splitlines(),[
++            'Executed.']*4+['Count: 0','Executed.']+['Not found.']*3)
++        database=self.path/'data.db'
++        empty=b'GDB1'+struct.pack('<I',0)
++        self.assertEqual(database.read_bytes(),empty)
++        before=database.stat()
++        # Block persistence to prove repeated clear never attempts a save.
++        (self.path/'data.db.tmp').mkdir()
++        result=self.run_db('count\nselect\nfind 7\nclear\nclear\ncount\n')
++        self.assertEqual(result.returncode,0)
++        self.assertEqual(result.stdout.splitlines(),[
++            'Count: 0','Executed.','Not found.','Executed.','Executed.','Count: 0'])
++        self.assertEqual(database.read_bytes(),empty)
++        self.assertEqual(database.stat().st_mtime_ns,before.st_mtime_ns)
++        self.assertEqual(database.stat().st_ino,before.st_ino)
++        (self.path/'data.db.tmp').rmdir()
++        result=self.run_db('insert 7 new\nfind 7\ncount\nselect\n')
++        self.assertEqual(result.returncode,0)
++        self.assertEqual(result.stdout.splitlines(),[
++            'Executed.','(7, new)','Count: 1','(7, new)','Executed.'])
++
++    def test_clear_initially_empty_is_read_only(self):
++        result=self.run_db('clear\nclear\ncount\nselect\nfind 0\n')
++        self.assertEqual(result.returncode,0)
++        self.assertEqual(result.stdout.splitlines(),[
++            'Executed.','Executed.','Count: 0','Executed.','Not found.'])
++        self.assertEqual(list(self.path.iterdir()),[])
++        (self.path/'data.db.tmp').mkdir()
++        result=self.run_db('clear\ncount\n')
++        self.assertEqual(result.returncode,0)
++        self.assertEqual(result.stdout,'Executed.\nCount: 0\n')
++        self.assertEqual([p.name for p in self.path.iterdir()],['data.db.tmp'])
++
++    def test_clear_extra_arguments_are_invalid(self):
++        invalid=['clear 0','clear extra','clear extra more','clear '+'x'*100]
++        for populated in (False,True):
++            if populated:
++                self.assertEqual(self.run_db('insert 0 zero\n').returncode,0)
++            database=self.path/'data.db'
++            before=database.read_bytes() if populated else None
++            result=self.run_db('\n'.join(invalid)+'\ncount\nselect\n.help\n')
++            self.assertEqual(result.returncode,0)
++            self.assertEqual(result.stdout.splitlines()[:-1],
++                             ['Error: invalid statement.']*len(invalid)
++                             +(['Count: 1','(0, zero)','Executed.'] if populated
++                               else ['Count: 0','Executed.']))
++            self.assertIn('; clear;',result.stdout)
++            if populated:
++                self.assertEqual(database.read_bytes(),before)
++            else:
++                self.assertFalse(database.exists())
++            self.assertFalse((self.path/'data.db.tmp').exists())
++
++    def test_clear_persistence_failure_restores_count_rows_and_disk(self):
++        self.assertEqual(self.run_db('insert 0 zero\ninsert 9 nine\ninsert 4294967295 max\n').returncode,0)
++        database=self.path/'data.db'
++        before=database.read_bytes()
++        before_stat=database.stat()
++        (self.path/'data.db.tmp').mkdir()
++        result=self.run_db('clear\ncount\nselect\nfind 9\nclear\ncount\n')
++        self.assertEqual(result.returncode,0)
++        self.assertEqual(result.stdout.splitlines(),[
++            'Error: persistence failed.','Count: 3','(0, zero)',
++            '(9, nine)','(4294967295, max)','Executed.','(9, nine)',
++            'Error: persistence failed.','Count: 3'])
++        self.assertEqual(database.read_bytes(),before)
++        self.assertEqual(database.stat().st_mtime_ns,before_stat.st_mtime_ns)
++        self.assertEqual(database.stat().st_ino,before_stat.st_ino)
++        result=self.run_db('count\nfind 9\nselect\n')
++        self.assertEqual(result.returncode,0)
++        self.assertEqual(result.stdout.splitlines(),[
++            'Count: 3','(9, nine)','(0, zero)','(9, nine)',
++            '(4294967295, max)','Executed.'])
++        (self.path/'data.db.tmp').rmdir()
++        result=self.run_db('clear\ncount\nselect\n')
++        self.assertEqual(result.returncode,0)
++        self.assertEqual(result.stdout,'Executed.\nCount: 0\nExecuted.\n')
++        self.assertEqual(database.read_bytes(),b'GDB1'+struct.pack('<I',0))
++
+ if __name__=='__main__':
+     unittest.main(verbosity=2)

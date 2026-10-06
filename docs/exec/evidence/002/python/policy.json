@@ -1,0 +1,18 @@
+{
+  "version": "001",
+  "approval_ttl": 300,
+  "git_executable": "/opt/homebrew/bin/git",
+  "git_remotes": {},
+  "commands": [
+    {
+      "argv": [
+        "/Library/Frameworks/Python.framework/Versions/3.12/bin/python3.12",
+        "-B",
+        "-m",
+        "unittest",
+        "discover",
+        "-v"
+      ]
+    }
+  ]
+}

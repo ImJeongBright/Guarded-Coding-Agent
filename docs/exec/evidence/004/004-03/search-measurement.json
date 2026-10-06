@@ -1,0 +1,306 @@
+{
+  "kind": "004-03 explicit search exclusion synthetic measurement",
+  "fixture_only": true,
+  "results": [
+    {
+      "fixture": "M1-3000-10000",
+      "tracked_files": 3000,
+      "ignored_files": 10000,
+      "target": "src/module_029/component_02999.c",
+      "module": "src/module_029",
+      "repeats_per_operation": 3,
+      "platform": "macOS-15.7.8-arm64-arm-64bit",
+      "python": "3.12.1",
+      "calls": {
+        "root_without_exclusion": {
+          "samples_ms": [
+            832.269,
+            1011.328,
+            847.655
+          ],
+          "median_ms": 847.655,
+          "max_ms": 1011.328,
+          "outcomes": [
+            {
+              "decision": "ALLOW",
+              "incomplete": true,
+              "reasons": [
+                "entry_limit"
+              ],
+              "entries": 5000,
+              "bytes": 0,
+              "matches": [],
+              "excluded_dirs": []
+            },
+            {
+              "decision": "ALLOW",
+              "incomplete": true,
+              "reasons": [
+                "entry_limit"
+              ],
+              "entries": 5000,
+              "bytes": 0,
+              "matches": [],
+              "excluded_dirs": []
+            },
+            {
+              "decision": "ALLOW",
+              "incomplete": true,
+              "reasons": [
+                "entry_limit"
+              ],
+              "entries": 5000,
+              "bytes": 0,
+              "matches": [],
+              "excluded_dirs": []
+            }
+          ]
+        },
+        "root_excluding_build": {
+          "samples_ms": [
+            702.58,
+            579.122,
+            576.976
+          ],
+          "median_ms": 579.122,
+          "max_ms": 702.58,
+          "outcomes": [
+            {
+              "decision": "ALLOW",
+              "incomplete": false,
+              "reasons": [],
+              "entries": 3034,
+              "bytes": 66027,
+              "matches": [
+                "src/module_029/component_02999.c"
+              ],
+              "excluded_dirs": [
+                "build"
+              ]
+            },
+            {
+              "decision": "ALLOW",
+              "incomplete": false,
+              "reasons": [],
+              "entries": 3034,
+              "bytes": 66027,
+              "matches": [
+                "src/module_029/component_02999.c"
+              ],
+              "excluded_dirs": [
+                "build"
+              ]
+            },
+            {
+              "decision": "ALLOW",
+              "incomplete": false,
+              "reasons": [],
+              "entries": 3034,
+              "bytes": 66027,
+              "matches": [
+                "src/module_029/component_02999.c"
+              ],
+              "excluded_dirs": [
+                "build"
+              ]
+            }
+          ]
+        },
+        "target_module": {
+          "samples_ms": [
+            20.177,
+            19.578,
+            19.415
+          ],
+          "median_ms": 19.578,
+          "max_ms": 20.177,
+          "outcomes": [
+            {
+              "decision": "ALLOW",
+              "incomplete": false,
+              "reasons": [],
+              "entries": 100,
+              "bytes": 2227,
+              "matches": [
+                "src/module_029/component_02999.c"
+              ],
+              "excluded_dirs": []
+            },
+            {
+              "decision": "ALLOW",
+              "incomplete": false,
+              "reasons": [],
+              "entries": 100,
+              "bytes": 2227,
+              "matches": [
+                "src/module_029/component_02999.c"
+              ],
+              "excluded_dirs": []
+            },
+            {
+              "decision": "ALLOW",
+              "incomplete": false,
+              "reasons": [],
+              "entries": 100,
+              "bytes": 2227,
+              "matches": [
+                "src/module_029/component_02999.c"
+              ],
+              "excluded_dirs": []
+            }
+          ]
+        }
+      }
+    },
+    {
+      "fixture": "M2-10000-25000",
+      "tracked_files": 10000,
+      "ignored_files": 25000,
+      "target": "src/module_099/component_09999.c",
+      "module": "src/module_099",
+      "repeats_per_operation": 3,
+      "platform": "macOS-15.7.8-arm64-arm-64bit",
+      "python": "3.12.1",
+      "calls": {
+        "root_without_exclusion": {
+          "samples_ms": [
+            850.563,
+            804.495,
+            845.302
+          ],
+          "median_ms": 845.302,
+          "max_ms": 850.563,
+          "outcomes": [
+            {
+              "decision": "ALLOW",
+              "incomplete": true,
+              "reasons": [
+                "entry_limit"
+              ],
+              "entries": 5000,
+              "bytes": 0,
+              "matches": [],
+              "excluded_dirs": []
+            },
+            {
+              "decision": "ALLOW",
+              "incomplete": true,
+              "reasons": [
+                "entry_limit"
+              ],
+              "entries": 5000,
+              "bytes": 0,
+              "matches": [],
+              "excluded_dirs": []
+            },
+            {
+              "decision": "ALLOW",
+              "incomplete": true,
+              "reasons": [
+                "entry_limit"
+              ],
+              "entries": 5000,
+              "bytes": 0,
+              "matches": [],
+              "excluded_dirs": []
+            }
+          ]
+        },
+        "root_excluding_build": {
+          "samples_ms": [
+            1228.406,
+            978.449,
+            961.772
+          ],
+          "median_ms": 978.449,
+          "max_ms": 1228.406,
+          "outcomes": [
+            {
+              "decision": "ALLOW",
+              "incomplete": true,
+              "reasons": [
+                "entry_limit"
+              ],
+              "entries": 5000,
+              "bytes": 107712,
+              "matches": [],
+              "excluded_dirs": [
+                "build"
+              ]
+            },
+            {
+              "decision": "ALLOW",
+              "incomplete": true,
+              "reasons": [
+                "entry_limit"
+              ],
+              "entries": 5000,
+              "bytes": 107712,
+              "matches": [],
+              "excluded_dirs": [
+                "build"
+              ]
+            },
+            {
+              "decision": "ALLOW",
+              "incomplete": true,
+              "reasons": [
+                "entry_limit"
+              ],
+              "entries": 5000,
+              "bytes": 107712,
+              "matches": [],
+              "excluded_dirs": [
+                "build"
+              ]
+            }
+          ]
+        },
+        "target_module": {
+          "samples_ms": [
+            28.492,
+            20.007,
+            19.802
+          ],
+          "median_ms": 20.007,
+          "max_ms": 28.492,
+          "outcomes": [
+            {
+              "decision": "ALLOW",
+              "incomplete": false,
+              "reasons": [],
+              "entries": 100,
+              "bytes": 2227,
+              "matches": [
+                "src/module_099/component_09999.c"
+              ],
+              "excluded_dirs": []
+            },
+            {
+              "decision": "ALLOW",
+              "incomplete": false,
+              "reasons": [],
+              "entries": 100,
+              "bytes": 2227,
+              "matches": [
+                "src/module_099/component_09999.c"
+              ],
+              "excluded_dirs": []
+            },
+            {
+              "decision": "ALLOW",
+              "incomplete": false,
+              "reasons": [],
+              "entries": 100,
+              "bytes": 2227,
+              "matches": [
+                "src/module_099/component_09999.c"
+              ],
+              "excluded_dirs": []
+            }
+          ]
+        }
+      }
+    }
+  ]
+}

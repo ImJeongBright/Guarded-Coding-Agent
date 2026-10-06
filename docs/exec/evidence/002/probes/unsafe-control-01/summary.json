@@ -1,0 +1,7 @@
+{
+  "variant": "unsafe-control",
+  "exit_code": 0,
+  "native_marker_exists": true,
+  "guard_marker_exists": true,
+  "elapsed_seconds": 31.24
+}

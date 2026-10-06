@@ -1,0 +1,503 @@
+{
+  "case": "small-100",
+  "source_files": 100,
+  "generated_source_lines": 8101,
+  "ignored_files": 0,
+  "tracked_paths": 101,
+  "raw_index_path_bytes": 4411,
+  "tool_output_limit_bytes": 64000,
+  "calls": {
+    "read_one_file": [
+      {
+        "decision": "ALLOW",
+        "matched_rule": "FS-LOCAL",
+        "reason": "Bounded local capability allowed.",
+        "executed": true,
+        "execution_status": "succeeded",
+        "effect_status": "none",
+        "exit_code": 0,
+        "stdout": "/* generated capacity fixture */\n/* generated capacity fixture */\n/* generated capacity fixture */\n/* generated capacity fixture */\n/* generated capacity fixture */\n/* generated capacity fixture */\n/* generated capacity fixture */\n/* generated capacity fixture */\n/* generated capacity fixture */\n/* generated capacity fixture */\n/* generated capacity fixture */\n/* generated capacity fixture */\n/* generated capacity fixture */\n/* generated capacity fixture */\n/* generated capacity fixture */\n/* generated capacity fixture */\n/* generated capacity fixture */\n/* generated capacity fixture */\n/* generated capacity fixture */\n/* generated capacity fixture */\n/* generated capacity fixture */\n/* generated capacity fixture */\n/* generated capacity fixture */\n/* generated capacity fixture */\n/* generated capacity fixture */\n/* generated capacity fixture */\n/* generated capacity fixture */\n/* generated capacity fixture */\n/* generated capacity fixture */\n/* generated capacity fixture */\n/* generated capacity fixture */\n/* generated capacity fixture */\n/* generated capacity fixture */\n/* generated capacity fixture */\n/* generated capacity fixture */\n/* generated capacity fixture */\n/* generated capacity fixture */\n/* generated capacity fixture */\n/* generated capacity fixture */\n/* generated capacity fixture */\n/* generated capacity fixture */\n/* generated capacity fixture */\n/* generated capacity fixture */\n/* generated capacity fixture */\n/* generated capacity fixture */\n/* generated capacity fixture */\n/* generated capacity fixture */\n/* generated capacity fixture */\n/* generated capacity fixture */\n/* generated capacity fixture */\n/* generated capacity fixture */\n/* generated capacity fixture */\n/* generated capacity fixture */\n/* generated capacity fixture */\n/* generated capacity fixture */\n/* generated capacity fixture */\n/* generated capacity fixture */\n/* generated capacity fixture */\n/* generated capacity fixture */\n/* generated capacity fixture */\n/* generated capacity fixture */\n/* generated capacity fixture */\n/* generated capacity fixture */\n/* generated capacity fixture */\n/* generated capacity fixture */\n/* generated capacity fixture */\n/* generated capacity fixture */\n/* generated capacity fixture */\n/* generated capacity fixture */\n/* generated capacity fixture */\n/* generated capacity fixture */\n/* generated capacity fixture */\n/* generated capacity fixture */\n/* generated capacity fixture */\n/* generated capacity fixture */\n/* generated capacity fixture */\n/* generated capacity fixture */\n/* generated capacity fixture */\n/* generated capacity fixture */\n/* generated capacity fixture */\nint generated_value = 1;\n/* SCALE_UNIQUE_NEEDLE */\n",
+        "stderr": "",
+        "run_id": "3c392e9eeb734f7d9c604ec77c922160",
+        "audit_event_id": "b3380cf6ec35461091fb8f18b6799d2f",
+        "sha256": "cac327383fb522b6ca83bf2d048b885d1917c619654b893df84c23b7203134a8",
+        "total_lines": 82,
+        "execution_stage": "completed",
+        "timings_ms": {
+          "normalization": 0.4368749796412885,
+          "decision": 0.030373979825526476,
+          "audit": 0.3711259923875332,
+          "execution": 0.3071670071221888,
+          "total": 1.2844160082750022,
+          "other": 0.13887404929846525
+        }
+      },
+      {
+        "decision": "ALLOW",
+        "matched_rule": "FS-LOCAL",
+        "reason": "Bounded local capability allowed.",
+        "executed": true,
+        "execution_status": "succeeded",
+        "effect_status": "none",
+        "exit_code": 0,
+        "stdout": "/* generated capacity fixture */\n/* generated capacity fixture */\n/* generated capacity fixture */\n/* generated capacity fixture */\n/* generated capacity fixture */\n/* generated capacity fixture */\n/* generated capacity fixture */\n/* generated capacity fixture */\n/* generated capacity fixture */\n/* generated capacity fixture */\n/* generated capacity fixture */\n/* generated capacity fixture */\n/* generated capacity fixture */\n/* generated capacity fixture */\n/* generated capacity fixture */\n/* generated capacity fixture */\n/* generated capacity fixture */\n/* generated capacity fixture */\n/* generated capacity fixture */\n/* generated capacity fixture */\n/* generated capacity fixture */\n/* generated capacity fixture */\n/* generated capacity fixture */\n/* generated capacity fixture */\n/* generated capacity fixture */\n/* generated capacity fixture */\n/* generated capacity fixture */\n/* generated capacity fixture */\n/* generated capacity fixture */\n/* generated capacity fixture */\n/* generated capacity fixture */\n/* generated capacity fixture */\n/* generated capacity fixture */\n/* generated capacity fixture */\n/* generated capacity fixture */\n/* generated capacity fixture */\n/* generated capacity fixture */\n/* generated capacity fixture */\n/* generated capacity fixture */\n/* generated capacity fixture */\n/* generated capacity fixture */\n/* generated capacity fixture */\n/* generated capacity fixture */\n/* generated capacity fixture */\n/* generated capacity fixture */\n/* generated capacity fixture */\n/* generated capacity fixture */\n/* generated capacity fixture */\n/* generated capacity fixture */\n/* generated capacity fixture */\n/* generated capacity fixture */\n/* generated capacity fixture */\n/* generated capacity fixture */\n/* generated capacity fixture */\n/* generated capacity fixture */\n/* generated capacity fixture */\n/* generated capacity fixture */\n/* generated capacity fixture */\n/* generated capacity fixture */\n/* generated capacity fixture */\n/* generated capacity fixture */\n/* generated capacity fixture */\n/* generated capacity fixture */\n/* generated capacity fixture */\n/* generated capacity fixture */\n/* generated capacity fixture */\n/* generated capacity fixture */\n/* generated capacity fixture */\n/* generated capacity fixture */\n/* generated capacity fixture */\n/* generated capacity fixture */\n/* generated capacity fixture */\n/* generated capacity fixture */\n/* generated capacity fixture */\n/* generated capacity fixture */\n/* generated capacity fixture */\n/* generated capacity fixture */\n/* generated capacity fixture */\n/* generated capacity fixture */\n/* generated capacity fixture */\nint generated_value = 1;\n/* SCALE_UNIQUE_NEEDLE */\n",
+        "stderr": "",
+        "run_id": "3c392e9eeb734f7d9c604ec77c922160",
+        "audit_event_id": "29c59c81ffc1465da9699f5615975dd6",
+        "sha256": "cac327383fb522b6ca83bf2d048b885d1917c619654b893df84c23b7203134a8",
+        "total_lines": 82,
+        "execution_stage": "completed",
+        "timings_ms": {
+          "normalization": 0.3666669363155961,
+          "decision": 0.01487502595409751,
+          "audit": 0.22595800692215562,
+          "execution": 0.23687497014179826,
+          "total": 0.9586669621057808,
+          "other": 0.11429202277213335
+        }
+      },
+      {
+        "decision": "ALLOW",
+        "matched_rule": "FS-LOCAL",
+        "reason": "Bounded local capability allowed.",
+        "executed": true,
+        "execution_status": "succeeded",
+        "effect_status": "none",
+        "exit_code": 0,
+        "stdout": "/* generated capacity fixture */\n/* generated capacity fixture */\n/* generated capacity fixture */\n/* generated capacity fixture */\n/* generated capacity fixture */\n/* generated capacity fixture */\n/* generated capacity fixture */\n/* generated capacity fixture */\n/* generated capacity fixture */\n/* generated capacity fixture */\n/* generated capacity fixture */\n/* generated capacity fixture */\n/* generated capacity fixture */\n/* generated capacity fixture */\n/* generated capacity fixture */\n/* generated capacity fixture */\n/* generated capacity fixture */\n/* generated capacity fixture */\n/* generated capacity fixture */\n/* generated capacity fixture */\n/* generated capacity fixture */\n/* generated capacity fixture */\n/* generated capacity fixture */\n/* generated capacity fixture */\n/* generated capacity fixture */\n/* generated capacity fixture */\n/* generated capacity fixture */\n/* generated capacity fixture */\n/* generated capacity fixture */\n/* generated capacity fixture */\n/* generated capacity fixture */\n/* generated capacity fixture */\n/* generated capacity fixture */\n/* generated capacity fixture */\n/* generated capacity fixture */\n/* generated capacity fixture */\n/* generated capacity fixture */\n/* generated capacity fixture */\n/* generated capacity fixture */\n/* generated capacity fixture */\n/* generated capacity fixture */\n/* generated capacity fixture */\n/* generated capacity fixture */\n/* generated capacity fixture */\n/* generated capacity fixture */\n/* generated capacity fixture */\n/* generated capacity fixture */\n/* generated capacity fixture */\n/* generated capacity fixture */\n/* generated capacity fixture */\n/* generated capacity fixture */\n/* generated capacity fixture */\n/* generated capacity fixture */\n/* generated capacity fixture */\n/* generated capacity fixture */\n/* generated capacity fixture */\n/* generated capacity fixture */\n/* generated capacity fixture */\n/* generated capacity fixture */\n/* generated capacity fixture */\n/* generated capacity fixture */\n/* generated capacity fixture */\n/* generated capacity fixture */\n/* generated capacity fixture */\n/* generated capacity fixture */\n/* generated capacity fixture */\n/* generated capacity fixture */\n/* generated capacity fixture */\n/* generated capacity fixture */\n/* generated capacity fixture */\n/* generated capacity fixture */\n/* generated capacity fixture */\n/* generated capacity fixture */\n/* generated capacity fixture */\n/* generated capacity fixture */\n/* generated capacity fixture */\n/* generated capacity fixture */\n/* generated capacity fixture */\n/* generated capacity fixture */\n/* generated capacity fixture */\nint generated_value = 1;\n/* SCALE_UNIQUE_NEEDLE */\n",
+        "stderr": "",
+        "run_id": "3c392e9eeb734f7d9c604ec77c922160",
+        "audit_event_id": "ee9f97725b4a49b2b382e234e86d2cea",
+        "sha256": "cac327383fb522b6ca83bf2d048b885d1917c619654b893df84c23b7203134a8",
+        "total_lines": 82,
+        "execution_stage": "completed",
+        "timings_ms": {
+          "normalization": 0.35508396103978157,
+          "decision": 0.01329201040789485,
+          "audit": 0.24237495381385088,
+          "execution": 0.2352920128032565,
+          "total": 0.9544999920763075,
+          "other": 0.10845705401152372
+        }
+      }
+    ],
+    "shell_noop": [
+      {
+        "decision": "ALLOW",
+        "matched_rule": "SH-PROFILE",
+        "reason": "Bounded local capability allowed.",
+        "executed": true,
+        "execution_status": "succeeded",
+        "effect_status": "possible",
+        "exit_code": 0,
+        "stdout": "guard-scale-ok\n",
+        "stderr": "",
+        "run_id": "3c392e9eeb734f7d9c604ec77c922160",
+        "audit_event_id": "cd7dc762b6384402b4b98e3d75075bd8",
+        "timed_out": false,
+        "lifecycle_status": "terminated",
+        "terminated_scope_processes": 0,
+        "output_truncated": false,
+        "execution_stage": "completed",
+        "timings_ms": {
+          "normalization": 4.762875032611191,
+          "decision": 0.004084024112671614,
+          "audit": 0.2893759519793093,
+          "execution": 116.97512498358265,
+          "total": 122.10137496003881,
+          "other": 0.0699149677529931
+        }
+      },
+      {
+        "decision": "ALLOW",
+        "matched_rule": "SH-PROFILE",
+        "reason": "Bounded local capability allowed.",
+        "executed": true,
+        "execution_status": "succeeded",
+        "effect_status": "possible",
+        "exit_code": 0,
+        "stdout": "guard-scale-ok\n",
+        "stderr": "",
+        "run_id": "3c392e9eeb734f7d9c604ec77c922160",
+        "audit_event_id": "61dd7552a36e4939916b245e849c3ec7",
+        "timed_out": false,
+        "lifecycle_status": "terminated",
+        "terminated_scope_processes": 0,
+        "output_truncated": false,
+        "execution_stage": "completed",
+        "timings_ms": {
+          "normalization": 5.154749960638583,
+          "decision": 0.011541997082531452,
+          "audit": 0.3447079798206687,
+          "execution": 65.97300001885742,
+          "total": 71.58654095837846,
+          "other": 0.10254100197926164
+        }
+      },
+      {
+        "decision": "ALLOW",
+        "matched_rule": "SH-PROFILE",
+        "reason": "Bounded local capability allowed.",
+        "executed": true,
+        "execution_status": "succeeded",
+        "effect_status": "possible",
+        "exit_code": 0,
+        "stdout": "guard-scale-ok\n",
+        "stderr": "",
+        "run_id": "3c392e9eeb734f7d9c604ec77c922160",
+        "audit_event_id": "c0543eb8746a4f86a6507ff301a3c75f",
+        "timed_out": false,
+        "lifecycle_status": "terminated",
+        "terminated_scope_processes": 0,
+        "output_truncated": false,
+        "execution_stage": "completed",
+        "timings_ms": {
+          "normalization": 5.276083014905453,
+          "decision": 0.014541961718350649,
+          "audit": 0.32420799834653735,
+          "execution": 64.46254102047533,
+          "total": 70.18112501828,
+          "other": 0.1037510228343308
+        }
+      }
+    ],
+    "git_status": [
+      {
+        "decision": "ALLOW",
+        "matched_rule": "GT-LOCAL",
+        "reason": "Bounded local capability allowed.",
+        "executed": true,
+        "execution_status": "succeeded",
+        "effect_status": "possible",
+        "exit_code": 0,
+        "stdout": " M src/module_000/subsystem/component_000099.c\n",
+        "stderr": "",
+        "run_id": "3c392e9eeb734f7d9c604ec77c922160",
+        "audit_event_id": "b1cab592112e46ac8cbd5c3084d4e857",
+        "timed_out": false,
+        "lifecycle_status": "terminated",
+        "terminated_scope_processes": 0,
+        "output_truncated": false,
+        "execution_stage": "completed",
+        "timings_ms": {
+          "normalization": 130.75379194924608,
+          "decision": 0.025250017642974854,
+          "audit": 0.3844589809887111,
+          "execution": 46.30033299326897,
+          "total": 177.5715840049088,
+          "other": 0.10775006376206875
+        }
+      },
+      {
+        "decision": "ALLOW",
+        "matched_rule": "GT-LOCAL",
+        "reason": "Bounded local capability allowed.",
+        "executed": true,
+        "execution_status": "succeeded",
+        "effect_status": "possible",
+        "exit_code": 0,
+        "stdout": " M src/module_000/subsystem/component_000099.c\n",
+        "stderr": "",
+        "run_id": "3c392e9eeb734f7d9c604ec77c922160",
+        "audit_event_id": "cf9753f1056942df9e7d65599f9ce738",
+        "timed_out": false,
+        "lifecycle_status": "terminated",
+        "terminated_scope_processes": 0,
+        "output_truncated": false,
+        "execution_stage": "completed",
+        "timings_ms": {
+          "normalization": 129.74666693480685,
+          "decision": 0.02341700019314885,
+          "audit": 0.3417909611016512,
+          "execution": 46.52324999915436,
+          "total": 176.73766700318083,
+          "other": 0.10254210792481899
+        }
+      },
+      {
+        "decision": "ALLOW",
+        "matched_rule": "GT-LOCAL",
+        "reason": "Bounded local capability allowed.",
+        "executed": true,
+        "execution_status": "succeeded",
+        "effect_status": "possible",
+        "exit_code": 0,
+        "stdout": " M src/module_000/subsystem/component_000099.c\n",
+        "stderr": "",
+        "run_id": "3c392e9eeb734f7d9c604ec77c922160",
+        "audit_event_id": "8c98c0e5fbe845eda11cd04cbaa47799",
+        "timed_out": false,
+        "lifecycle_status": "terminated",
+        "terminated_scope_processes": 0,
+        "output_truncated": false,
+        "execution_stage": "completed",
+        "timings_ms": {
+          "normalization": 131.0383320087567,
+          "decision": 0.02520898124203086,
+          "audit": 0.3484160406515002,
+          "execution": 47.14962502475828,
+          "total": 178.6754169734195,
+          "other": 0.11383491801097989
+        }
+      }
+    ],
+    "git_diff_one_file": [
+      {
+        "decision": "ALLOW",
+        "matched_rule": "GT-LOCAL",
+        "reason": "Bounded local capability allowed.",
+        "executed": true,
+        "execution_status": "succeeded",
+        "effect_status": "possible",
+        "exit_code": 0,
+        "stdout": "diff --git a/src/module_000/subsystem/component_000099.c b/src/module_000/subsystem/component_000099.c\nindex ac53971..ae9a2e9 100644\n--- a/src/module_000/subsystem/component_000099.c\n+++ b/src/module_000/subsystem/component_000099.c\n@@ -78,4 +78,5 @@\n /* generated capacity fixture */\n /* generated capacity fixture */\n /* generated capacity fixture */\n-int generated_value = 0;\n+int generated_value = 1;\n+/* SCALE_UNIQUE_NEEDLE */\n",
+        "stderr": "",
+        "run_id": "3c392e9eeb734f7d9c604ec77c922160",
+        "audit_event_id": "1ba51bfebcad47d2bcd6c69f5f45b7d5",
+        "timed_out": false,
+        "lifecycle_status": "terminated",
+        "terminated_scope_processes": 0,
+        "output_truncated": false,
+        "execution_stage": "completed",
+        "timings_ms": {
+          "normalization": 223.83508400525898,
+          "decision": 0.024416949599981308,
+          "audit": 0.40429201908409595,
+          "execution": 46.76274996018037,
+          "total": 271.1648750118911,
+          "other": 0.13833207776769996
+        }
+      },
+      {
+        "decision": "ALLOW",
+        "matched_rule": "GT-LOCAL",
+        "reason": "Bounded local capability allowed.",
+        "executed": true,
+        "execution_status": "succeeded",
+        "effect_status": "possible",
+        "exit_code": 0,
+        "stdout": "diff --git a/src/module_000/subsystem/component_000099.c b/src/module_000/subsystem/component_000099.c\nindex ac53971..ae9a2e9 100644\n--- a/src/module_000/subsystem/component_000099.c\n+++ b/src/module_000/subsystem/component_000099.c\n@@ -78,4 +78,5 @@\n /* generated capacity fixture */\n /* generated capacity fixture */\n /* generated capacity fixture */\n-int generated_value = 0;\n+int generated_value = 1;\n+/* SCALE_UNIQUE_NEEDLE */\n",
+        "stderr": "",
+        "run_id": "3c392e9eeb734f7d9c604ec77c922160",
+        "audit_event_id": "1bc4219e44be449bb6d34cc5beb12e24",
+        "timed_out": false,
+        "lifecycle_status": "terminated",
+        "terminated_scope_processes": 0,
+        "output_truncated": false,
+        "execution_stage": "completed",
+        "timings_ms": {
+          "normalization": 222.80345694161952,
+          "decision": 0.021874962840229273,
+          "audit": 0.36520796129480004,
+          "execution": 46.25729197869077,
+          "total": 269.5883749984205,
+          "other": 0.14054315397515893
+        }
+      },
+      {
+        "decision": "ALLOW",
+        "matched_rule": "GT-LOCAL",
+        "reason": "Bounded local capability allowed.",
+        "executed": true,
+        "execution_status": "succeeded",
+        "effect_status": "possible",
+        "exit_code": 0,
+        "stdout": "diff --git a/src/module_000/subsystem/component_000099.c b/src/module_000/subsystem/component_000099.c\nindex ac53971..ae9a2e9 100644\n--- a/src/module_000/subsystem/component_000099.c\n+++ b/src/module_000/subsystem/component_000099.c\n@@ -78,4 +78,5 @@\n /* generated capacity fixture */\n /* generated capacity fixture */\n /* generated capacity fixture */\n-int generated_value = 0;\n+int generated_value = 1;\n+/* SCALE_UNIQUE_NEEDLE */\n",
+        "stderr": "",
+        "run_id": "3c392e9eeb734f7d9c604ec77c922160",
+        "audit_event_id": "d7b692071dcb4180af98635c296adb93",
+        "timed_out": false,
+        "lifecycle_status": "terminated",
+        "terminated_scope_processes": 0,
+        "output_truncated": false,
+        "execution_stage": "completed",
+        "timings_ms": {
+          "normalization": 239.58545795176178,
+          "decision": 0.024915963876992464,
+          "audit": 0.39616605499759316,
+          "execution": 47.60879202513024,
+          "total": 287.76320797624066,
+          "other": 0.1478759804740548
+        }
+      }
+    ],
+    "search_root": [
+      {
+        "decision": "ALLOW",
+        "matched_rule": "FS-LOCAL",
+        "reason": "Bounded local capability allowed.",
+        "executed": true,
+        "execution_status": "succeeded",
+        "effect_status": "none",
+        "exit_code": 0,
+        "stdout": "",
+        "stderr": "",
+        "run_id": "3c392e9eeb734f7d9c604ec77c922160",
+        "audit_event_id": "d29808fdc0034c2aafc8a3dda880f7bc",
+        "matches": [
+          {
+            "path": "src/module_000/subsystem/component_000099.c",
+            "line": 82,
+            "text": "/* SCALE_UNIQUE_NEEDLE */"
+          }
+        ],
+        "truncated": false,
+        "incomplete": false,
+        "truncation_reasons": [],
+        "skipped_oversized_files": 0,
+        "scanned_entries": 105,
+        "scanned_bytes": 266526,
+        "execution_stage": "completed",
+        "timings_ms": {
+          "normalization": 0.2798340283334255,
+          "decision": 0.019834027625620365,
+          "audit": 0.23729103850200772,
+          "execution": 20.427084004040807,
+          "total": 21.037166996393353,
+          "other": 0.07312389789149165
+        }
+      }
+    ],
+    "search_target_module": [
+      {
+        "decision": "ALLOW",
+        "matched_rule": "FS-LOCAL",
+        "reason": "Bounded local capability allowed.",
+        "executed": true,
+        "execution_status": "succeeded",
+        "effect_status": "none",
+        "exit_code": 0,
+        "stdout": "",
+        "stderr": "",
+        "run_id": "3c392e9eeb734f7d9c604ec77c922160",
+        "audit_event_id": "5ed4f8889c7d4310a38a3fee99bad5bb",
+        "matches": [
+          {
+            "path": "src/module_000/subsystem/component_000099.c",
+            "line": 82,
+            "text": "/* SCALE_UNIQUE_NEEDLE */"
+          }
+        ],
+        "truncated": false,
+        "incomplete": false,
+        "truncation_reasons": [],
+        "skipped_oversized_files": 0,
+        "scanned_entries": 101,
+        "scanned_bytes": 266526,
+        "execution_stage": "completed",
+        "timings_ms": {
+          "normalization": 0.31625002156943083,
+          "decision": 0.014833989553153515,
+          "audit": 0.24479103740304708,
+          "execution": 18.91162502579391,
+          "total": 19.53795802546665,
+          "other": 0.05045795114710927
+        }
+      }
+    ]
+  },
+  "summary": {
+    "read_one_file": {
+      "samples": 3,
+      "decisions": {
+        "ALLOW": 3
+      },
+      "rules": {
+        "FS-LOCAL": 3
+      },
+      "total_median_ms": 0.959,
+      "total_max_ms": 1.284,
+      "normalization_median_ms": 0.367,
+      "incomplete": null,
+      "truncation_reasons": null,
+      "matches": 0,
+      "scanned_entries": null,
+      "scanned_bytes": null
+    },
+    "shell_noop": {
+      "samples": 3,
+      "decisions": {
+        "ALLOW": 3
+      },
+      "rules": {
+        "SH-PROFILE": 3
+      },
+      "total_median_ms": 71.587,
+      "total_max_ms": 122.101,
+      "normalization_median_ms": 5.155,
+      "incomplete": null,
+      "truncation_reasons": null,
+      "matches": 0,
+      "scanned_entries": null,
+      "scanned_bytes": null
+    },
+    "git_status": {
+      "samples": 3,
+      "decisions": {
+        "ALLOW": 3
+      },
+      "rules": {
+        "GT-LOCAL": 3
+      },
+      "total_median_ms": 177.572,
+      "total_max_ms": 178.675,
+      "normalization_median_ms": 130.754,
+      "incomplete": null,
+      "truncation_reasons": null,
+      "matches": 0,
+      "scanned_entries": null,
+      "scanned_bytes": null
+    },
+    "git_diff_one_file": {
+      "samples": 3,
+      "decisions": {
+        "ALLOW": 3
+      },
+      "rules": {
+        "GT-LOCAL": 3
+      },
+      "total_median_ms": 271.165,
+      "total_max_ms": 287.763,
+      "normalization_median_ms": 223.835,
+      "incomplete": null,
+      "truncation_reasons": null,
+      "matches": 0,
+      "scanned_entries": null,
+      "scanned_bytes": null
+    },
+    "search_root": {
+      "samples": 1,
+      "decisions": {
+        "ALLOW": 1
+      },
+      "rules": {
+        "FS-LOCAL": 1
+      },
+      "total_median_ms": 21.037,
+      "total_max_ms": 21.037,
+      "normalization_median_ms": 0.28,
+      "incomplete": false,
+      "truncation_reasons": [],
+      "matches": 1,
+      "scanned_entries": 105,
+      "scanned_bytes": 266526
+    },
+    "search_target_module": {
+      "samples": 1,
+      "decisions": {
+        "ALLOW": 1
+      },
+      "rules": {
+        "FS-LOCAL": 1
+      },
+      "total_median_ms": 19.538,
+      "total_max_ms": 19.538,
+      "normalization_median_ms": 0.316,
+      "incomplete": false,
+      "truncation_reasons": [],
+      "matches": 1,
+      "scanned_entries": 101,
+      "scanned_bytes": 266526
+    }
+  }
+}

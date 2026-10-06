@@ -1,0 +1,77 @@
+{
+  "purpose": "Portable review copies; local paths are replaced and original hashes are retained.",
+  "files": [
+    {
+      "raw_relative_path": "search-measurement.json",
+      "portable_path": "search-measurement.json",
+      "raw_sha256": "7ed13aa102bab76fd60260e78e2fd2962cacbdc08137c8e3126fc83f667ffff2",
+      "portable_sha256": "7ed13aa102bab76fd60260e78e2fd2962cacbdc08137c8e3126fc83f667ffff2",
+      "transformed": false
+    },
+    {
+      "raw_relative_path": "search.py",
+      "portable_path": "search.py",
+      "raw_sha256": "e5bb06e7f5ae1dd3369ee27ec649f741f809d8a917082118cff69cb9c9e5d751",
+      "portable_sha256": "e5bb06e7f5ae1dd3369ee27ec649f741f809d8a917082118cff69cb9c9e5d751",
+      "transformed": false
+    },
+    {
+      "raw_relative_path": "regression-004-03.json",
+      "portable_path": "regression-004-03.json",
+      "raw_sha256": "7d8e6f6432ac46123b3890bc4191e2883d200216eefce49d08a149b1f2701c8f",
+      "portable_sha256": "7d8e6f6432ac46123b3890bc4191e2883d200216eefce49d08a149b1f2701c8f",
+      "transformed": false
+    },
+    {
+      "raw_relative_path": "regression-004-03.log",
+      "portable_path": "regression-004-03.log",
+      "raw_sha256": "45caa33694a7979e3e8d5ca2a4e3d18ee8dba3eccaf75a786dcf826eb37aaf65",
+      "portable_sha256": "45caa33694a7979e3e8d5ca2a4e3d18ee8dba3eccaf75a786dcf826eb37aaf65",
+      "transformed": false
+    },
+    {
+      "raw_relative_path": "$REPO/tests/test_scale_search.py",
+      "portable_path": "regression/test_scale_search.py",
+      "raw_sha256": "5f5f0b7a228313ed851fb9229e5f8690130ad7f8bd3836c6ad02b9477a3e787d",
+      "portable_sha256": "5f5f0b7a228313ed851fb9229e5f8690130ad7f8bd3836c6ad02b9477a3e787d",
+      "transformed": false
+    },
+    {
+      "raw_relative_path": "$REPO/tests/test_workflow_003.py",
+      "portable_path": "regression/test_workflow_003.py",
+      "raw_sha256": "5f0530bafbc5cacde1e94309a3463d383bbf60e2952711e81f59a4983ea3e038",
+      "portable_sha256": "5f0530bafbc5cacde1e94309a3463d383bbf60e2952711e81f59a4983ea3e038",
+      "transformed": false
+    },
+    {
+      "raw_relative_path": "M1-3000-10000-search-state/audit.jsonl",
+      "portable_path": "M1-3000-10000/audit.jsonl",
+      "raw_sha256": "8e0501df643b5ebbe8b17471e53f69bbb09bf5ec692055a19c01aaed42165fad",
+      "portable_sha256": "8e0501df643b5ebbe8b17471e53f69bbb09bf5ec692055a19c01aaed42165fad",
+      "transformed": false
+    },
+    {
+      "raw_relative_path": "M2-10000-25000-search-state/audit.jsonl",
+      "portable_path": "M2-10000-25000/audit.jsonl",
+      "raw_sha256": "5daf5ea98e27b395c0c7e92510790a71e1a0f4e3d3053df478aa423f76028278",
+      "portable_sha256": "5daf5ea98e27b395c0c7e92510790a71e1a0f4e3d3053df478aa423f76028278",
+      "transformed": false
+    }
+  ],
+  "cases": [
+    {
+      "case": "M1-3000-10000",
+      "baseline_head": "d5471c1598ca666b05522c2c1871cc2b0d560a4f",
+      "policy_digest": "77e7e4781aebc4b44bf367fc77792670a292c93ce681d13ec93b27b42034f8e7",
+      "normalized_policy_sha256": "45a6da424c80906516cb57a9c0ac7b71c41d306c53d5c408d5a30d46f8d8b17a",
+      "audit_sha256": "8e0501df643b5ebbe8b17471e53f69bbb09bf5ec692055a19c01aaed42165fad"
+    },
+    {
+      "case": "M2-10000-25000",
+      "baseline_head": "5a629d1cf7eb57aee32cda0cca24a8e2a13beed1",
+      "policy_digest": "77e7e4781aebc4b44bf367fc77792670a292c93ce681d13ec93b27b42034f8e7",
+      "normalized_policy_sha256": "45a6da424c80906516cb57a9c0ac7b71c41d306c53d5c408d5a30d46f8d8b17a",
+      "audit_sha256": "5daf5ea98e27b395c0c7e92510790a71e1a0f4e3d3053df478aa423f76028278"
+    }
+  ]
+}

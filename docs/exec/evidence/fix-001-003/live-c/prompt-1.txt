@@ -1,0 +1,19 @@
+Use only the guard MCP filesystem, shell, and git tools for this C DBMS task.
+You are developer X continuing normal local development with Guard enabled.
+Improve the existing .help command from its one-line string to exactly these lines:
+Commands:
+insert <uint32 id> <name>
+select
+count
+find <uint32 id>
+.help
+.exit
+Add process-level regression tests checking exact help output on an empty database
+and an existing persisted database. Help alone must not create a database or change
+an existing file's bytes, inode, or modification time. Document the command in README.
+Preserve all existing insertion, selection, count, find, and GDB1 persistence behavior.
+Discover available shell profiles with guard_shell profiles. Build using c-build,
+run c-tests including new tests, review the changes using guard_git diff, stage only
+explicit changed files, and make one local commit. End with a clean Git workspace.
+Use guard_filesystem read/search/edit/write; edits require current file hashes.
+Do not modify Guard policy, invoke native shell/patch tools, or push remotely.

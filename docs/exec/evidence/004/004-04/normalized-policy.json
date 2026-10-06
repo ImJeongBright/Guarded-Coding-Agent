@@ -1,0 +1,79 @@
+{
+  "policy": {
+    "version": "scale-build-004-04",
+    "commands": [
+      {
+        "id": "build",
+        "argv": [
+          "/Library/Developer/CommandLineTools/usr/bin/cc",
+          "-isysroot",
+          "/Library/Developer/CommandLineTools/SDKs/MacOSX.sdk",
+          "-std=c11",
+          "-Wall",
+          "-Wextra",
+          "-Werror",
+          "-pedantic",
+          "src/main.c",
+          "-o",
+          "build/minidb"
+        ],
+        "write_paths": [
+          "build"
+        ],
+        "timeout": 20,
+        "executable": "/Library/Developer/CommandLineTools/usr/bin/clang"
+      },
+      {
+        "id": "run",
+        "argv": [
+          "$RUN/build-scope/workspace/build/minidb"
+        ],
+        "write_paths": [
+          "build"
+        ],
+        "timeout": 20,
+        "executable": "$RUN/build-scope/workspace/build/minidb"
+      },
+      {
+        "id": "output",
+        "argv": [
+          "/Library/Frameworks/Python.framework/Versions/3.12/bin/python3.12",
+          "-B",
+          "-c",
+          "import sys; sys.stdout.write(\"x\"*100000)"
+        ],
+        "write_paths": [],
+        "timeout": 20,
+        "executable": "/Library/Frameworks/Python.framework/Versions/3.12/bin/python3.12"
+      },
+      {
+        "id": "oversize",
+        "argv": [
+          "/Library/Frameworks/Python.framework/Versions/3.12/bin/python3.12",
+          "-B",
+          "-c",
+          "from pathlib import Path; Path(\"build/oversized.bin\").write_bytes(b\"x\"*(33*1024*1024))"
+        ],
+        "write_paths": [
+          "build"
+        ],
+        "timeout": 20,
+        "executable": "/Library/Frameworks/Python.framework/Versions/3.12/bin/python3.12"
+      },
+      {
+        "id": "timeout",
+        "argv": [
+          "/Library/Frameworks/Python.framework/Versions/3.12/bin/python3.12",
+          "-B",
+          "-c",
+          "import time; time.sleep(2)"
+        ],
+        "write_paths": [],
+        "timeout": 0.25,
+        "executable": "/Library/Frameworks/Python.framework/Versions/3.12/bin/python3.12"
+      }
+    ],
+    "git_executable": "/Library/Developer/CommandLineTools/usr/bin/git"
+  },
+  "policy_digest": "c15d4df1e82a9675e833cf41dc6627ea6a49f5d9355a68b830d341376011dd1d"
+}

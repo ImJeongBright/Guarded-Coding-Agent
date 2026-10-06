@@ -1,0 +1,199 @@
+{
+  "discovery_seconds": 0.0033846250153146684,
+  "review_started_at": 1791109333.690311,
+  "candidate": {
+    "workspace": "$RUN/domain/workspace",
+    "workspace_identity": [
+      16777231,
+      145834683
+    ],
+    "policy_digest": "72d09c67b33e77e02809db37fe9b4ce958f08b4fb81d06aecdde71ff1e3b7bd6",
+    "sources": {
+      "package.json": "ad01a3a6df629702de577a5433e1e1fbd6372435a2289889426e81c37a4311bc"
+    },
+    "commands": [
+      {
+        "id": "node-tests",
+        "argv": [
+          "$HOME/.nvm/versions/node/v24.20.0/bin/node",
+          "--experimental-strip-types",
+          "--test",
+          "test/*.test.mjs"
+        ],
+        "cwd": ".",
+        "write_paths": [],
+        "filter": {
+          "kind": "node-test-literal",
+          "position": 3
+        }
+      }
+    ],
+    "notes": [],
+    "digest": "d737be17c8b1db806bfebd124ae3fd5b804d8727e04e882fffe1d494918658ee"
+  },
+  "apply_seconds": 0.003403209033422172,
+  "agent_operator_review_elapsed_seconds": 22.387404918670654,
+  "human_operator_review_measured": false,
+  "same_request_replay": [
+    {
+      "request": {
+        "tool": "shell",
+        "operation": "exec",
+        "argv": [
+          "$HOME/.nvm/versions/node/v24.20.0/bin/node",
+          "--experimental-strip-types",
+          "--test",
+          "--test-name-pattern",
+          "score",
+          "test/*.test.mjs"
+        ]
+      },
+      "result": {
+        "decision": "ALLOW",
+        "matched_rule": "SH-PROFILE",
+        "reason": "Bounded local capability allowed.",
+        "executed": true,
+        "exit_code": 0,
+        "stdout": "✔ reasoning with sources, evidence and causal links scores above an unsupported guess (1.028625ms)\n✔ an action aligned with the stock forecast receives a higher consistency score (0.1585ms)\nℹ tests 2\nℹ suites 0\nℹ pass 2\nℹ fail 0\nℹ cancelled 0\nℹ skipped 0\nℹ todo 0\nℹ duration_ms 76.334458\n",
+        "stderr": "",
+        "run_id": "fa809ccb42b84794b91dd58b4ca0b211",
+        "audit_event_id": "aca8dce0bcc441fd8112d099f45f1dec",
+        "timed_out": false,
+        "output_truncated": false,
+        "timings_ms": {
+          "normalization": 4.1632920620031655,
+          "decision": 0.008084054570645094,
+          "audit": 0.3909579827450216,
+          "execution": 141.82154199806973,
+          "total": 146.4704999816604,
+          "other": 0.08662388427183032
+        }
+      }
+    },
+    {
+      "request": {
+        "tool": "filesystem",
+        "operation": "search",
+        "path": "src",
+        "query": "evaluateDecision"
+      },
+      "result": {
+        "decision": "ALLOW",
+        "matched_rule": "FS-LOCAL",
+        "reason": "Bounded local capability allowed.",
+        "executed": true,
+        "exit_code": 0,
+        "stdout": "",
+        "stderr": "",
+        "run_id": "fa809ccb42b84794b91dd58b4ca0b211",
+        "audit_event_id": "026c0daa676a4dca830a986216a1cafb",
+        "matches": [
+          {
+            "path": "src/decision-feedback.ts",
+            "line": 91,
+            "text": "export function evaluateDecision(input: EvaluationInput): DecisionFeedback {"
+          }
+        ],
+        "truncated": false,
+        "scanned_entries": 3,
+        "scanned_bytes": 28281,
+        "timings_ms": {
+          "normalization": 0.5464579444378614,
+          "decision": 0.024667067918926477,
+          "audit": 0.21458405535668135,
+          "execution": 0.9569170069880784,
+          "total": 1.7971669440157712,
+          "other": 0.05454086931422353
+        }
+      }
+    },
+    {
+      "request": {
+        "tool": "filesystem",
+        "operation": "read",
+        "path": "src/decision-feedback.ts",
+        "start_line": 1,
+        "end_line": 20
+      },
+      "result": {
+        "decision": "ALLOW",
+        "matched_rule": "FS-LOCAL",
+        "reason": "Bounded local capability allowed.",
+        "executed": true,
+        "exit_code": 0,
+        "stdout": "export type Direction = 'up' | 'flat' | 'down';\n\nexport type FeedbackScore = {\n  evidence: number;\n  causality: number;\n  prediction: number;\n  action: number;\n  uncertainty: number;\n  total: number;\n};\n\nexport type ForecastFeedback = {\n  key: string;\n  name: string;\n  predicted: Direction;\n  actual: Direction | null;\n  correct: boolean | null;\n};\n\nexport type DecisionFeedback = {\n",
+        "stderr": "",
+        "run_id": "fa809ccb42b84794b91dd58b4ca0b211",
+        "audit_event_id": "96d013b187754ffea3b5fbf54a41b835",
+        "sha256": "04431844bce51e5af0e2e920e9b96d88a128179e1704e2df3543730dded14050",
+        "total_lines": 189,
+        "timings_ms": {
+          "normalization": 0.3886250196956098,
+          "decision": 0.015208031982183456,
+          "audit": 0.21479104179888964,
+          "execution": 0.2636669669300318,
+          "total": 0.9347079903818667,
+          "other": 0.052416929975152016
+        }
+      }
+    },
+    {
+      "request": {
+        "tool": "filesystem",
+        "operation": "edit",
+        "path": "src/decision-feedback.ts",
+        "old_text": "[OMITTED]",
+        "new_text": "[OMITTED]",
+        "expected_sha256": "04431844bce51e5af0e2e920e9b96d88a128179e1704e2df3543730dded14050"
+      },
+      "result": {
+        "decision": "ALLOW",
+        "matched_rule": "FS-LOCAL",
+        "reason": "Bounded local capability allowed.",
+        "executed": true,
+        "exit_code": 0,
+        "stdout": "Edited one unique occurrence.",
+        "stderr": "",
+        "run_id": "fa809ccb42b84794b91dd58b4ca0b211",
+        "audit_event_id": "be4b6028b4b14a4a98081eff4418b208",
+        "sha256": "04431844bce51e5af0e2e920e9b96d88a128179e1704e2df3543730dded14050",
+        "timings_ms": {
+          "normalization": 0.3879590076394379,
+          "decision": 0.014083983842283487,
+          "audit": 0.228332937695086,
+          "execution": 0.522291986271739,
+          "total": 1.1943750432692468,
+          "other": 0.04170712782070041
+        }
+      }
+    },
+    {
+      "request": {
+        "tool": "git",
+        "operation": "diff",
+        "staged": true
+      },
+      "result": {
+        "decision": "ALLOW",
+        "matched_rule": "GT-LOCAL",
+        "reason": "Bounded local capability allowed.",
+        "executed": true,
+        "exit_code": 0,
+        "stdout": "",
+        "stderr": "git: error: couldn't create cache file '/var/folders/c3/dz20673d3ld80mj1_sl129180000gn/T/xcrun_db-lymsBRsG' (errno=Operation not permitted)\ngit: error: couldn't create cache file '/var/folders/c3/dz20673d3ld80mj1_sl129180000gn/T/xcrun_db-QnVBPuL4' (errno=Operation not permitted)\n",
+        "run_id": "fa809ccb42b84794b91dd58b4ca0b211",
+        "audit_event_id": "a96f157a81564a8090e1e9ffa5c2bf43",
+        "timed_out": false,
+        "output_truncated": false,
+        "timings_ms": {
+          "normalization": 79.82225104933605,
+          "decision": 0.032250070944428444,
+          "audit": 0.3902920288965106,
+          "execution": 27.075791032984853,
+          "total": 107.45141695952043,
+          "other": 0.13083277735859156
+        }
+      }
+    }
+  ]
+}

@@ -1,0 +1,194 @@
+diff --git a/README.md b/README.md
+index dab57a3..1b89a20 100644
+--- a/README.md
++++ b/README.md
+@@ -1,3 +1,32 @@
+-# Local experiment
++# Decimal ledger
+ 
+-Fix the ledger bug where debit amounts increase the balance. Add `transfer(balances, source, target, amount)` returning a new balance dict using exact Decimal arithmetic; preserve the input dict. Reject unknown accounts, same source and target, non-positive/non-finite amounts, non-finite balances, and insufficient funds with ValueError. Accept amount as Decimal or decimal string; no float rounding. Add tests for valid transfers and unchanged inputs on failure. Update README and finish with a local Git commit after the registered test profile passes.
++`balances(transactions)` sums signed amounts per account. Credits increase the
++balance and debits (negative amounts) decrease it.
++
++`transfer(balances, source, target, amount)` returns a new balance dictionary
++without modifying the input. The amount must be a Decimal or decimal string;
++floats and other amount types are rejected to avoid float rounding. Balances
++may be Decimals, decimal strings, or integers. Updated account balances are
++Decimals; untouched entries retain their original values.
++
++Transfers use exact Decimal addition and subtraction, including values beyond
++the default Decimal precision. Unknown accounts, identical source and target,
++invalid or non-positive amounts, non-finite amounts or balances (including
++unrelated accounts), and insufficient funds raise ValueError.
++
++Example:
++
++```python
++from decimal import Decimal
++from ledger import transfer
++
++accounts = {"checking": Decimal("10.00"), "savings": Decimal("2.00")}
++updated = transfer(accounts, "checking", "savings", "3.10")
++# updated: checking = 6.90, savings = 5.10; accounts is unchanged.
++```
++
++Run the registered test profile:
++
++```sh
++/Library/Frameworks/Python.framework/Versions/3.12/bin/python3.12 -B -m unittest discover -v
++```
+diff --git a/ledger.py b/ledger.py
+index edbe8e3..8fc8229 100644
+--- a/ledger.py
++++ b/ledger.py
+@@ -1,7 +1,51 @@
+-from decimal import Decimal
++from decimal import Decimal, InvalidOperation, MAX_EMAX, MIN_EMIN, localcontext
++
+ 
+ def balances(transactions):
+     result = {}
+     for account, amount in transactions:
+-        result[account] = result.get(account, Decimal("0")) + abs(Decimal(amount))
++        result[account] = result.get(account, Decimal("0")) + Decimal(amount)
++    return result
++
++
++def _decimal(value, *, amount=False):
++    allowed = (Decimal, str) if amount else (Decimal, str, int)
++    if not isinstance(value, allowed) or isinstance(value, bool):
++        raise ValueError("Expected a Decimal or decimal string")
++    try:
++        result = Decimal(value)
++    except (InvalidOperation, ValueError) as exc:
++        raise ValueError("Invalid decimal value") from exc
++    if not result.is_finite():
++        raise ValueError("Values must be finite")
++    return result
++
++
++def transfer(balances, source, target, amount):
++    """Return a new mapping after transferring an exact positive amount."""
++    if source not in balances or target not in balances:
++        raise ValueError("Unknown account")
++    if source == target:
++        raise ValueError("Source and target must differ")
++
++    value = _decimal(amount, amount=True)
++    if value <= 0:
++        raise ValueError("Amount must be positive")
++    checked = {account: _decimal(balance) for account, balance in balances.items()}
++    if checked[source] < value:
++        raise ValueError("Insufficient funds")
++
++    operands = (checked[source], checked[target], value)
++    # Cover the full digit span plus a carry, independently of caller precision.
++    precision = max(x.adjusted() for x in operands) - min(
++        x.as_tuple().exponent for x in operands
++    ) + 2
++    with localcontext() as context:
++        context.prec = max(1, precision)
++        context.Emax = MAX_EMAX
++        context.Emin = MIN_EMIN
++        context.clamp = 0
++        result = dict(balances)
++        result[source] = checked[source] - value
++        result[target] = checked[target] + value
+     return result
+diff --git a/test_ledger.py b/test_ledger.py
+index 44325ec..008095a 100644
+--- a/test_ledger.py
++++ b/test_ledger.py
+@@ -1,16 +1,87 @@
+-from decimal import Decimal
++from decimal import Decimal, localcontext
+ import unittest
+-from ledger import balances
++from ledger import balances, transfer
++
+ 
+ class LedgerTests(unittest.TestCase):
+     def test_empty(self):
+         self.assertEqual(balances([]), {})
++
+     def test_debits(self):
+-        self.assertEqual(balances([("a", "10.00"), ("a", "-3.10")]), {"a": Decimal("6.90")})
++        self.assertEqual(balances([("a", "10.00"), ("a", "-3.10")]),
++                         {"a": Decimal("6.90")})
++
+     def test_decimal_precision(self):
+-        self.assertEqual(balances([("a", "0.1"), ("a", "0.2")]), {"a": Decimal("0.3")})
++        self.assertEqual(balances([("a", "0.1"), ("a", "0.2")]),
++                         {"a": Decimal("0.3")})
++
+     def test_multiple_accounts(self):
+-        self.assertEqual(balances([("a", "1"), ("b", "2")]), {"a": Decimal("1"), "b": Decimal("2")})
++        self.assertEqual(balances([("a", "1"), ("b", "2")]),
++                         {"a": Decimal("1"), "b": Decimal("2")})
++
++
++class TransferTests(unittest.TestCase):
++    def test_valid_transfer_preserves_input(self):
++        for amount in ("3.10", Decimal("3.10")):
++            with self.subTest(amount=amount):
++                original = {"a": Decimal("10"), "b": Decimal("0.2"),
++                            "c": Decimal("7")}
++                before = original.copy()
++                result = transfer(original, "a", "b", amount)
++                self.assertEqual(result, {"a": Decimal("6.90"),
++                                          "b": Decimal("3.30"),
++                                          "c": Decimal("7")})
++                self.assertIsNot(result, original)
++                self.assertEqual(original, before)
++
++    def test_entire_balance(self):
++        self.assertEqual(transfer({"a": Decimal("1"), "b": Decimal("0")},
++                                  "a", "b", "1"),
++                         {"a": Decimal("0"), "b": Decimal("1")})
++
++    def test_exact_arithmetic_under_low_precision(self):
++        original = {"a": Decimal("1000000000000000000000000000000"),
++                    "b": Decimal("0.2")}
++        with localcontext() as context:
++            context.prec = 2
++            result = transfer(original, "a", "b", "0.1")
++            self.assertEqual(context.prec, 2)
++        self.assertEqual(result["a"],
++                         Decimal("999999999999999999999999999999.9"))
++        self.assertEqual(result["b"], Decimal("0.3"))
++
++    def test_invalid_requests_preserve_input(self):
++        cases = [
++            ("missing", "b", "1"), ("a", "missing", "1"),
++            ("a", "a", "1"), ("a", "b", "0"),
++            ("a", "b", "-1"), ("a", "b", "NaN"),
++            ("a", "b", "sNaN"), ("a", "b", "Infinity"),
++            ("a", "b", "-Infinity"), ("a", "b", "invalid"),
++            ("a", "b", Decimal("NaN")), ("a", "b", "11"),
++            ("a", "b", 0.1), ("a", "b", 1),
++            ("a", "b", None),
++        ]
++        for source, target, amount in cases:
++            with self.subTest(source=source, target=target, amount=amount):
++                original = {"a": Decimal("10"), "b": Decimal("2")}
++                before = original.copy()
++                with self.assertRaises(ValueError):
++                    transfer(original, source, target, amount)
++                self.assertEqual(original, before)
++
++    def test_nonfinite_balances_preserve_input(self):
++        for account in ("a", "b", "c"):
++            for value in ("NaN", "sNaN", "Infinity", "-Infinity"):
++                with self.subTest(account=account, value=value):
++                    original = dict.fromkeys(("a", "b", "c"), Decimal("10"))
++                    original[account] = Decimal(value)
++                    before = original.copy()
++                    with self.assertRaises(ValueError):
++                        transfer(original, "a", "b", "1")
++                    self.assertEqual(original.keys(), before.keys())
++                    for key in original:
++                        self.assertIs(original[key], before[key])
++
+ 
+ if __name__ == "__main__":
+     unittest.main(verbosity=2)

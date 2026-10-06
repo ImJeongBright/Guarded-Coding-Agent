@@ -1,0 +1,59 @@
+{
+  "purpose": "Portable review copies; local paths are replaced and source/audit hashes are retained.",
+  "files": [
+    {
+      "raw_relative_path": "build-scope/build-limits.json",
+      "portable_path": "build-limits.json",
+      "raw_sha256": "2c279c2e13dda7aef290ec5e63f48f126a370253e0e1405f3ebd46969850a5d3",
+      "portable_sha256": "50a88e32ad21957d73d2fe415f49257541aa0b7b360a5bef9f7f1256d00cef7d",
+      "transformed": true
+    },
+    {
+      "raw_relative_path": "build_limits.py",
+      "portable_path": "build_limits.py",
+      "raw_sha256": "ec2335fe464631880c0f10e1d833b20ba0f1816f5fa2427f36c634fe272f71c5",
+      "portable_sha256": "ec2335fe464631880c0f10e1d833b20ba0f1816f5fa2427f36c634fe272f71c5",
+      "transformed": false
+    },
+    {
+      "raw_relative_path": "regression-004-04.json",
+      "portable_path": "regression.json",
+      "raw_sha256": "2eac127fee7a35dde4c3f0a4c600556a0b5894c1c18c877de33da46a7092a7fc",
+      "portable_sha256": "2eac127fee7a35dde4c3f0a4c600556a0b5894c1c18c877de33da46a7092a7fc",
+      "transformed": false
+    },
+    {
+      "raw_relative_path": "regression-004-04.log",
+      "portable_path": "regression.log",
+      "raw_sha256": "8bdee836864399510b60de09fdf175984a4fad3aca42cce797bb367769600880",
+      "portable_sha256": "8bdee836864399510b60de09fdf175984a4fad3aca42cce797bb367769600880",
+      "transformed": false
+    },
+    {
+      "raw_relative_path": "$REPO/tests/test_sandbox_edges.py",
+      "portable_path": "regression/test_sandbox_edges.py",
+      "raw_sha256": "31d492ff7b032b054b7a5803e94f62ed46aa5de074ed6925f03cfb842800e25f",
+      "portable_sha256": "31d492ff7b032b054b7a5803e94f62ed46aa5de074ed6925f03cfb842800e25f",
+      "transformed": false
+    },
+    {
+      "raw_relative_path": "build-scope/operator-state/audit.jsonl",
+      "portable_path": "audit-full.jsonl",
+      "raw_sha256": "16e1d066cca8e7e7c4bce1ccd0cbe702b3812884bb99038f181cdd62b4258804",
+      "portable_sha256": "5f66c603f6ca1100b16f4a33b7cde2281811392d3ce7d2f710bd51b7b612d69c",
+      "transformed": true
+    },
+    {
+      "raw_relative_path": "build-final-audit.jsonl",
+      "portable_path": "audit-final-run.jsonl",
+      "raw_sha256": "974fcb98cf213f447750f508e44b1713c5a0202e5e391dceb8396a9661080f1e",
+      "portable_sha256": "4030e645045787c31c30430f4fa1a874159effc7e9fd29cac9728d3d387c72f3",
+      "transformed": true
+    }
+  ],
+  "policy_digest": "c15d4df1e82a9675e833cf41dc6627ea6a49f5d9355a68b830d341376011dd1d",
+  "normalized_policy_sha256": "ef81b2ce9edd62fab99dcf70358a780784ee9bb3bc4d018210c4703f04f01121",
+  "portable_policy_sha256": "cea67761d220a0c4a8782b84fc7acd054f096239b27bdf2388263efb8f8f9650",
+  "audit_sha256": "16e1d066cca8e7e7c4bce1ccd0cbe702b3812884bb99038f181cdd62b4258804",
+  "final_run_audit_sha256": "974fcb98cf213f447750f508e44b1713c5a0202e5e391dceb8396a9661080f1e"
+}

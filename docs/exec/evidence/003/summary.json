@@ -1,0 +1,505 @@
+{
+  "exported_at": "2026-10-04T10:50:04.395152+00:00",
+  "base_commit": "b93ba56",
+  "working_tree": "uncommitted implementation",
+  "codex_version": "0.160.0",
+  "persona": "X: six actual model sessions",
+  "workloads": [
+    {
+      "kind": "c",
+      "baseline_probes": 6,
+      "baseline_denials": 6,
+      "same_request_allow_after": 6,
+      "profile_ids": [
+        "c-build",
+        "c-tests",
+        "c-db"
+      ],
+      "automated_discovery_apply_seconds": 0.033,
+      "agent_operator_review_elapsed_seconds": 21.224,
+      "human_operator_review_measured": false,
+      "tasks": [
+        {
+          "task": 1,
+          "commit": "a470fb2",
+          "project_tests": 14,
+          "calls": 18,
+          "decisions": {
+            "ALLOW": 18
+          },
+          "execution_nonzero_count": 0,
+          "independent_passed": true,
+          "clean_commit": true,
+          "x_feedback": "Committed locally as `a470fb2`. Working tree is clean.\n\n- Added `find <uint32 id>` with exact found/missing output and argument validation.\n- Added three tests and README documentation; preserved insert/select/count and GDB1.\n- Release and debug builds passed.\n- Literal filter `test_find`: 3 tests ran and passed.\n- Full suite: 14 tests passed on both builds.\n- Inspected staged diff before committing.\n\nNo denied calls or nonzero exits. Git emitted cache-file permission errors and `/etc/gitattributes` warnings, but all operations succeeded.\n\nGuard was mildly frustrating: hash-bound edits were straightforward, while repeated Git diagnostics added noise. It did not block completion.",
+          "phase_ms": {
+            "normalization": {
+              "samples": 18,
+              "median": 3.583,
+              "p95": 86.699,
+              "max": 86.699
+            },
+            "decision": {
+              "samples": 18,
+              "median": 0.023,
+              "p95": 0.046,
+              "max": 0.046
+            },
+            "audit": {
+              "samples": 18,
+              "median": 0.494,
+              "p95": 0.698,
+              "max": 0.698
+            },
+            "execution": {
+              "samples": 18,
+              "median": 48.438,
+              "p95": 471.743,
+              "max": 471.743
+            },
+            "total": {
+              "samples": 18,
+              "median": 117.344,
+              "p95": 476.051,
+              "max": 476.051
+            },
+            "other": {
+              "samples": 18,
+              "median": 0.128,
+              "p95": 0.36,
+              "max": 0.36
+            }
+          },
+          "boundary_ms": {
+            "samples": 18,
+            "median": 4.214,
+            "p95": 87.307,
+            "max": 87.307
+          }
+        },
+        {
+          "task": 2,
+          "commit": "9aaf441",
+          "project_tests": 14,
+          "calls": 19,
+          "decisions": {
+            "ALLOW": 18,
+            "DENY": 1
+          },
+          "execution_nonzero_count": 0,
+          "independent_passed": true,
+          "clean_commit": true,
+          "x_feedback": "Committed as `9aaf441`: select and find now share `print_row(const Row *)`, preserving exact output and persistence behavior.\n\n- Build passed; 3 selected find tests and all 14 suite tests passed.\n- Reviewed staged diff; repository is clean.\n- One denied call: empty search query. Corrected successfully; no other errors.\n- Guard was mildly cumbersome: hash updates required sequential edits, and the empty-query restriction caused one retry. Registered build/test profiles worked smoothly.",
+          "phase_ms": {
+            "normalization": {
+              "samples": 19,
+              "median": 0.621,
+              "p95": 62.274,
+              "max": 62.274
+            },
+            "decision": {
+              "samples": 19,
+              "median": 0.021,
+              "p95": 0.067,
+              "max": 0.067
+            },
+            "audit": {
+              "samples": 19,
+              "median": 0.48,
+              "p95": 3.644,
+              "max": 3.644
+            },
+            "execution": {
+              "samples": 19,
+              "median": 0.604,
+              "p95": 560.159,
+              "max": 560.159
+            },
+            "total": {
+              "samples": 19,
+              "median": 4.841,
+              "p95": 565.43,
+              "max": 565.43
+            },
+            "other": {
+              "samples": 19,
+              "median": 0.109,
+              "p95": 0.282,
+              "max": 0.282
+            }
+          },
+          "boundary_ms": {
+            "samples": 19,
+            "median": 1.678,
+            "p95": 62.86,
+            "max": 62.86
+          }
+        },
+        {
+          "task": 3,
+          "commit": "c55d056",
+          "project_tests": 16,
+          "calls": 17,
+          "decisions": {
+            "ALLOW": 17
+          },
+          "execution_nonzero_count": 0,
+          "independent_passed": true,
+          "clean_commit": true,
+          "x_feedback": "Committed locally as `c55d056`. Working tree is clean.\n\nStrengthened find coverage for empty databases, zero/max IDs, duplicates, restart persistence, missing IDs, and invalid syntax. Checks confirm read-only sessions preserve file bytes and metadata and create no database or leftover temporary files; access time is excluded. README updated.\n\n- Build passed.\n- Literal filter `test_find_`: 5 tests ran and passed.\n- Full suite: 16 tests passed.\n- Staged diff inspected.\n- Denied/error tool calls: none.\n\nThe Guard was not frustrating for this task: profiles and hash-bound edits worked without retries or approval interruptions.",
+          "phase_ms": {
+            "normalization": {
+              "samples": 17,
+              "median": 4.512,
+              "p95": 62.073,
+              "max": 62.073
+            },
+            "decision": {
+              "samples": 17,
+              "median": 0.026,
+              "p95": 0.05,
+              "max": 0.05
+            },
+            "audit": {
+              "samples": 17,
+              "median": 0.452,
+              "p95": 0.778,
+              "max": 0.778
+            },
+            "execution": {
+              "samples": 17,
+              "median": 24.036,
+              "p95": 541.708,
+              "max": 541.708
+            },
+            "total": {
+              "samples": 17,
+              "median": 84.182,
+              "p95": 549.085,
+              "max": 549.085
+            },
+            "other": {
+              "samples": 17,
+              "median": 0.118,
+              "p95": 0.349,
+              "max": 0.349
+            }
+          },
+          "boundary_ms": {
+            "samples": 17,
+            "median": 5.197,
+            "p95": 62.636,
+            "max": 62.636
+          }
+        }
+      ]
+    },
+    {
+      "kind": "domain",
+      "baseline_probes": 5,
+      "baseline_denials": 5,
+      "same_request_allow_after": 5,
+      "profile_ids": [
+        "node-tests"
+      ],
+      "automated_discovery_apply_seconds": 0.0068,
+      "agent_operator_review_elapsed_seconds": 22.387,
+      "human_operator_review_measured": false,
+      "tasks": [
+        {
+          "task": 1,
+          "commit": "1dadf99",
+          "project_tests": 35,
+          "calls": 20,
+          "decisions": {
+            "ALLOW": 20
+          },
+          "execution_nonzero_count": 1,
+          "independent_passed": true,
+          "clean_commit": true,
+          "x_feedback": "Committed locally as `1dadf99` — `Fix openedSources validation before decision feedback`.\n\n- Invalid `openedSources` now throws `RangeError` before feedback processing; valid scoring is preserved.\n- Added regression tests and README documentation.\n- Literal `openedSources` filter: 3/3 passed. Full suite: 35/35 passed.\n- Inspected staged diff; repository is clean.\n- No denied calls or tool errors. The pre-fix regression run intentionally exited 1 with two failing tests.\n- Guard was not frustrating here: hash-bound edits and the registered test profile supported every required action without retries or approval interruptions.",
+          "phase_ms": {
+            "normalization": {
+              "samples": 20,
+              "median": 0.824,
+              "p95": 60.399,
+              "max": 63.465
+            },
+            "decision": {
+              "samples": 20,
+              "median": 0.024,
+              "p95": 0.039,
+              "max": 0.04
+            },
+            "audit": {
+              "samples": 20,
+              "median": 0.454,
+              "p95": 1.125,
+              "max": 1.154
+            },
+            "execution": {
+              "samples": 20,
+              "median": 1.007,
+              "p95": 135.952,
+              "max": 146.11
+            },
+            "total": {
+              "samples": 20,
+              "median": 2.477,
+              "p95": 140.541,
+              "max": 150.299
+            },
+            "other": {
+              "samples": 20,
+              "median": 0.108,
+              "p95": 0.375,
+              "max": 0.493
+            }
+          },
+          "boundary_ms": {
+            "samples": 20,
+            "median": 1.814,
+            "p95": 61.165,
+            "max": 64.009
+          }
+        },
+        {
+          "task": 2,
+          "commit": "9bf4857",
+          "project_tests": 37,
+          "calls": 20,
+          "decisions": {
+            "ALLOW": 20
+          },
+          "execution_nonzero_count": 0,
+          "independent_passed": true,
+          "clean_commit": true,
+          "x_feedback": "Committed locally as `9bf4857`.\n\n- Exported `directionForChange(change, key)` with existing finite-value thresholds preserved.\n- Unknown changes produce `actual=null`, `correct=null`, and zero prediction points.\n- Checks: 6 forecast tests and all 37 suite tests passed.\n- Staged diff inspected; working tree clean.\n- Denied/error tool calls: none.\n\nGuard was not frustrating for this task. Hash-bound edits required sequential calls, but returned hashes and the registered test profile made the workflow straightforward.",
+          "phase_ms": {
+            "normalization": {
+              "samples": 20,
+              "median": 0.915,
+              "p95": 62.392,
+              "max": 65.908
+            },
+            "decision": {
+              "samples": 20,
+              "median": 0.026,
+              "p95": 0.038,
+              "max": 0.039
+            },
+            "audit": {
+              "samples": 20,
+              "median": 0.553,
+              "p95": 0.846,
+              "max": 1.037
+            },
+            "execution": {
+              "samples": 20,
+              "median": 1.461,
+              "p95": 144.242,
+              "max": 145.94
+            },
+            "total": {
+              "samples": 20,
+              "median": 2.889,
+              "p95": 148.982,
+              "max": 152.408
+            },
+            "other": {
+              "samples": 20,
+              "median": 0.106,
+              "p95": 0.332,
+              "max": 0.747
+            }
+          },
+          "boundary_ms": {
+            "samples": 20,
+            "median": 1.901,
+            "p95": 63.003,
+            "max": 66.681
+          }
+        },
+        {
+          "task": 3,
+          "commit": "7e87218",
+          "project_tests": 40,
+          "calls": 16,
+          "decisions": {
+            "ALLOW": 16
+          },
+          "execution_nonzero_count": 0,
+          "independent_passed": true,
+          "clean_commit": true,
+          "x_feedback": "Committed locally as `7e87218`. Repository is clean.\n\n- Added count boundaries, malformed counts, adjacent direction thresholds, and non-finite change regressions.\n- Added 23,040 deterministic cases checking scores within 0..100 and unchanged inputs.\n- Updated README and inspected staged diff.\n- Selected validation: all 3 new tests passed.\n- Full suite: 40/40 passed.\n- Denied/error tool calls: none.\n\nGuard was not frustrating for this task: hash-bound edits, literal test filtering, staging, and committing all worked without retries or approval interruptions.",
+          "phase_ms": {
+            "normalization": {
+              "samples": 16,
+              "median": 0.895,
+              "p95": 61.682,
+              "max": 61.682
+            },
+            "decision": {
+              "samples": 16,
+              "median": 0.023,
+              "p95": 0.04,
+              "max": 0.04
+            },
+            "audit": {
+              "samples": 16,
+              "median": 0.429,
+              "p95": 1.186,
+              "max": 1.186
+            },
+            "execution": {
+              "samples": 16,
+              "median": 1.592,
+              "p95": 457.92,
+              "max": 457.92
+            },
+            "total": {
+              "samples": 16,
+              "median": 2.866,
+              "p95": 466.009,
+              "max": 466.009
+            },
+            "other": {
+              "samples": 16,
+              "median": 0.115,
+              "p95": 0.951,
+              "max": 0.951
+            }
+          },
+          "boundary_ms": {
+            "samples": 16,
+            "median": 2.51,
+            "p95": 62.256,
+            "max": 62.256
+          }
+        }
+      ]
+    }
+  ],
+  "live_calls": 110,
+  "live_decisions": {
+    "ALLOW": 109,
+    "DENY": 1,
+    "REQUIRE_APPROVAL": 0
+  },
+  "phase_by_tool": {
+    "guard_filesystem": {
+      "calls": 59,
+      "boundary_ms": {
+        "samples": 59,
+        "median": 1.265,
+        "p95": 2.605,
+        "max": 4.237
+      },
+      "execution_ms": {
+        "samples": 59,
+        "median": 0.355,
+        "p95": 2.19,
+        "max": 3.813
+      }
+    },
+    "guard_shell": {
+      "calls": 19,
+      "boundary_ms": {
+        "samples": 19,
+        "median": 5.159,
+        "p95": 8.786,
+        "max": 8.786
+      },
+      "execution_ms": {
+        "samples": 19,
+        "median": 190.315,
+        "p95": 560.159,
+        "max": 560.159
+      }
+    },
+    "guard_git": {
+      "calls": 31,
+      "boundary_ms": {
+        "samples": 31,
+        "median": 61.165,
+        "p95": 82.797,
+        "max": 87.307
+      },
+      "execution_ms": {
+        "samples": 31,
+        "median": 27.651,
+        "p95": 51.181,
+        "max": 51.946
+      }
+    }
+  },
+  "full_regression": {
+    "date": "2026-10-04T10:49:02.291171+00:00",
+    "policy_version": "001",
+    "python": "3.12.1",
+    "platform": "macOS-15.7.8-arm64-arm-64bit",
+    "base_commit": "b93ba56",
+    "working_tree": "uncommitted MVP implementation",
+    "tests": 101,
+    "failures": [],
+    "errors": [],
+    "skipped": [],
+    "passed": true,
+    "elapsed_seconds": 8.341
+  },
+  "original_source_integrity": {
+    "c": {
+      "Makefile": true,
+      "README.md": true,
+      "src/db.c": true,
+      "tests/test_db.py": true,
+      ".gitignore": true
+    },
+    "domain": {
+      "package.json": true,
+      "README.md": true,
+      "src/simulation.ts": true,
+      "src/decision-feedback.ts": true,
+      "src/annual-scenario.ts": true,
+      "test/simulation.test.mjs": true
+    }
+  },
+  "legacy_scripted_x": {
+    "persona": "X (synthetic role-play, actual local tool execution)",
+    "policy_version": "001",
+    "action_count": 35,
+    "decisions": {
+      "ALLOW": 26,
+      "DENY": 7,
+      "REQUIRE_APPROVAL": 2
+    },
+    "normal_actions": 25,
+    "normal_approvals": 0,
+    "normal_denials": 0,
+    "intentional_test_failures": 1,
+    "operator_grants": 1,
+    "db_tests": 11,
+    "task_completed": true,
+    "trace": "$REPO/.guard-runs/user-x-003/trace.json",
+    "audit": "$REPO/.guard-runs/user-x-003/state/audit.jsonl"
+  },
+  "profile_registrations": 2,
+  "profile_reregistrations_between_tasks": 0,
+  "local_approvals": 0,
+  "known_usability_denial": {
+    "count": 1,
+    "request": "C task 2 search query=\"\" glob=AGENTS.md",
+    "classification": "missing file-path discovery semantics",
+    "fixed": true
+  },
+  "remaining_false_denials_observed_after_fix": 0,
+  "long_term_real_user_evaluation": "not measured",
+  "timing_definition": "Returned perf_counter phases include both normalizations; boundary=total-execution. Git state queries are in normalization. Model/transport time excluded.",
+  "limitations": [
+    "Two dependency-free ordinary repositories, no package installation or network",
+    "Baseline is 11 identical request probes plus existing tests, not a pre-change full model session",
+    "Agent-reviewed setup time; actual human review time not measured",
+    "Only macOS/Codex CLI 0.160.0 profile",
+    "Optimistic edit hash checks are not OS-level CAS against concurrent external writers",
+    "No longitudinal user satisfaction measurement"
+  ]
+}

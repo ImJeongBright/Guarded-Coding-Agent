@@ -1,0 +1,14 @@
+{
+  "passed": true,
+  "unique_info_size": 56,
+  "audit_token_size": 32,
+  "pid_slot": 5,
+  "pidversion_slot": 7,
+  "forged_version_result": 3,
+  "forged_version_errno": 3,
+  "own_child_alive_after_forged": true,
+  "valid_token_result": 0,
+  "valid_token_errno": 0,
+  "own_child_exit": -15,
+  "unrelated_processes_signaled": 0
+}

@@ -1,0 +1,9 @@
+{
+  "kind": "pre-session baseline setup denial",
+  "decision": "DENY",
+  "rule": "FS-LINK",
+  "reason": "Workspace integrity could not be verified on the first M2 baseline build attempt.",
+  "follow_up": "An immediate standalone link scan over 35,048 entries passed; build and tests then passed on retry. The original Guard audit is preserved in host-state/M2/audit.jsonl.",
+  "attempted_action": "build profile; executor did not start",
+  "policy_change": "none"
+}

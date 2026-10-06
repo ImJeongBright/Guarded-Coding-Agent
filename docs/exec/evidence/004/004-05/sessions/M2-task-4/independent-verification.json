@@ -1,0 +1,157 @@
+{
+  "kind": "004-05 M2 task 4 atomic clear",
+  "tool_calls": 25,
+  "decisions": {
+    "ALLOW": 24,
+    "DENY": 1
+  },
+  "incomplete": [],
+  "session_exit_code": 0,
+  "session_evidence": {
+    "passed": true,
+    "errors": [],
+    "tool_calls": 25,
+    "new_commits": [
+      "70f5c6bb6d18ac08326dbab2fdb5ef762744a94e"
+    ],
+    "start_head": "ab537c3f2b7179afd76c90886129f51ff92df0b6",
+    "end_head": "70f5c6bb6d18ac08326dbab2fdb5ef762744a94e",
+    "session_id": "fbf05ae17bbb4d94987f83b0a9064d81"
+  },
+  "checks": [
+    {
+      "label": "build",
+      "decision": "ALLOW",
+      "matched_rule": "SH-PROFILE",
+      "reason": "Bounded local capability allowed.",
+      "executed": true,
+      "execution_status": "succeeded",
+      "effect_status": "possible",
+      "exit_code": 0,
+      "stdout": "",
+      "stderr": "",
+      "run_id": "1588368c96a44354bdf035a964a83580",
+      "audit_event_id": "8f4471aa82a840ab9aa20047a12cd45e",
+      "timed_out": false,
+      "lifecycle_status": "terminated",
+      "terminated_scope_processes": 0,
+      "output_truncated": false,
+      "execution_stage": "completed",
+      "timings_ms": {
+        "normalization": 523.6665830598213,
+        "decision": 0.019957020413130522,
+        "audit": 0.5978340050205588,
+        "execution": 462.7019579638727,
+        "total": 987.126249994617,
+        "other": 0.13991794548928738
+      }
+    },
+    {
+      "label": "tests",
+      "decision": "ALLOW",
+      "matched_rule": "SH-PROFILE",
+      "reason": "Bounded local capability allowed.",
+      "executed": true,
+      "execution_status": "succeeded",
+      "effect_status": "possible",
+      "exit_code": 0,
+      "stdout": "",
+      "stderr": "test_capacity_and_eof (test_db.DatabaseTests.test_capacity_and_eof) ... ok\ntest_clear_extra_arguments_are_invalid (test_db.DatabaseTests.test_clear_extra_arguments_are_invalid) ... ok\ntest_clear_initially_empty_is_read_only (test_db.DatabaseTests.test_clear_initially_empty_is_read_only) ... ok\ntest_clear_persistence_failure_restores_count_rows_and_disk (test_db.DatabaseTests.test_clear_persistence_failure_restores_count_rows_and_disk) ... ok\ntest_clear_rows_queries_restart_and_repeat (test_db.DatabaseTests.test_clear_rows_queries_restart_and_repeat) ... ok\ntest_corrupt_and_truncated_data_rejected (test_db.DatabaseTests.test_corrupt_and_truncated_data_rejected) ... ok\ntest_count_empty_is_read_only (test_db.DatabaseTests.test_count_empty_is_read_only) ... ok\ntest_count_existing_binary_format (test_db.DatabaseTests.test_count_existing_binary_format) ... ok\ntest_count_zero_duplicates_and_restart (test_db.DatabaseTests.test_count_zero_duplicates_and_restart) ... ok\ntest_delete_malformed_arguments (test_db.DatabaseTests.test_delete_malformed_arguments) ... ok\ntest_delete_missing_is_read_only (test_db.DatabaseTests.test_delete_missing_is_read_only) ... ok\ntest_delete_persistence_failure_preserves_memory_and_disk (test_db.DatabaseTests.test_delete_persistence_failure_preserves_memory_and_disk) ... ok\ntest_delete_zero_middle_last_and_restart (test_db.DatabaseTests.test_delete_zero_middle_last_and_restart) ... ok\ntest_duplicate_preserves_row (test_db.DatabaseTests.test_duplicate_preserves_row) ... ok\ntest_find_coexists_with_insert_delete (test_db.DatabaseTests.test_find_coexists_with_insert_delete) ... ok\ntest_find_empty_is_read_only (test_db.DatabaseTests.test_find_empty_is_read_only) ... ok\ntest_find_malformed_arguments (test_db.DatabaseTests.test_find_malformed_arguments) ... ok\ntest_find_repeated_queries_and_restart_preserve_database (test_db.DatabaseTests.test_find_repeated_queries_and_restart_preserve_database) ... ok\ntest_insert_select_and_restart (test_db.DatabaseTests.test_insert_select_and_restart) ... ok\ntest_invalid_input_never_creates_database (test_db.DatabaseTests.test_invalid_input_never_creates_database) ... ok\ntest_overlong_input_recovery (test_db.DatabaseTests.test_overlong_input_recovery) ... ok\ntest_persistence_failure_is_reported_and_rolled_back (test_db.DatabaseTests.test_persistence_failure_is_reported_and_rolled_back) ... ok\ntest_rename_first_middle_last_and_restart (test_db.DatabaseTests.test_rename_first_middle_last_and_restart) ... ok\ntest_rename_missing_and_malformed_do_not_mutate (test_db.DatabaseTests.test_rename_missing_and_malformed_do_not_mutate) ... ok\ntest_rename_persistence_failure_rolls_back_memory_and_disk (test_db.DatabaseTests.test_rename_persistence_failure_rolls_back_memory_and_disk) ... ok\ntest_zero_and_uint32_max (test_db.DatabaseTests.test_zero_and_uint32_max) ... ok\n\n----------------------------------------------------------------------\nRan 26 tests in 0.462s\n\nOK\n",
+      "run_id": "1588368c96a44354bdf035a964a83580",
+      "audit_event_id": "3a96029982f64442b1b5bc7b116a3e7b",
+      "timed_out": false,
+      "lifecycle_status": "terminated",
+      "terminated_scope_processes": 0,
+      "output_truncated": false,
+      "execution_stage": "completed",
+      "timings_ms": {
+        "normalization": 526.9703330704942,
+        "decision": 0.015500991139560938,
+        "audit": 0.811458972748369,
+        "execution": 621.0265409899876,
+        "total": 1149.0570830064826,
+        "other": 0.23324898211285472
+      }
+    },
+    {
+      "label": "independent behavior",
+      "decision": "ALLOW",
+      "matched_rule": "SH-PROFILE",
+      "reason": "Bounded local capability allowed.",
+      "executed": true,
+      "execution_status": "succeeded",
+      "effect_status": "possible",
+      "exit_code": 0,
+      "stdout": "Independent clear checks passed: empty/read-only, reset persistence, restart, idempotency, malformed input, rollback\n",
+      "stderr": "",
+      "run_id": "1588368c96a44354bdf035a964a83580",
+      "audit_event_id": "017d81b3242d4f1bad2d2e82548e68cb",
+      "timed_out": false,
+      "lifecycle_status": "terminated",
+      "terminated_scope_processes": 0,
+      "output_truncated": false,
+      "execution_stage": "completed",
+      "timings_ms": {
+        "normalization": 524.4454159983434,
+        "decision": 0.014125020243227482,
+        "audit": 0.87629200424999,
+        "execution": 113.68033400503919,
+        "total": 639.2447499674745,
+        "other": 0.22858293959870934
+      }
+    }
+  ],
+  "git_status": {
+    "decision": "ALLOW",
+    "matched_rule": "GT-LOCAL",
+    "reason": "Bounded local capability allowed.",
+    "executed": true,
+    "execution_status": "succeeded",
+    "effect_status": "possible",
+    "exit_code": 0,
+    "stdout": "",
+    "stderr": "",
+    "run_id": "1588368c96a44354bdf035a964a83580",
+    "audit_event_id": "8871a3d14d8643e395e6be32302eb377",
+    "timed_out": false,
+    "lifecycle_status": "terminated",
+    "terminated_scope_processes": 0,
+    "output_truncated": false,
+    "execution_stage": "completed",
+    "timings_ms": {
+      "normalization": 3546.2698329938576,
+      "decision": 0.03362400457262993,
+      "audit": 0.9190830169245601,
+      "execution": 350.76137498253956,
+      "total": 3898.135208990425,
+      "other": 0.15129399253055453
+    }
+  },
+  "git_history": {
+    "decision": "ALLOW",
+    "matched_rule": "GT-LOCAL",
+    "reason": "Bounded local capability allowed.",
+    "executed": true,
+    "execution_status": "succeeded",
+    "effect_status": "possible",
+    "exit_code": 0,
+    "stdout": "70f5c6b Add atomic clear command with rollback and process tests\nab537c3 Prepare M2 copy of the multi-module DBMS\n",
+    "stderr": "",
+    "run_id": "1588368c96a44354bdf035a964a83580",
+    "audit_event_id": "1d12d03a531043be8dc299537d02a79f",
+    "timed_out": false,
+    "lifecycle_status": "terminated",
+    "terminated_scope_processes": 0,
+    "output_truncated": false,
+    "execution_stage": "completed",
+    "timings_ms": {
+      "normalization": 3500.5917079979554,
+      "decision": 0.0291660544462502,
+      "audit": 0.4632090567611158,
+      "execution": 309.59250003797933,
+      "total": 3810.8094159979373,
+      "other": 0.1328328507952392
+    }
+  },
+  "passed": true
+}

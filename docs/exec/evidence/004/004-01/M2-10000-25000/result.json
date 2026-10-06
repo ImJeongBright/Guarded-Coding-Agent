@@ -1,0 +1,172 @@
+{
+  "case": "M2-10000-25000",
+  "tracked_source_files": 10000,
+  "ignored_build_files": 25000,
+  "tracked_path_bytes": 330011,
+  "metadata_limit_bytes": 8388608,
+  "user_output_limit_bytes": 64000,
+  "platform": "macOS-15.7.8-arm64-arm-64bit",
+  "python": "3.12.1",
+  "target": "src/module_099/component_09999.c",
+  "calls": {
+    "git_status": {
+      "wall_ms": 4465.467,
+      "result": {
+        "decision": "ALLOW",
+        "matched_rule": "GT-LOCAL",
+        "reason": "Bounded local capability allowed.",
+        "executed": true,
+        "execution_status": "succeeded",
+        "effect_status": "possible",
+        "exit_code": 0,
+        "stdout": " M src/module_099/component_09999.c\n",
+        "stderr": "",
+        "run_id": "36e231d66d524a2dbc851c23b9f0e3b3",
+        "audit_event_id": "5633619c63614a1c812e47a6e508ce55",
+        "timed_out": false,
+        "lifecycle_status": "terminated",
+        "terminated_scope_processes": 0,
+        "output_truncated": false,
+        "execution_stage": "completed",
+        "timings_ms": {
+          "normalization": 4281.908584060147,
+          "decision": 0.05341594805940986,
+          "audit": 0.7007080712355673,
+          "execution": 182.5997499981895,
+          "total": 4465.44758300297,
+          "other": 0.18512492533773184
+        }
+      }
+    },
+    "single_file_diff": {
+      "wall_ms": 4552.45,
+      "result": {
+        "decision": "ALLOW",
+        "matched_rule": "GT-LOCAL",
+        "reason": "Bounded local capability allowed.",
+        "executed": true,
+        "execution_status": "succeeded",
+        "effect_status": "possible",
+        "exit_code": 0,
+        "stdout": "diff --git a/src/module_099/component_09999.c b/src/module_099/component_09999.c\nindex 56e5bcf..14c8295 100644\n--- a/src/module_099/component_09999.c\n+++ b/src/module_099/component_09999.c\n@@ -1 +1,2 @@\n-int source_09999 = 3;\n+int source_09999 = changed;\n+/* SCALE_POST_004 */\n",
+        "stderr": "",
+        "run_id": "36e231d66d524a2dbc851c23b9f0e3b3",
+        "audit_event_id": "6668e890632c48d191a92fb6d90750db",
+        "timed_out": false,
+        "lifecycle_status": "terminated",
+        "terminated_scope_processes": 0,
+        "output_truncated": false,
+        "execution_stage": "completed",
+        "timings_ms": {
+          "normalization": 4424.319874960929,
+          "decision": 0.032249023206532,
+          "audit": 0.7100000511854887,
+          "execution": 127.19416595064104,
+          "total": 4552.43804102065,
+          "other": 0.18175103468820453
+        }
+      }
+    },
+    "shell_noop": {
+      "wall_ms": 954.191,
+      "result": {
+        "decision": "ALLOW",
+        "matched_rule": "SH-PROFILE",
+        "reason": "Bounded local capability allowed.",
+        "executed": true,
+        "execution_status": "succeeded",
+        "effect_status": "possible",
+        "exit_code": 0,
+        "stdout": "guard-medium-ok\n",
+        "stderr": "",
+        "run_id": "36e231d66d524a2dbc851c23b9f0e3b3",
+        "audit_event_id": "eeeb87565b2145fabbd3dd37a2597ae3",
+        "timed_out": false,
+        "lifecycle_status": "terminated",
+        "terminated_scope_processes": 0,
+        "output_truncated": false,
+        "execution_stage": "completed",
+        "timings_ms": {
+          "normalization": 844.9227510718629,
+          "decision": 0.017166021279990673,
+          "audit": 3.696959000080824,
+          "execution": 105.37674999795854,
+          "total": 954.1818750440143,
+          "other": 0.16824895283207297
+        }
+      }
+    },
+    "root_search": {
+      "wall_ms": 749.611,
+      "result": {
+        "decision": "ALLOW",
+        "matched_rule": "FS-LOCAL",
+        "reason": "Bounded local capability allowed.",
+        "executed": true,
+        "execution_status": "succeeded",
+        "effect_status": "none",
+        "exit_code": 0,
+        "stdout": "",
+        "stderr": "",
+        "run_id": "36e231d66d524a2dbc851c23b9f0e3b3",
+        "audit_event_id": "cf798fba91374a9680b83c148c240ddd",
+        "matches": [],
+        "truncated": true,
+        "incomplete": true,
+        "truncation_reasons": [
+          "entry_limit"
+        ],
+        "skipped_oversized_files": 0,
+        "scanned_entries": 5000,
+        "scanned_bytes": 0,
+        "execution_stage": "completed",
+        "timings_ms": {
+          "normalization": 0.31979201594367623,
+          "decision": 0.02116599353030324,
+          "audit": 0.3132490091957152,
+          "execution": 748.8768749753945,
+          "total": 749.6066250023432,
+          "other": 0.07554300827905536
+        }
+      }
+    },
+    "module_search": {
+      "wall_ms": 26.591,
+      "result": {
+        "decision": "ALLOW",
+        "matched_rule": "FS-LOCAL",
+        "reason": "Bounded local capability allowed.",
+        "executed": true,
+        "execution_status": "succeeded",
+        "effect_status": "none",
+        "exit_code": 0,
+        "stdout": "",
+        "stderr": "",
+        "run_id": "36e231d66d524a2dbc851c23b9f0e3b3",
+        "audit_event_id": "4e7e0c5bb5a942769fee120eae703d3a",
+        "matches": [
+          {
+            "path": "src/module_099/component_09999.c",
+            "line": 2,
+            "text": "/* SCALE_POST_004 */"
+          }
+        ],
+        "truncated": false,
+        "incomplete": false,
+        "truncation_reasons": [],
+        "skipped_oversized_files": 0,
+        "scanned_entries": 100,
+        "scanned_bytes": 2227,
+        "execution_stage": "completed",
+        "timings_ms": {
+          "normalization": 0.28687494341284037,
+          "decision": 0.016874982975423336,
+          "audit": 0.3164589870721102,
+          "execution": 25.909708987455815,
+          "total": 26.587416999973357,
+          "other": 0.05749909905716777
+        }
+      }
+    }
+  }
+}

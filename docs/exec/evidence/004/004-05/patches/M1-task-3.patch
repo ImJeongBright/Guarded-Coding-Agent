@@ -1,0 +1,165 @@
+commit fcdf52034135c261c570230b5a4ff0bb9d7d9fb2
+Author:     User X <user-x@example.invalid>
+AuthorDate: Mon Oct 5 02:38:31 2026 +0000
+Commit:     User X <user-x@example.invalid>
+CommitDate: Mon Oct 5 02:38:31 2026 +0000
+
+    Add atomic row rename command and process tests
+
+diff --git a/README.md b/README.md
+index ae526ce..3e7e04f 100644
+--- a/README.md
++++ b/README.md
+@@ -5,7 +5,7 @@ The executable is split across `main.c`, `command.c`, `db.c`, and `storage.c` wi
+ Build the fixed C11 source list into `build/minidb`; tests are process-level and store temporary
+ database files under `build/test-data`. The on-disk GDB1 format is intentionally stable.
+ 
+-Supported commands: `insert <uint32 id> <name>`, `delete <uint32 id>`, `find <uint32 id>`, `select`, `count`, `.help`, `.exit`.
++Supported commands: `insert <uint32 id> <name>`, `delete <uint32 id>`, `rename <uint32 id> <new-name>`, `find <uint32 id>`, `select`, `count`, `.help`, `.exit`.
+ 
+ Delete removes the matching row while preserving the order of all remaining rows.
+ Ids range from 0 to 4294967295. A successful delete prints `Executed.`; a missing
+@@ -13,6 +13,14 @@ id prints `Error: no such id.` without changing the database. Changes become
+ visible in memory only after persistence succeeds, using the existing atomic
+ save path and GDB1 format.
+ 
++Rename changes one existing row's name, preserving its id, position, and total
++count. Names must be single tokens of 1–31 bytes; missing names, oversized
++names, malformed ids, and extra arguments are invalid statements without
++mutation. Success prints `Executed.`; a missing id prints `Error: no such id.`.
++It uses the existing GDB1 atomic save path. If persistence fails, it prints
++`Error: persistence failed.` and preserves both the original in-memory name
++and database file.
++
+ Find prints `(id, name)` for a matching row or `Not found.` otherwise.
+ It accepts exactly one decimal id from 0 to 4294967295; missing arguments,
+ negative ids, overflow, and trailing arguments are invalid statements.
+diff --git a/src/command.c b/src/command.c
+index e0336c7..13c3564 100644
+--- a/src/command.c
++++ b/src/command.c
+@@ -25,7 +25,7 @@ static void print_status(DbStatus status) {
+ int command_dispatch(Table *table, const char *line) {
+     if (strcmp(line, ".exit") == 0) return 1;
+     if (strcmp(line, ".help") == 0) {
+-        puts("insert <uint32 id> <name>; delete <uint32 id>; find <uint32 id>; select; count; .exit"); return 0;
++        puts("insert <uint32 id> <name>; delete <uint32 id>; rename <uint32 id> <new-name>; find <uint32 id>; select; count; .exit"); return 0;
+     }
+     if (strcmp(line, "select") == 0) { db_select(table); return 0; }
+     if (strcmp(line, "count") == 0) {
+@@ -36,6 +36,8 @@ int command_dispatch(Table *table, const char *line) {
+     int fields = sscanf(line, "%15s %31s %31s %1s", command, id_text, name, extra);
+     if (fields == 3 && strcmp(command, "insert") == 0 && parse_id(id_text, &id) == 0) {
+         print_status(db_insert(table, id, name));
++    } else if (fields == 3 && strcmp(command, "rename") == 0 && parse_id(id_text, &id) == 0) {
++        print_status(db_rename(table, id, name));
+     } else if (fields == 2 && strcmp(command, "delete") == 0 && parse_id(id_text, &id) == 0) {
+         print_status(db_delete(table, id));
+     } else if (fields == 2 && strcmp(command, "find") == 0 && parse_id(id_text, &id) == 0) {
+diff --git a/src/db.c b/src/db.c
+index f2a550e..1e884a3 100644
+--- a/src/db.c
++++ b/src/db.c
+@@ -27,6 +27,17 @@ DbStatus db_delete(Table *table, uint32_t id) {
+     *table = next;
+     return DB_OK;
+ }
++DbStatus db_rename(Table *table, uint32_t id, const char *name) {
++    uint32_t index = 0;
++    while (index < table->count && table->rows[index].id != id) ++index;
++    if (index == table->count) return DB_NOT_FOUND;
++    Table next = *table;
++    memset(next.rows[index].name, 0, NAME_BYTES);
++    memcpy(next.rows[index].name, name, strlen(name));
++    if (db_save(&next) != 0) return DB_IO_ERROR;
++    *table = next;
++    return DB_OK;
++}
+ const Row *db_find(const Table *table, uint32_t id) {
+     for (uint32_t i = 0; i < table->count; ++i)
+         if (table->rows[i].id == id) return &table->rows[i];
+diff --git a/src/db.h b/src/db.h
+index 62d47ef..6967e90 100644
+--- a/src/db.h
++++ b/src/db.h
+@@ -11,6 +11,7 @@ int db_load(Table *table);
+ int db_save(const Table *table);
+ DbStatus db_insert(Table *table, uint32_t id, const char *name);
+ DbStatus db_delete(Table *table, uint32_t id);
++DbStatus db_rename(Table *table, uint32_t id, const char *name);
+ const Row *db_find(const Table *table, uint32_t id);
+ void db_select(const Table *table);
+ uint32_t db_count(const Table *table);
+diff --git a/tests/test_db.py b/tests/test_db.py
+index fd21420..0182694 100644
+--- a/tests/test_db.py
++++ b/tests/test_db.py
+@@ -232,5 +232,68 @@ class DatabaseTests(unittest.TestCase):
+         self.assertEqual(result.stdout.splitlines(),[
+             '(7, new)','(0, zero)','Count: 2','(0, zero)','(7, new)','Executed.'])
+ 
++
++    def test_rename_first_middle_last_and_restart(self):
++        self.assertEqual(self.run_db('insert 0 zero\ninsert 7 middle\ninsert 4294967295 max\n').returncode,0)
++        names=['a'*31,'m','last']
++        for row_id,name in zip([0,7,4294967295],names):
++            result=self.run_db(f'rename {row_id} {name}\nfind {row_id}\ncount\n')
++            self.assertEqual(result.returncode,0)
++            self.assertEqual(result.stdout.splitlines(),
++                             ['Executed.',f'({row_id}, {name})','Count: 3'])
++        expected=(b'GDB1'+struct.pack('<I',3)
++                  +b''.join(struct.pack('<I32s',i,n.encode()) for i,n in
++                            zip([0,7,4294967295],names)))
++        self.assertEqual((self.path/'data.db').read_bytes(),expected)
++        result=self.run_db('find 0\nfind 7\nfind 4294967295\nselect\ncount\n.help\n')
++        self.assertEqual(result.returncode,0)
++        rows=[f'({i}, {n})' for i,n in zip([0,7,4294967295],names)]
++        self.assertEqual(result.stdout.splitlines()[:-1],rows+rows+['Executed.','Count: 3'])
++        self.assertIn('rename <uint32 id> <new-name>',result.stdout)
++        self.assertEqual((self.path/'data.db').read_bytes(),expected)
++
++    def test_rename_missing_and_malformed_do_not_mutate(self):
++        invalid=['rename','rename 0','rename 0   ','rename -1 name',
++                 'rename +0 name','rename 4294967296 name','rename 1x name',
++                 'rename '+'9'*40+' name','rename 0.0 name',
++                 'rename 0 '+'a'*32,'rename 0 '+'é'*16,
++                 'rename 0 new extra','rename 0 two words']
++        for populated in (False,True):
++            if populated:
++                self.assertEqual(self.run_db('insert 0 original\n').returncode,0)
++            database=self.path/'data.db'
++            before=database.read_bytes() if populated else None
++            result=self.run_db('\n'.join(invalid)+'\nrename 8 name\nrename 4294967295 name\ncount\nselect\n')
++            self.assertEqual(result.returncode,0)
++            self.assertEqual(result.stdout.splitlines(),
++                             ['Error: invalid statement.']*len(invalid)
++                             +['Error: no such id.']*2
++                             +(['Count: 1','(0, original)','Executed.'] if populated
++                               else ['Count: 0','Executed.']))
++            if populated:
++                self.assertEqual(database.read_bytes(),before)
++            else:
++                self.assertFalse(database.exists())
++            self.assertFalse((self.path/'data.db.tmp').exists())
++
++    def test_rename_persistence_failure_rolls_back_memory_and_disk(self):
++        self.run_db('insert 0 zero\ninsert 9 original\ninsert 4294967295 max\n')
++        database=self.path/'data.db'
++        before=database.read_bytes()
++        (self.path/'data.db.tmp').mkdir()
++        result=self.run_db('rename 9 changed\nfind 9\ncount\nselect\nrename 9 x\nfind 9\n')
++        self.assertEqual(result.returncode,0)
++        self.assertEqual(result.stdout.splitlines(),[
++            'Error: persistence failed.','(9, original)','Count: 3',
++            '(0, zero)','(9, original)','(4294967295, max)','Executed.',
++            'Error: persistence failed.','(9, original)'])
++        self.assertEqual(database.read_bytes(),before)
++        self.assertEqual(self.run_db('find 9\ncount\n').stdout,'(9, original)\nCount: 3\n')
++        (self.path/'data.db.tmp').rmdir()
++        result=self.run_db('rename 9 recovered\nfind 9\ncount\n')
++        self.assertEqual(result.returncode,0)
++        self.assertEqual(result.stdout,'Executed.\n(9, recovered)\nCount: 3\n')
++        self.assertEqual(self.run_db('find 9\n').stdout,'(9, recovered)\n')
++
+ if __name__=='__main__':
+     unittest.main(verbosity=2)

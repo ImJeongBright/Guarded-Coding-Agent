@@ -1,0 +1,9 @@
+{
+  "command": "python3 -B -m unittest discover -s tests -p test_scale_git_metadata.py -v",
+  "tests": 5,
+  "failures": 0,
+  "errors": 0,
+  "skipped": 0,
+  "duration_seconds": 10.353,
+  "result": "passed"
+}

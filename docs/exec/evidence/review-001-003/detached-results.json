@@ -1,0 +1,24 @@
+{
+  "normal_return": {
+    "decision": "ALLOW",
+    "matched_rule": "SH-PROFILE",
+    "executed": true,
+    "exit_code": 0,
+    "stdout": "60981\n",
+    "stderr": "",
+    "timed_out": false,
+    "marker_on_return": false,
+    "marker_later": true
+  },
+  "timeout": {
+    "decision": "ALLOW",
+    "matched_rule": "SH-PROFILE",
+    "executed": true,
+    "exit_code": 124,
+    "stdout": "60984\n",
+    "stderr": "",
+    "timed_out": true,
+    "marker_on_return": false,
+    "marker_later": true
+  }
+}

@@ -1,0 +1,24 @@
+test_cli_returns_failure_when_effect_succeeds_but_result_audit_is_missing (test_final_failures.FinalFailureTests.test_cli_returns_failure_when_effect_succeeds_but_result_audit_is_missing) ... FAIL
+test_controller_sigkill_retains_scope_but_needs_operator_cleanup (test_final_failures.FinalFailureTests.test_controller_sigkill_retains_scope_but_needs_operator_cleanup) ... ok
+test_result_audit_failure_preserves_effect_and_requires_operator_restart (test_final_failures.FinalFailureTests.test_result_audit_failure_preserves_effect_and_requires_operator_restart) ... FAIL
+
+======================================================================
+FAIL: test_cli_returns_failure_when_effect_succeeds_but_result_audit_is_missing (test_final_failures.FinalFailureTests.test_cli_returns_failure_when_effect_succeeds_but_result_audit_is_missing)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "$REPO/tests/test_final_failures.py", line 50, in test_cli_returns_failure_when_effect_succeeds_but_result_audit_is_missing
+    self.assertEqual(code, 1)
+AssertionError: 0 != 1
+
+======================================================================
+FAIL: test_result_audit_failure_preserves_effect_and_requires_operator_restart (test_final_failures.FinalFailureTests.test_result_audit_failure_preserves_effect_and_requires_operator_restart)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "$REPO/tests/test_final_failures.py", line 29, in test_result_audit_failure_preserves_effect_and_requires_operator_restart
+    self.assertTrue(facts['mcp_is_error'], facts)
+AssertionError: False is not true : {'injection': 'audit path replaced by directory after executor write', 'effect_bytes': 'applied fixture', 'outcome': {'decision': 'ALLOW', 'matched_rule': 'FS-LOCAL', 'reason': 'Bounded local capability allowed.', 'executed': True, 'execution_status': 'succeeded', 'effect_status': 'applied', 'exit_code': 0, 'stdout': 'Wrote file.', 'stderr': '', 'run_id': 'fa1580cb792a47c3ada283ce449cae79', 'audit_event_id': 'd6e046ca2beb43d3b1e3a6998e24fa4f', 'execution_stage': 'write_completed', 'audit_error': 'Execution finished but result audit could not be persisted.', 'timings_ms': {'normalization': 0.7852510316297412, 'decision': 0.03729201853275299, 'audit': 0.3707919968292117, 'execution': 0.7571669993922114, 'total': 2.0521669648587704, 'other': 0.10166491847485304}}, 'mcp_is_error': False, 'followup': {'decision': 'ALLOW', 'matched_rule': 'FS-LOCAL', 'reason': 'Bounded local capability allowed.', 'executed': True, 'execution_status': 'succeeded', 'effect_status': 'applied', 'exit_code': 0, 'stdout': 'Wrote file.', 'stderr': '', 'run_id': 'fa1580cb792a47c3ada283ce449cae79', 'audit_event_id': '18593fa16d58478cb4566c14c62e4326', 'execution_stage': 'write_completed', 'timings_ms': {'normalization': 0.49295806093141437, 'decision': 0.02879102248698473, 'audit': 0.32599898986518383, 'execution': 0.47141697723418474, 'total': 1.4005409902893007, 'other': 0.08137593977153301}}, 'followup_effect_exists': True, 'fresh_read': {'decision': 'ALLOW', 'matched_rule': 'FS-LOCAL', 'reason': 'Bounded local capability allowed.', 'executed': True, 'execution_status': 'succeeded', 'effect_status': 'none', 'exit_code': 0, 'stdout': 'applied fixture', 'stderr': '', 'run_id': 'fa3adb16f1694476ba84fd73d71e2dec', 'audit_event_id': '04c2caa52596477e8b17d7d17400ea11', 'sha256': '9ec97efb9a631539b5c4e470f7404a371a535e6bac186b86a5c2f07c09ab7a25', 'total_lines': 1, 'execution_stage': 'completed', 'timings_ms': {'normalization': 0.482875038869679, 'decision': 0.04295801045373082, 'audit': 0.37666596472263336, 'execution': 0.34733297070488334, 'total': 1.3445409713312984, 'other': 0.09470898658037186}}, 'audit_phases': ['decision', 'decision', 'result', 'decision', 'result']}
+
+----------------------------------------------------------------------
+Ran 3 tests in 0.460s
+
+FAILED (failures=2)

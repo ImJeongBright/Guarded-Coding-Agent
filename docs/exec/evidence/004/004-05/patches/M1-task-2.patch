@@ -1,0 +1,164 @@
+commit 66fb835f613abbd0a755e008c7c455917e791ba9
+Author:     User X <user-x@example.invalid>
+AuthorDate: Mon Oct 5 02:35:14 2026 +0000
+Commit:     User X <user-x@example.invalid>
+CommitDate: Mon Oct 5 02:35:14 2026 +0000
+
+    Add read-only find command with process-level coverage
+
+diff --git a/README.md b/README.md
+index 0d0a08d..ae526ce 100644
+--- a/README.md
++++ b/README.md
+@@ -5,10 +5,16 @@ The executable is split across `main.c`, `command.c`, `db.c`, and `storage.c` wi
+ Build the fixed C11 source list into `build/minidb`; tests are process-level and store temporary
+ database files under `build/test-data`. The on-disk GDB1 format is intentionally stable.
+ 
+-Supported commands: `insert <uint32 id> <name>`, `delete <uint32 id>`, `select`, `count`, `.help`, `.exit`.
++Supported commands: `insert <uint32 id> <name>`, `delete <uint32 id>`, `find <uint32 id>`, `select`, `count`, `.help`, `.exit`.
+ 
+ Delete removes the matching row while preserving the order of all remaining rows.
+ Ids range from 0 to 4294967295. A successful delete prints `Executed.`; a missing
+ id prints `Error: no such id.` without changing the database. Changes become
+ visible in memory only after persistence succeeds, using the existing atomic
+ save path and GDB1 format.
++
++Find prints `(id, name)` for a matching row or `Not found.` otherwise.
++It accepts exactly one decimal id from 0 to 4294967295; missing arguments,
++negative ids, overflow, and trailing arguments are invalid statements.
++Queries leave row order, count, and database bytes unchanged and never save
++or create a temporary database file.
+diff --git a/src/command.c b/src/command.c
+index 65f349d..e0336c7 100644
+--- a/src/command.c
++++ b/src/command.c
+@@ -25,7 +25,7 @@ static void print_status(DbStatus status) {
+ int command_dispatch(Table *table, const char *line) {
+     if (strcmp(line, ".exit") == 0) return 1;
+     if (strcmp(line, ".help") == 0) {
+-        puts("insert <uint32 id> <name>; delete <uint32 id>; select; count; .exit"); return 0;
++        puts("insert <uint32 id> <name>; delete <uint32 id>; find <uint32 id>; select; count; .exit"); return 0;
+     }
+     if (strcmp(line, "select") == 0) { db_select(table); return 0; }
+     if (strcmp(line, "count") == 0) {
+@@ -38,6 +38,10 @@ int command_dispatch(Table *table, const char *line) {
+         print_status(db_insert(table, id, name));
+     } else if (fields == 2 && strcmp(command, "delete") == 0 && parse_id(id_text, &id) == 0) {
+         print_status(db_delete(table, id));
++    } else if (fields == 2 && strcmp(command, "find") == 0 && parse_id(id_text, &id) == 0) {
++        const Row *row = db_find(table, id);
++        if (row != NULL) printf("(%u, %s)\n", (unsigned)row->id, row->name);
++        else puts("Not found.");
+     } else {
+         puts("Error: invalid statement.");
+     }
+diff --git a/src/db.c b/src/db.c
+index 4420150..f2a550e 100644
+--- a/src/db.c
++++ b/src/db.c
+@@ -27,6 +27,11 @@ DbStatus db_delete(Table *table, uint32_t id) {
+     *table = next;
+     return DB_OK;
+ }
++const Row *db_find(const Table *table, uint32_t id) {
++    for (uint32_t i = 0; i < table->count; ++i)
++        if (table->rows[i].id == id) return &table->rows[i];
++    return NULL;
++}
+ void db_select(const Table *table) {
+     for (uint32_t i = 0; i < table->count; ++i)
+         printf("(%u, %s)\n", (unsigned)table->rows[i].id, table->rows[i].name);
+diff --git a/src/db.h b/src/db.h
+index 26f3372..62d47ef 100644
+--- a/src/db.h
++++ b/src/db.h
+@@ -11,6 +11,7 @@ int db_load(Table *table);
+ int db_save(const Table *table);
+ DbStatus db_insert(Table *table, uint32_t id, const char *name);
+ DbStatus db_delete(Table *table, uint32_t id);
++const Row *db_find(const Table *table, uint32_t id);
+ void db_select(const Table *table);
+ uint32_t db_count(const Table *table);
+ #endif
+diff --git a/tests/test_db.py b/tests/test_db.py
+index f369ef6..fd21420 100644
+--- a/tests/test_db.py
++++ b/tests/test_db.py
+@@ -160,5 +160,77 @@ class DatabaseTests(unittest.TestCase):
+             'Count: 3','(0, zero)','(9, nine)','(3, three)','Executed.',
+             'Executed.','Count: 2','(0, zero)','(3, three)','Executed.'])
+ 
++
++    def test_find_empty_is_read_only(self):
++        result=self.run_db('find 0\nfind 4294967295\ncount\n.exit\n')
++        self.assertEqual(result.returncode,0)
++        self.assertEqual(result.stdout,'Not found.\nNot found.\nCount: 0\n')
++        self.assertEqual(list(self.path.iterdir()),[])
++
++    def test_find_repeated_queries_and_restart_preserve_database(self):
++        # Noncanonical padding makes an accidental rewrite visible in bytes.
++        data=(b'GDB1'+struct.pack('<I',3)
++              +struct.pack('<I',7)+b'seven\0'+b'x'*26
++              +struct.pack('<I32s',0,b'zero')
++              +struct.pack('<I32s',4294967295,b'max'))
++        database=self.path/'data.db'
++        database.write_bytes(data)
++        before=database.stat()
++        commands=('find 4294967295\nfind 7\nfind 0\nfind 8\n'*3
++                  +'count\nselect\n.exit\n')
++        expected=(['(4294967295, max)','(7, seven)','(0, zero)','Not found.']*3
++                  +['Count: 3','(7, seven)','(0, zero)','(4294967295, max)','Executed.'])
++        for _ in range(2):
++            result=self.run_db(commands)
++            self.assertEqual(result.returncode,0)
++            self.assertEqual(result.stdout.splitlines(),expected)
++            self.assertEqual(database.read_bytes(),data)
++            self.assertEqual(database.stat().st_mtime_ns,before.st_mtime_ns)
++            self.assertEqual(database.stat().st_ino,before.st_ino)
++            self.assertEqual(sorted(p.name for p in self.path.iterdir()),['data.db'])
++        # A blocked save path must not affect lookup.
++        (self.path/'data.db.tmp').mkdir()
++        result=self.run_db('find 7\nfind 8\n')
++        self.assertEqual(result.returncode,0)
++        self.assertEqual(result.stdout,'(7, seven)\nNot found.\n')
++        self.assertEqual(database.read_bytes(),data)
++        self.assertTrue((self.path/'data.db.tmp').is_dir())
++
++    def test_find_malformed_arguments(self):
++        invalid=['find','find -1','find +0','find 4294967296',
++                 'find 1x','find 0 extra','find 0 extra more',
++                 'find '+'9'*40,'find 0.0','find 0x0']
++        for populated in (False,True):
++            if populated:
++                self.assertEqual(self.run_db('insert 0 zero\n').returncode,0)
++            before=(self.path/'data.db').read_bytes() if populated else None
++            result=self.run_db('\n'.join(invalid)+'\ncount\n.help\n')
++            self.assertEqual(result.returncode,0)
++            self.assertEqual(result.stdout.splitlines()[:len(invalid)],
++                             ['Error: invalid statement.']*len(invalid))
++            self.assertEqual(result.stdout.splitlines()[len(invalid)],
++                             'Count: 1' if populated else 'Count: 0')
++            self.assertIn('find <uint32 id>',result.stdout)
++            if populated:
++                self.assertEqual((self.path/'data.db').read_bytes(),before)
++            else:
++                self.assertFalse((self.path/'data.db').exists())
++            self.assertFalse((self.path/'data.db.tmp').exists())
++
++    def test_find_coexists_with_insert_delete(self):
++        result=self.run_db('find 7\ninsert 7 seven\nfind 7\ninsert 0 zero\n'
++                           'insert 7 other\nfind 7\ndelete 7\nfind 7\n'
++                           'delete 7\nfind 0\ninsert 7 new\nfind 7\ncount\nselect\n.exit\n')
++        self.assertEqual(result.returncode,0)
++        self.assertEqual(result.stdout.splitlines(),[
++            'Not found.','Executed.','(7, seven)','Executed.',
++            'Error: duplicate id.','(7, seven)','Executed.','Not found.',
++            'Error: no such id.','(0, zero)','Executed.','(7, new)',
++            'Count: 2','(0, zero)','(7, new)','Executed.'])
++        result=self.run_db('find 7\nfind 0\ncount\nselect\n')
++        self.assertEqual(result.returncode,0)
++        self.assertEqual(result.stdout.splitlines(),[
++            '(7, new)','(0, zero)','Count: 2','(0, zero)','(7, new)','Executed.'])
++
+ if __name__=='__main__':
+     unittest.main(verbosity=2)

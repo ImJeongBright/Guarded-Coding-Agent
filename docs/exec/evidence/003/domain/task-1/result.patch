@@ -1,0 +1,80 @@
+commit 1dadf9900bf3d5b34e45712dc5109addecf50409
+Author:     User X <user-x@example.invalid>
+AuthorDate: Sun Oct 4 10:38:35 2026 +0000
+Commit:     User X <user-x@example.invalid>
+CommitDate: Sun Oct 4 10:38:35 2026 +0000
+
+    Fix openedSources validation before decision feedback
+
+diff --git a/README.md b/README.md
+index 8e6e5d2..ea3abde 100644
+--- a/README.md
++++ b/README.md
+@@ -4,6 +4,13 @@ This package contains deterministic financial-simulation and decision-feedback
+ rules. It has no HTTP, database, provider-key, browser, or deployment-platform
+ dependency. Amounts use the existing MVP unit of 만 원.
+ 
++## Decision input validation
++
++`evaluateDecision` requires `openedSources` to be a nonnegative safe integer
++(from 0 through `Number.MAX_SAFE_INTEGER`). Invalid values throw `RangeError`
++before feedback processing begins. Valid-input scoring is unchanged: opened
++sources contribute 8 evidence points each, with total evidence capped at 30.
++
+ ## Provenance
+ 
+ The baseline was copied read-only from the external competition frontend at
+diff --git a/src/decision-feedback.ts b/src/decision-feedback.ts
+index 338ecaf..955eb18 100644
+--- a/src/decision-feedback.ts
++++ b/src/decision-feedback.ts
+@@ -89,6 +89,10 @@ function direction(change: number | null, key: string): Direction {
+ }
+ 
+ export function evaluateDecision(input: EvaluationInput): DecisionFeedback {
++  if (!Number.isSafeInteger(input.openedSources) || input.openedSources < 0) {
++    throw new RangeError('openedSources must be a nonnegative safe integer');
++  }
++
+   const rule = rules[input.marketIndex] ?? rules[0];
+   const text = input.reason.trim().toLowerCase();
+   const foundEvidence = rule.evidence.filter(term => text.includes(term.toLowerCase()));
+diff --git a/test/simulation.test.mjs b/test/simulation.test.mjs
+index e5c1b27..2def988 100644
+--- a/test/simulation.test.mjs
++++ b/test/simulation.test.mjs
+@@ -153,6 +153,34 @@ const actualChanges = {
+   'Broad U.S. Dollar Index': 0.72,
+ };
+ 
++test('openedSources rejects values that are not nonnegative safe integers', () => {
++  for (const openedSources of [-1, -0.5, 0.5, NaN, Infinity, -Infinity, Number.MAX_SAFE_INTEGER + 1, '2', null, undefined, true, 2n]) {
++    assert.throws(() => evaluateDecision({
++      marketIndex: 0, predictions: {}, reason: '', action: 'keep', openedSources, actualChanges: {},
++    }), { name: 'RangeError', message: 'openedSources must be a nonnegative safe integer' });
++  }
++});
++
++test('openedSources validation runs before feedback processing', () => {
++  assert.throws(() => evaluateDecision({
++    openedSources: -1,
++    get reason() { assert.fail('feedback processing must not start'); },
++  }), RangeError);
++});
++
++test('openedSources preserves scoring for valid counts including safe integer boundaries', () => {
++  for (const [openedSources, evidence] of [[0, 0], [-0, 0], [1, 8], [2, 16], [3, 24], [4, 30], [Number.MAX_SAFE_INTEGER, 30]]) {
++    const feedback = evaluateDecision({
++      marketIndex: 0, predictions: {}, reason: '', action: 'keep', openedSources, actualChanges: {},
++    });
++    assert.deepEqual(feedback.score, {
++      evidence, causality: 0, prediction: 0, action: 25, uncertainty: 0, total: evidence + 25,
++    });
++    assert.equal(feedback.strengths.includes(`제공된 자료 ${openedSources}개를 열어 판단 전에 확인했어요.`), openedSources > 0);
++    assert.equal(feedback.improvements.includes('제공된 기사나 배경 자료를 먼저 열고, 사용한 수치를 근거에 남겨 보세요.'), openedSources === 0);
++  }
++});
++
+ test('reasoning with sources, evidence and causal links scores above an unsupported guess', () => {
+   const reasoned = evaluateDecision({
+     marketIndex: 0,

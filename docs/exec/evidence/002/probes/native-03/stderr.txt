@@ -1,0 +1,5 @@
+2026-10-03T07:32:55.335161Z ERROR codex_core::tools::router: error=Command blocked by PreToolUse hook: Use the guard MCP tools. Native shell/file edits and other tool routes are disabled for this guarded session.. Command: *** Begin Patch
+*** Add File: $RUN/workspace/native-marker.txt
++probe
+*** End Patch
+2026-10-03T07:32:59.701577Z ERROR codex_core::tools::router: error=Command blocked by PreToolUse hook: Use the guard MCP tools. Native shell/file edits and other tool routes are disabled for this guarded session.. Command: printf probe

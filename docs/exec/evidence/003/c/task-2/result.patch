@@ -1,0 +1,38 @@
+commit 9aaf44148103d004ff82f01bc690e4b000ca1bec
+Author:     User X <user-x@example.invalid>
+AuthorDate: Sun Oct 4 10:29:54 2026 +0000
+Commit:     User X <user-x@example.invalid>
+CommitDate: Sun Oct 4 10:29:54 2026 +0000
+
+    Refactor select and find to share row output helper
+
+diff --git a/src/db.c b/src/db.c
+index bb23985..5943a75 100644
+--- a/src/db.c
++++ b/src/db.c
+@@ -78,12 +78,15 @@ static void insert(Table *table, uint32_t id, const char *name) {
+     if (save(table) != 0) { --table->count; puts("Error: persistence failed."); }
+     else puts("Executed.");
+ }
++static void print_row(const Row *row) {
++    printf("(%u, %s)\n", (unsigned)row->id, row->name);
++}
+ static int dispatch(Table *table, const char *line) {
+     if (strcmp(line, ".exit") == 0) return 1;
+     if (strcmp(line, ".help") == 0) { puts("insert <uint32 id> <name>; select; count; find <uint32 id>; .exit"); return 0; }
+     if (strcmp(line, "select") == 0) {
+         for (uint32_t i = 0; i < table->count; ++i)
+-            printf("(%u, %s)\n", (unsigned)table->rows[i].id, table->rows[i].name);
++            print_row(&table->rows[i]);
+         puts("Executed."); return 0;
+     }
+     if (strcmp(line, "count") == 0) {
+@@ -96,7 +99,7 @@ static int dispatch(Table *table, const char *line) {
+     else if (fields == 2 && strcmp(command, "find") == 0 && parse_id(id_text, &id) == 0) {
+         for (uint32_t i = 0; i < table->count; ++i) {
+             if (table->rows[i].id == id) {
+-                printf("(%u, %s)\n", (unsigned)id, table->rows[i].name);
++                print_row(&table->rows[i]);
+                 return 0;
+             }
+         }

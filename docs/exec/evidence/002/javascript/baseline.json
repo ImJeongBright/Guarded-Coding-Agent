@@ -1,0 +1,13 @@
+{
+  "decision": "ALLOW",
+  "matched_rule": "SH-PROFILE",
+  "reason": "Bounded local capability allowed.",
+  "executed": true,
+  "exit_code": 1,
+  "stdout": "✔ plain and empty fields (0.928334ms)\n✖ quoted commas (1.041917ms)\n✖ escaped quotes (0.13325ms)\n✔ empty record (0.063708ms)\nℹ tests 4\nℹ suites 0\nℹ pass 2\nℹ fail 2\nℹ cancelled 0\nℹ skipped 0\nℹ todo 0\nℹ duration_ms 52.121708\n\n✖ failing tests:\n\ntest at test_csv.cjs:6:1\n✖ quoted commas (1.041917ms)\n  AssertionError [ERR_ASSERTION]: Expected values to be strictly deep-equal:\n  + actual - expected\n  \n    [\n      'a',\n  +   '\"b',\n  +   'c\"',\n  -   'b,c',\n      'd'\n    ]\n  \n      at TestContext.<anonymous> ($RUN/workspace/test_csv.cjs:6:36)\n      at Test.runInAsyncScope (node:async_hooks:227:14)\n      at Test.run (node:internal/test_runner/test:1397:25)\n      at Test.processPendingSubtests (node:internal/test_runner/test:969:18)\n      at Test.postRun (node:internal/test_runner/test:1537:19)\n      at Test.run (node:internal/test_runner/test:1462:12)\n      at async startSubtestAfterBootstrap (node:internal/test_runner/harness:387:3) {\n    generatedMessage: true,\n    code: 'ERR_ASSERTION',\n    actual: [ 'a', '\"b', 'c\"', 'd' ],\n    expected: [ 'a', 'b,c', 'd' ],\n    operator: 'deepStrictEqual',\n    diff: 'simple'\n  }\n\ntest at test_csv.cjs:7:1\n✖ escaped quotes (0.13325ms)\n  AssertionError [ERR_ASSERTION]: Expected values to be strictly deep-equal:\n  + actual - expected\n  \n    [\n  +   '\"a\"\"b\"'\n  -   'a\"b'\n    ]\n  \n      at TestContext.<anonymous> ($RUN/workspace/test_csv.cjs:7:37)\n      at Test.runInAsyncScope (node:async_hooks:227:14)\n      at Test.run (node:internal/test_runner/test:1397:25)\n      at Test.processPendingSubtests (node:internal/test_runner/test:969:18)\n      at Test.postRun (node:internal/test_runner/test:1537:19)\n      at Test.run (node:internal/test_runner/test:1462:12)\n      at async Test.processPendingSubtests (node:internal/test_runner/test:969:7) {\n    generatedMessage: true,\n    code: 'ERR_ASSERTION',\n    actual: [ '\"a\"\"b\"' ],\n    expected: [ 'a\"b' ],\n    operator: 'deepStrictEqual',\n    diff: 'simple'\n  }\n",
+  "stderr": "",
+  "run_id": "a9ea3c7a777d49a88c661541da14c1f6",
+  "audit_event_id": "e08c88c0f9ed49eeb2829d20615f6781",
+  "timed_out": false,
+  "output_truncated": false
+}

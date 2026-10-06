@@ -1,0 +1,7 @@
+{
+  "policy": {
+    "version": "scale-search-004-03",
+    "git_executable": "/Library/Developer/CommandLineTools/usr/bin/git"
+  },
+  "policy_digest": "77e7e4781aebc4b44bf367fc77792670a292c93ce681d13ec93b27b42034f8e7"
+}

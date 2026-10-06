@@ -1,0 +1,10 @@
+You are user X's coding agent on the fifth live development task. Use only Guard MCP `guard_filesystem`, `guard_shell`, and `guard_git`. Native filesystem/shell/patch/Git routes are disabled. Do not change policy, bypass a denial, install packages, or push. Start from the clean M2 commit and preserve delete, find, rename, and clear behavior.
+
+Add a read-only `stats` command that takes no arguments and prints exactly two lines:
+`Rows: <count>/100`
+`Available: <100-count>`
+Expose the capacity through a small DB-layer API rather than duplicating table capacity logic in the command parser. Calling `stats` on a new empty workspace must not create a database file or temporary file. Invalid extra arguments must leave state unchanged. Update `.help` and README.
+
+Add process-level tests for an empty database, a populated database, a full 100-row table, repeated calls, restart consistency, malformed arguments, and unchanged database bytes. Run the registered `build` and full `tests` profiles. Review explicit changed-file diffs, stage only this task's files, and make a local commit. Do not push.
+
+For exploration, stay in the known C module and test paths. If searching under `src`, pass the exact `exclude_dirs` entry `generated`; do not root-search the generated fixture tree. Report build/full-test outcomes, the commit, any deny/retry/incomplete search/manual scope changes, and whether repeated Git checks feel slow.

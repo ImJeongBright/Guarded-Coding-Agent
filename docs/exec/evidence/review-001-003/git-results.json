@@ -1,0 +1,33 @@
+{
+  "pathspec_expansion": {
+    "request": {
+      "tool": "git",
+      "operation": "add",
+      "paths": [
+        "*.txt"
+      ]
+    },
+    "decision": "ALLOW",
+    "executed": true,
+    "exit_code": 0,
+    "literal_target_exists": false,
+    "staged_files": [
+      "one.txt",
+      "two.txt"
+    ]
+  },
+  "deleted_sensitive_blob": {
+    "request": {
+      "tool": "git",
+      "operation": "diff",
+      "staged": true
+    },
+    "direct_read_decision": "DENY",
+    "direct_read_rule": "FS-SENSITIVE",
+    "decision": "ALLOW",
+    "executed": true,
+    "exit_code": 0,
+    "dummy_exposed": true,
+    "stdout": "diff --git a/.env b/.env\ndeleted file mode 100644\nindex 79f7f75..0000000\n--- a/.env\n+++ /dev/null\n@@ -1 +0,0 @@\n-REVIEW_DUMMY=not_a_secret_7391\n"
+  }
+}

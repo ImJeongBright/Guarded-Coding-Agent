@@ -1,0 +1,166 @@
+commit 00c769d330d77c8d7ae4c81be4f1748bb5bac274
+Author:     User X <user-x@example.invalid>
+AuthorDate: Mon Oct 5 02:29:23 2026 +0000
+Commit:     User X <user-x@example.invalid>
+CommitDate: Mon Oct 5 02:29:23 2026 +0000
+
+    Add persistent delete command with process-level coverage
+
+diff --git a/README.md b/README.md
+index fd7c970..0d0a08d 100644
+--- a/README.md
++++ b/README.md
+@@ -5,4 +5,10 @@ The executable is split across `main.c`, `command.c`, `db.c`, and `storage.c` wi
+ Build the fixed C11 source list into `build/minidb`; tests are process-level and store temporary
+ database files under `build/test-data`. The on-disk GDB1 format is intentionally stable.
+ 
+-Supported commands: `insert <uint32 id> <name>`, `select`, `count`, `.help`, `.exit`.
++Supported commands: `insert <uint32 id> <name>`, `delete <uint32 id>`, `select`, `count`, `.help`, `.exit`.
++
++Delete removes the matching row while preserving the order of all remaining rows.
++Ids range from 0 to 4294967295. A successful delete prints `Executed.`; a missing
++id prints `Error: no such id.` without changing the database. Changes become
++visible in memory only after persistence succeeds, using the existing atomic
++save path and GDB1 format.
+diff --git a/src/command.c b/src/command.c
+index f50f97c..65f349d 100644
+--- a/src/command.c
++++ b/src/command.c
+@@ -19,12 +19,13 @@ static void print_status(DbStatus status) {
+     case DB_DUPLICATE: puts("Error: duplicate id."); break;
+     case DB_FULL: puts("Error: table full."); break;
+     case DB_IO_ERROR: puts("Error: persistence failed."); break;
++    case DB_NOT_FOUND: puts("Error: no such id."); break;
+     }
+ }
+ int command_dispatch(Table *table, const char *line) {
+     if (strcmp(line, ".exit") == 0) return 1;
+     if (strcmp(line, ".help") == 0) {
+-        puts("insert <uint32 id> <name>; select; count; .exit"); return 0;
++        puts("insert <uint32 id> <name>; delete <uint32 id>; select; count; .exit"); return 0;
+     }
+     if (strcmp(line, "select") == 0) { db_select(table); return 0; }
+     if (strcmp(line, "count") == 0) {
+@@ -35,6 +36,8 @@ int command_dispatch(Table *table, const char *line) {
+     int fields = sscanf(line, "%15s %31s %31s %1s", command, id_text, name, extra);
+     if (fields == 3 && strcmp(command, "insert") == 0 && parse_id(id_text, &id) == 0) {
+         print_status(db_insert(table, id, name));
++    } else if (fields == 2 && strcmp(command, "delete") == 0 && parse_id(id_text, &id) == 0) {
++        print_status(db_delete(table, id));
+     } else {
+         puts("Error: invalid statement.");
+     }
+diff --git a/src/db.c b/src/db.c
+index 2875a35..4420150 100644
+--- a/src/db.c
++++ b/src/db.c
+@@ -14,6 +14,19 @@ DbStatus db_insert(Table *table, uint32_t id, const char *name) {
+     if (db_save(table) != 0) { --table->count; return DB_IO_ERROR; }
+     return DB_OK;
+ }
++DbStatus db_delete(Table *table, uint32_t id) {
++    uint32_t index = 0;
++    while (index < table->count && table->rows[index].id != id) ++index;
++    if (index == table->count) return DB_NOT_FOUND;
++    Table next = *table;
++    for (uint32_t i = index; i + 1 < next.count; ++i)
++        next.rows[i] = next.rows[i + 1];
++    --next.count;
++    memset(&next.rows[next.count], 0, sizeof next.rows[next.count]);
++    if (db_save(&next) != 0) return DB_IO_ERROR;
++    *table = next;
++    return DB_OK;
++}
+ void db_select(const Table *table) {
+     for (uint32_t i = 0; i < table->count; ++i)
+         printf("(%u, %s)\n", (unsigned)table->rows[i].id, table->rows[i].name);
+diff --git a/src/db.h b/src/db.h
+index 1557a01..26f3372 100644
+--- a/src/db.h
++++ b/src/db.h
+@@ -6,10 +6,11 @@
+ #define DB_FILE "data.db"
+ typedef struct { uint32_t id; char name[NAME_BYTES]; } Row;
+ typedef struct { Row rows[MAX_ROWS]; uint32_t count; } Table;
+-typedef enum { DB_OK, DB_DUPLICATE, DB_FULL, DB_IO_ERROR } DbStatus;
++typedef enum { DB_OK, DB_DUPLICATE, DB_FULL, DB_IO_ERROR, DB_NOT_FOUND } DbStatus;
+ int db_load(Table *table);
+ int db_save(const Table *table);
+ DbStatus db_insert(Table *table, uint32_t id, const char *name);
++DbStatus db_delete(Table *table, uint32_t id);
+ void db_select(const Table *table);
+ uint32_t db_count(const Table *table);
+ #endif
+diff --git a/tests/test_db.py b/tests/test_db.py
+index 40c7165..f369ef6 100644
+--- a/tests/test_db.py
++++ b/tests/test_db.py
+@@ -97,5 +97,68 @@ class DatabaseTests(unittest.TestCase):
+         self.assertIn('Count: 0\n',result.stdout)
+         self.assertFalse((self.path/'data.db').exists())
+ 
++    def test_delete_zero_middle_last_and_restart(self):
++        result=self.run_db('insert 0 zero\ninsert 7 seven\ninsert 2 two\ninsert 4294967295 max\ndelete 0\ncount\nselect\ndelete 2\ncount\nselect\ndelete 4294967295\ncount\nselect\n.exit\n')
++        self.assertEqual(result.returncode,0)
++        self.assertEqual(result.stdout.splitlines(),[
++            'Executed.','Executed.','Executed.','Executed.','Executed.',
++            'Count: 3','(7, seven)','(2, two)','(4294967295, max)','Executed.',
++            'Executed.','Count: 2','(7, seven)','(4294967295, max)','Executed.',
++            'Executed.','Count: 1','(7, seven)','Executed.'])
++        expected=b'GDB1'+struct.pack('<I',1)+struct.pack('<I32s',7,b'seven')
++        self.assertEqual((self.path/'data.db').read_bytes(),expected)
++        result=self.run_db('count\nselect\ndelete 7\ncount\nselect\n.exit\n')
++        self.assertEqual(result.returncode,0)
++        self.assertEqual(result.stdout.splitlines(),[
++            'Count: 1','(7, seven)','Executed.','Executed.','Count: 0','Executed.'])
++        self.assertEqual((self.path/'data.db').read_bytes(),b'GDB1'+struct.pack('<I',0))
++        self.assertEqual(self.run_db('count\nselect\n').stdout,'Count: 0\nExecuted.\n')
++
++    def test_delete_missing_is_read_only(self):
++        result=self.run_db('delete 0\ncount\nselect\n')
++        self.assertEqual(result.returncode,0)
++        self.assertEqual(result.stdout,'Error: no such id.\nCount: 0\nExecuted.\n')
++        self.assertFalse((self.path/'data.db').exists())
++        self.run_db('insert 8 eight\n')
++        before=(self.path/'data.db').read_bytes()
++        result=self.run_db('delete 0\ndelete 4294967295\ncount\nselect\n')
++        self.assertEqual(result.returncode,0)
++        self.assertEqual(result.stdout.splitlines(),[
++            'Error: no such id.','Error: no such id.','Count: 1','(8, eight)','Executed.'])
++        self.assertEqual((self.path/'data.db').read_bytes(),before)
++        self.assertFalse((self.path/'data.db.tmp').exists())
++
++    def test_delete_malformed_arguments(self):
++        self.run_db('insert 0 zero\n')
++        before=(self.path/'data.db').read_bytes()
++        invalid=['delete','delete -1','delete +0','delete 4294967296',
++                 'delete 1x','delete 0 extra','delete 0 extra more',
++                 'delete '+'9'*40,'delete 0.0']
++        result=self.run_db('\n'.join(invalid)+'\ncount\nselect\n.help\n')
++        self.assertEqual(result.returncode,0)
++        self.assertEqual(result.stdout.splitlines()[:len(invalid)],
++                         ['Error: invalid statement.']*len(invalid))
++        self.assertEqual(result.stdout.splitlines()[len(invalid):len(invalid)+3],
++                         ['Count: 1','(0, zero)','Executed.'])
++        self.assertIn('delete <uint32 id>',result.stdout)
++        self.assertEqual((self.path/'data.db').read_bytes(),before)
++
++    def test_delete_persistence_failure_preserves_memory_and_disk(self):
++        self.run_db('insert 0 zero\ninsert 9 nine\ninsert 3 three\n')
++        before=(self.path/'data.db').read_bytes()
++        (self.path/'data.db.tmp').mkdir()
++        result=self.run_db('delete 9\ncount\nselect\ndelete 99\n.exit\n')
++        self.assertEqual(result.returncode,0)
++        self.assertEqual(result.stdout.splitlines(),[
++            'Error: persistence failed.','Count: 3','(0, zero)',
++            '(9, nine)','(3, three)','Executed.','Error: no such id.'])
++        self.assertEqual((self.path/'data.db').read_bytes(),before)
++        (self.path/'data.db.tmp').rmdir()
++        result=self.run_db('count\nselect\ndelete 9\ncount\nselect\n')
++        self.assertEqual(result.returncode,0)
++        self.assertEqual(result.stdout.splitlines(),[
++            'Count: 3','(0, zero)','(9, nine)','(3, three)','Executed.',
++            'Executed.','Count: 2','(0, zero)','(3, three)','Executed.'])
++
+ if __name__=='__main__':
+     unittest.main(verbosity=2)

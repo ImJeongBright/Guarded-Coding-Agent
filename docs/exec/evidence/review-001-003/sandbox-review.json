@@ -1,0 +1,130 @@
+{
+  "sensitive_.env": {
+    "filesystem": "DENY",
+    "shell": {
+      "decision": "ALLOW",
+      "matched_rule": "SH-PROFILE",
+      "executed": true,
+      "exit_code": 1,
+      "stdout": "",
+      "stderr": "Traceback (most recent call last):\n  File \"$FIXTURE/workspace/test_probe.py\", line 2, in <module>\n    print(Path('.env').read_text())\n          ^^^^^^^^^^^^^^^^^^^^^^^^\n  File \"/Library/Frameworks/Python.framework/Versions/3.12/lib/python3.12/pathlib.py\", line 1027, in read_text\n    with self.open(mode='r', encoding=encoding, errors=errors) as f:\n         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n  File \"/Library/Frameworks/Python.framework/Versions/3.12/lib/python3.12/pathlib.py\", line 1013, in open\n    return io.open(self, mode, buffering, encoding, errors, newline)\n           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\nPermissionError: [Errno 1] Operation not permitted: '.env'\n",
+      "timed_out": false
+    }
+  },
+  "sensitive_.ENV": {
+    "filesystem": "DENY",
+    "shell": {
+      "decision": "ALLOW",
+      "matched_rule": "SH-PROFILE",
+      "executed": true,
+      "exit_code": 1,
+      "stdout": "",
+      "stderr": "Traceback (most recent call last):\n  File \"$FIXTURE/workspace/test_probe.py\", line 2, in <module>\n    print(Path('.ENV').read_text())\n          ^^^^^^^^^^^^^^^^^^^^^^^^\n  File \"/Library/Frameworks/Python.framework/Versions/3.12/lib/python3.12/pathlib.py\", line 1027, in read_text\n    with self.open(mode='r', encoding=encoding, errors=errors) as f:\n         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n  File \"/Library/Frameworks/Python.framework/Versions/3.12/lib/python3.12/pathlib.py\", line 1013, in open\n    return io.open(self, mode, buffering, encoding, errors, newline)\n           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\nPermissionError: [Errno 1] Operation not permitted: '.ENV'\n",
+      "timed_out": false
+    }
+  },
+  "sensitive_credentials.JSON": {
+    "filesystem": "DENY",
+    "shell": {
+      "decision": "ALLOW",
+      "matched_rule": "SH-PROFILE",
+      "executed": true,
+      "exit_code": 1,
+      "stdout": "",
+      "stderr": "Traceback (most recent call last):\n  File \"$FIXTURE/workspace/test_probe.py\", line 2, in <module>\n    print(Path('credentials.JSON').read_text())\n          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n  File \"/Library/Frameworks/Python.framework/Versions/3.12/lib/python3.12/pathlib.py\", line 1027, in read_text\n    with self.open(mode='r', encoding=encoding, errors=errors) as f:\n         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n  File \"/Library/Frameworks/Python.framework/Versions/3.12/lib/python3.12/pathlib.py\", line 1013, in open\n    return io.open(self, mode, buffering, encoding, errors, newline)\n           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\nPermissionError: [Errno 1] Operation not permitted: 'credentials.JSON'\n",
+      "timed_out": false
+    }
+  },
+  "sensitive_CREDENTIALS.json": {
+    "filesystem": "DENY",
+    "shell": {
+      "decision": "ALLOW",
+      "matched_rule": "SH-PROFILE",
+      "executed": true,
+      "exit_code": 1,
+      "stdout": "",
+      "stderr": "Traceback (most recent call last):\n  File \"$FIXTURE/workspace/test_probe.py\", line 2, in <module>\n    print(Path('CREDENTIALS.json').read_text())\n          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n  File \"/Library/Frameworks/Python.framework/Versions/3.12/lib/python3.12/pathlib.py\", line 1027, in read_text\n    with self.open(mode='r', encoding=encoding, errors=errors) as f:\n         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n  File \"/Library/Frameworks/Python.framework/Versions/3.12/lib/python3.12/pathlib.py\", line 1013, in open\n    return io.open(self, mode, buffering, encoding, errors, newline)\n           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\nPermissionError: [Errno 1] Operation not permitted: 'CREDENTIALS.json'\n",
+      "timed_out": false
+    }
+  },
+  "sensitive_tls.KEY": {
+    "filesystem": "DENY",
+    "shell": {
+      "decision": "ALLOW",
+      "matched_rule": "SH-PROFILE",
+      "executed": true,
+      "exit_code": 1,
+      "stdout": "",
+      "stderr": "Traceback (most recent call last):\n  File \"$FIXTURE/workspace/test_probe.py\", line 2, in <module>\n    print(Path('tls.KEY').read_text())\n          ^^^^^^^^^^^^^^^^^^^^^^^^^^^\n  File \"/Library/Frameworks/Python.framework/Versions/3.12/lib/python3.12/pathlib.py\", line 1027, in read_text\n    with self.open(mode='r', encoding=encoding, errors=errors) as f:\n         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n  File \"/Library/Frameworks/Python.framework/Versions/3.12/lib/python3.12/pathlib.py\", line 1013, in open\n    return io.open(self, mode, buffering, encoding, errors, newline)\n           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\nPermissionError: [Errno 1] Operation not permitted: 'tls.KEY'\n",
+      "timed_out": false
+    }
+  },
+  "protected_.codex": {
+    "filesystem": "DENY",
+    "shell": {
+      "decision": "ALLOW",
+      "matched_rule": "SH-PROFILE",
+      "executed": true,
+      "exit_code": 1,
+      "stdout": "",
+      "stderr": "Traceback (most recent call last):\n  File \"$FIXTURE/workspace/test_probe.py\", line 2, in <module>\n    print(Path('.codex',\"marker\").read_text())\n          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n  File \"/Library/Frameworks/Python.framework/Versions/3.12/lib/python3.12/pathlib.py\", line 1027, in read_text\n    with self.open(mode='r', encoding=encoding, errors=errors) as f:\n         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n  File \"/Library/Frameworks/Python.framework/Versions/3.12/lib/python3.12/pathlib.py\", line 1013, in open\n    return io.open(self, mode, buffering, encoding, errors, newline)\n           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\nPermissionError: [Errno 1] Operation not permitted: '.codex/marker'\n",
+      "timed_out": false
+    }
+  },
+  "protected_.CODEX": {
+    "filesystem": "DENY",
+    "shell": {
+      "decision": "ALLOW",
+      "matched_rule": "SH-PROFILE",
+      "executed": true,
+      "exit_code": 1,
+      "stdout": "",
+      "stderr": "Traceback (most recent call last):\n  File \"$FIXTURE/workspace/test_probe.py\", line 2, in <module>\n    print(Path('.CODEX',\"marker\").read_text())\n          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n  File \"/Library/Frameworks/Python.framework/Versions/3.12/lib/python3.12/pathlib.py\", line 1027, in read_text\n    with self.open(mode='r', encoding=encoding, errors=errors) as f:\n         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n  File \"/Library/Frameworks/Python.framework/Versions/3.12/lib/python3.12/pathlib.py\", line 1013, in open\n    return io.open(self, mode, buffering, encoding, errors, newline)\n           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\nPermissionError: [Errno 1] Operation not permitted: '.CODEX/marker'\n",
+      "timed_out": false
+    }
+  },
+  "protected_.agents": {
+    "filesystem": "DENY",
+    "shell": {
+      "decision": "ALLOW",
+      "matched_rule": "SH-PROFILE",
+      "executed": true,
+      "exit_code": 1,
+      "stdout": "",
+      "stderr": "Traceback (most recent call last):\n  File \"$FIXTURE/workspace/test_probe.py\", line 2, in <module>\n    print(Path('.agents',\"marker\").read_text())\n          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n  File \"/Library/Frameworks/Python.framework/Versions/3.12/lib/python3.12/pathlib.py\", line 1027, in read_text\n    with self.open(mode='r', encoding=encoding, errors=errors) as f:\n         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n  File \"/Library/Frameworks/Python.framework/Versions/3.12/lib/python3.12/pathlib.py\", line 1013, in open\n    return io.open(self, mode, buffering, encoding, errors, newline)\n           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\nPermissionError: [Errno 1] Operation not permitted: '.agents/marker'\n",
+      "timed_out": false
+    }
+  },
+  "protected_.AGENTS": {
+    "filesystem": "DENY",
+    "shell": {
+      "decision": "ALLOW",
+      "matched_rule": "SH-PROFILE",
+      "executed": true,
+      "exit_code": 1,
+      "stdout": "",
+      "stderr": "Traceback (most recent call last):\n  File \"$FIXTURE/workspace/test_probe.py\", line 2, in <module>\n    print(Path('.AGENTS',\"marker\").read_text())\n          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n  File \"/Library/Frameworks/Python.framework/Versions/3.12/lib/python3.12/pathlib.py\", line 1027, in read_text\n    with self.open(mode='r', encoding=encoding, errors=errors) as f:\n         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n  File \"/Library/Frameworks/Python.framework/Versions/3.12/lib/python3.12/pathlib.py\", line 1013, in open\n    return io.open(self, mode, buffering, encoding, errors, newline)\n           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\nPermissionError: [Errno 1] Operation not permitted: '.AGENTS/marker'\n",
+      "timed_out": false
+    }
+  },
+  "signal_outside_group": {
+    "decision": "ALLOW",
+    "matched_rule": "SH-PROFILE",
+    "executed": true,
+    "exit_code": 1,
+    "stdout": "",
+    "stderr": "Traceback (most recent call last):\n  File \"$FIXTURE/workspace/test_probe.py\", line 2, in <module>\n    os.kill(26516, signal.SIGTERM)\nPermissionError: [Errno 1] Operation not permitted\n",
+    "timed_out": false,
+    "victim_exit_code": null
+  },
+  "detached_child": {
+    "decision": "ALLOW",
+    "matched_rule": "SH-PROFILE",
+    "executed": true,
+    "exit_code": 0,
+    "stdout": "26519\n",
+    "stderr": "",
+    "timed_out": false,
+    "late_marker": false
+  }
+}

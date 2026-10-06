@@ -1,0 +1,36 @@
+{
+  "date": "2026-10-04T14:34:30.152151+00:00",
+  "policy_version": "001",
+  "python": "3.12.1",
+  "platform": "macOS-15.7.8-arm64-arm-64bit",
+  "base_commit": "b93ba56",
+  "working_tree": "uncommitted MVP implementation",
+  "tests": 156,
+  "failures": [
+    "test_hardening.HardeningTests.test_local_remote_replacement_invalidates_approval",
+    "test_review_git_fixes.ReviewGitFixTests.test_literal_wildcard_and_magic_filenames_stage_only_the_named_file",
+    "test_review_lifecycle_fixes.ReviewLifecycleFixTests.test_detached_child_timeout_is_terminated",
+    "test_review_verifier_fixes.SessionEvidenceTests.test_committed_deletion_and_staged_diff_use_their_historical_audit",
+    "test_review_verifier_fixes.SessionEvidenceTests.test_failed_or_unfinished_model_turn_rejects_valid_commit",
+    "test_review_verifier_fixes.SessionEvidenceTests.test_transport_failure_rejects_otherwise_valid_work",
+    "test_sandbox_edges.SandboxEdgeTests.test_runtime_symlink_escape_denied",
+    "test_shell_git.ShellGitTests.test_AP03_expired",
+    "test_shell_git.ShellGitTests.test_GT01_status_GT02_diff_GT03_commit",
+    "test_shell_git.ShellGitTests.test_GT04_AP01_exact_approval_push",
+    "test_shell_git.ShellGitTests.test_SH01_exact_profile_execution",
+    "test_shell_git.ShellGitTests.test_git_no_system_cache_or_attributes_diagnostics",
+    "test_workflow_003.ProfileTests.test_named_mode_and_literal_test_filter"
+  ],
+  "errors": [
+    "test_review_verifier_fixes.SessionEvidenceTests.test_different_arguments_cannot_borrow_an_audit_event",
+    "test_review_verifier_fixes.SessionEvidenceTests.test_dirty_start_cannot_attribute_existing_work_to_session",
+    "test_review_verifier_fixes.SessionEvidenceTests.test_events_or_audit_changed_after_capture_are_rejected",
+    "test_review_verifier_fixes.SessionEvidenceTests.test_real_002_independent_behavior_check_controls_final_success",
+    "test_review_verifier_fixes.SessionEvidenceTests.test_successful_old_guard_calls_cannot_be_replayed_in_later_session",
+    "test_shell_git.ShellGitTests.test_head_change_invalidates_approval",
+    "test_shell_git.ShellGitTests.test_profile_version_change_invalidates_approval"
+  ],
+  "skipped": [],
+  "passed": false,
+  "elapsed_seconds": 26.867
+}

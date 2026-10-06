@@ -1,0 +1,101 @@
+{
+  "date": "2026-10-06T09:27:12.730454+00:00",
+  "note": "Path-transformed review copies; original hashes retained. No historical 001-004 evidence changed.",
+  "files": {
+    "regression-unit.json": {
+      "source": "$TMP/guard-final-unit-current.json",
+      "source_sha256": "ac78cf351da391b2ba085501ff8506f796b838bde225ad3f10a50b7e46afd329",
+      "portable_sha256": "ac78cf351da391b2ba085501ff8506f796b838bde225ad3f10a50b7e46afd329"
+    },
+    "regression-unit.log": {
+      "source": "$TMP/guard-final-unit-current.log",
+      "source_sha256": "4cf7c01b75fa10f9a4ce69faa534b4a6ae5f59a289843c1c241b1dfbda945125",
+      "portable_sha256": "4cf7c01b75fa10f9a4ce69faa534b4a6ae5f59a289843c1c241b1dfbda945125"
+    },
+    "regression-adversarial.json": {
+      "source": "$TMP/guard-final-adversarial-current.json",
+      "source_sha256": "913e5933fcd3e8db7857d9822273dfdb65ad596dadec344c7f8244da0ac08e03",
+      "portable_sha256": "913e5933fcd3e8db7857d9822273dfdb65ad596dadec344c7f8244da0ac08e03"
+    },
+    "regression-adversarial.log": {
+      "source": "$TMP/guard-final-adversarial-current.log",
+      "source_sha256": "3ee9d11355ffb32088c034d3b05cbc76cffea2ae16a82bb6646ef51504085565",
+      "portable_sha256": "3ee9d11355ffb32088c034d3b05cbc76cffea2ae16a82bb6646ef51504085565"
+    },
+    "regression-lifecycle.json": {
+      "source": "$TMP/guard-final-lifecycle.json",
+      "source_sha256": "c17ca479ff1d123f4bc3bc14936074dd7ec020cb8291a880730143c9c9c9f070",
+      "portable_sha256": "c17ca479ff1d123f4bc3bc14936074dd7ec020cb8291a880730143c9c9c9f070"
+    },
+    "regression-lifecycle.log": {
+      "source": "$TMP/guard-final-lifecycle.log",
+      "source_sha256": "a8f8b34a4884c06c08e8e122ba4a11e4db468398f6e333f9699097a7043e2d9c",
+      "portable_sha256": "a8f8b34a4884c06c08e8e122ba4a11e4db468398f6e333f9699097a7043e2d9c"
+    },
+    "regression-scale.json": {
+      "source": "$TMP/guard-final-scale.json",
+      "source_sha256": "36ba2844b5391787569ed602430ee4d9158fc386db6c50826965c93695814dfb",
+      "portable_sha256": "36ba2844b5391787569ed602430ee4d9158fc386db6c50826965c93695814dfb"
+    },
+    "regression-scale.log": {
+      "source": "$TMP/guard-final-scale.log",
+      "source_sha256": "b31b6a16db4ade1a9386db7aeaa28a065595ae989a30996bab5e386ca4c6a24f",
+      "portable_sha256": "b31b6a16db4ade1a9386db7aeaa28a065595ae989a30996bab5e386ca4c6a24f"
+    },
+    "regression-full.json": {
+      "source": "$TMP/guard-final-full.json",
+      "source_sha256": "ca40c9bdb9ab42c54c0477b52337c7f3c9fb4d39ec28e4799647eea002f3120e",
+      "portable_sha256": "ca40c9bdb9ab42c54c0477b52337c7f3c9fb4d39ec28e4799647eea002f3120e"
+    },
+    "regression-full.log": {
+      "source": "$TMP/guard-final-full.log",
+      "source_sha256": "589d2f94b3e62a399f0a1bdfb046367cc939830fc218d8ff0c4b679943b3c6c4",
+      "portable_sha256": "589d2f94b3e62a399f0a1bdfb046367cc939830fc218d8ff0c4b679943b3c6c4"
+    },
+    "scale-recheck-serial.json": {
+      "source": "$TMP/guard-final-scale-recheck-serial/results.json",
+      "source_sha256": "cf72430685b60a71eac37d378f0cda06b9b8995d7611023cc2c96c9d19e154b2",
+      "portable_sha256": "cf72430685b60a71eac37d378f0cda06b9b8995d7611023cc2c96c9d19e154b2"
+    },
+    "scale-recheck-overlapping.json": {
+      "source": "$TMP/guard-final-scale-recheck/results.json",
+      "source_sha256": "4259ade672cbce73e258b4e57c0fdf2ab6c89182a31c36e75b82344b62b86b7d",
+      "portable_sha256": "4259ade672cbce73e258b4e57c0fdf2ab6c89182a31c36e75b82344b62b86b7d"
+    },
+    "scale-audit/M1.jsonl": {
+      "source": "$TMP/guard-final-scale-recheck-serial/M1/audit.jsonl",
+      "source_sha256": "23d08d351ecfd9fa6bcdbb37543d1c1c366e917d85b5d4fcc5113f97c3330cc8",
+      "portable_sha256": "23d08d351ecfd9fa6bcdbb37543d1c1c366e917d85b5d4fcc5113f97c3330cc8"
+    },
+    "scale-audit/M2.jsonl": {
+      "source": "$TMP/guard-final-scale-recheck-serial/M2/audit.jsonl",
+      "source_sha256": "08a892416c96427a3ea8f66340d8d9ee3d492a3a29930ab04935e5734e760b6d",
+      "portable_sha256": "08a892416c96427a3ea8f66340d8d9ee3d492a3a29930ab04935e5734e760b6d"
+    },
+    "cli-smoke-nested.json": {
+      "source": "$TMP/guard-final-cli-recovered-nested/results.json",
+      "source_sha256": "a8bbbad4a70745d6b219bb0dba374c9c467ad0f28f164328524acc2f31e3f45b",
+      "portable_sha256": "8d9647a3ec371c4d8f23baaf5cc828851cbe4b8103591c3387816728d7246414"
+    },
+    "cli-audit/nested.jsonl": {
+      "source": "$TMP/guard-final-cli-recovered-nested/state/audit.jsonl",
+      "source_sha256": "9eec9ef419e7db2a5f7166deb14e6ca8605cb69844a997d9c9072155d6a14080",
+      "portable_sha256": "9eec9ef419e7db2a5f7166deb14e6ca8605cb69844a997d9c9072155d6a14080"
+    },
+    "cli-smoke-host.json": {
+      "source": "$TMP/guard-final-cli-recovered-host/results.json",
+      "source_sha256": "86f1728f9181b925409715b15623531eb1835d54d0e41abcd0ea2e659616cd7f",
+      "portable_sha256": "5f2f774505438160b03f75400ce58dbfb0acdb77ccc97494df1b11abefdcece9"
+    },
+    "cli-audit/host.jsonl": {
+      "source": "$TMP/guard-final-cli-recovered-host/state/audit.jsonl",
+      "source_sha256": "4914b97e2fce230cdfefb5fd410715c6a90da030dd3025cd93aebe485807f59e",
+      "portable_sha256": "4914b97e2fce230cdfefb5fd410715c6a90da030dd3025cd93aebe485807f59e"
+    },
+    "runtime-focused.log": {
+      "source": "$TMP/guard-final-runtime.log",
+      "source_sha256": "1054949c66b51b34e9fa3096d54840366df862d6a62f443d54128ca23d329c80",
+      "portable_sha256": "1054949c66b51b34e9fa3096d54840366df862d6a62f443d54128ca23d329c80"
+    }
+  }
+}

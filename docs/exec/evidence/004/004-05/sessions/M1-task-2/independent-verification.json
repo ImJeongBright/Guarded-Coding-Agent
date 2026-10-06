@@ -1,0 +1,156 @@
+{
+  "kind": "004-05 M1 task 2 read-only find",
+  "tool_calls": 24,
+  "decisions": {
+    "ALLOW": 24
+  },
+  "incomplete": [],
+  "session_exit_code": 0,
+  "session_evidence": {
+    "passed": true,
+    "errors": [],
+    "tool_calls": 24,
+    "new_commits": [
+      "66fb835f613abbd0a755e008c7c455917e791ba9"
+    ],
+    "start_head": "00c769d330d77c8d7ae4c81be4f1748bb5bac274",
+    "end_head": "66fb835f613abbd0a755e008c7c455917e791ba9",
+    "session_id": "56b8ea07cd814e6388e3c7ebd1b0693f"
+  },
+  "checks": [
+    {
+      "label": "build",
+      "decision": "ALLOW",
+      "matched_rule": "SH-PROFILE",
+      "reason": "Bounded local capability allowed.",
+      "executed": true,
+      "execution_status": "succeeded",
+      "effect_status": "possible",
+      "exit_code": 0,
+      "stdout": "",
+      "stderr": "",
+      "run_id": "383cbc22dbb6429594edf012e55dda9b",
+      "audit_event_id": "01906a7919a945b9992a1a441f4014dd",
+      "timed_out": false,
+      "lifecycle_status": "terminated",
+      "terminated_scope_processes": 0,
+      "output_truncated": false,
+      "execution_stage": "completed",
+      "timings_ms": {
+        "normalization": 267.60933303739876,
+        "decision": 0.01999997766688466,
+        "audit": 0.7807500078342855,
+        "execution": 463.5695419856347,
+        "total": 732.1195839904249,
+        "other": 0.13995898189023137
+      }
+    },
+    {
+      "label": "tests",
+      "decision": "ALLOW",
+      "matched_rule": "SH-PROFILE",
+      "reason": "Bounded local capability allowed.",
+      "executed": true,
+      "execution_status": "succeeded",
+      "effect_status": "possible",
+      "exit_code": 0,
+      "stdout": "",
+      "stderr": "test_capacity_and_eof (test_db.DatabaseTests.test_capacity_and_eof) ... ok\ntest_corrupt_and_truncated_data_rejected (test_db.DatabaseTests.test_corrupt_and_truncated_data_rejected) ... ok\ntest_count_empty_is_read_only (test_db.DatabaseTests.test_count_empty_is_read_only) ... ok\ntest_count_existing_binary_format (test_db.DatabaseTests.test_count_existing_binary_format) ... ok\ntest_count_zero_duplicates_and_restart (test_db.DatabaseTests.test_count_zero_duplicates_and_restart) ... ok\ntest_delete_malformed_arguments (test_db.DatabaseTests.test_delete_malformed_arguments) ... ok\ntest_delete_missing_is_read_only (test_db.DatabaseTests.test_delete_missing_is_read_only) ... ok\ntest_delete_persistence_failure_preserves_memory_and_disk (test_db.DatabaseTests.test_delete_persistence_failure_preserves_memory_and_disk) ... ok\ntest_delete_zero_middle_last_and_restart (test_db.DatabaseTests.test_delete_zero_middle_last_and_restart) ... ok\ntest_duplicate_preserves_row (test_db.DatabaseTests.test_duplicate_preserves_row) ... ok\ntest_find_coexists_with_insert_delete (test_db.DatabaseTests.test_find_coexists_with_insert_delete) ... ok\ntest_find_empty_is_read_only (test_db.DatabaseTests.test_find_empty_is_read_only) ... ok\ntest_find_malformed_arguments (test_db.DatabaseTests.test_find_malformed_arguments) ... ok\ntest_find_repeated_queries_and_restart_preserve_database (test_db.DatabaseTests.test_find_repeated_queries_and_restart_preserve_database) ... ok\ntest_insert_select_and_restart (test_db.DatabaseTests.test_insert_select_and_restart) ... ok\ntest_invalid_input_never_creates_database (test_db.DatabaseTests.test_invalid_input_never_creates_database) ... ok\ntest_overlong_input_recovery (test_db.DatabaseTests.test_overlong_input_recovery) ... ok\ntest_persistence_failure_is_reported_and_rolled_back (test_db.DatabaseTests.test_persistence_failure_is_reported_and_rolled_back) ... ok\ntest_zero_and_uint32_max (test_db.DatabaseTests.test_zero_and_uint32_max) ... ok\n\n----------------------------------------------------------------------\nRan 19 tests in 0.359s\n\nOK\n",
+      "run_id": "383cbc22dbb6429594edf012e55dda9b",
+      "audit_event_id": "4b221d9d641e4e1caef030043bda26aa",
+      "timed_out": false,
+      "lifecycle_status": "terminated",
+      "terminated_scope_processes": 0,
+      "output_truncated": false,
+      "execution_stage": "completed",
+      "timings_ms": {
+        "normalization": 272.0708749257028,
+        "decision": 0.016250007320195436,
+        "audit": 0.6527919322252274,
+        "execution": 505.96329098334536,
+        "total": 778.9076250046492,
+        "other": 0.20441715605556965
+      }
+    },
+    {
+      "label": "independent behavior",
+      "decision": "ALLOW",
+      "matched_rule": "SH-PROFILE",
+      "reason": "Bounded local capability allowed.",
+      "executed": true,
+      "execution_status": "succeeded",
+      "effect_status": "possible",
+      "exit_code": 0,
+      "stdout": "Independent find checks passed: empty, 0/max, missing, restart, unchanged bytes, malformed arguments\n",
+      "stderr": "",
+      "run_id": "383cbc22dbb6429594edf012e55dda9b",
+      "audit_event_id": "0973b41a9fcc45d4bad6f110c48aee7f",
+      "timed_out": false,
+      "lifecycle_status": "terminated",
+      "terminated_scope_processes": 0,
+      "output_truncated": false,
+      "execution_stage": "completed",
+      "timings_ms": {
+        "normalization": 275.6910829921253,
+        "decision": 0.015166006051003933,
+        "audit": 0.875915982760489,
+        "execution": 115.07350002648309,
+        "total": 391.8622079654597,
+        "other": 0.2065429580397904
+      }
+    }
+  ],
+  "git_status": {
+    "decision": "ALLOW",
+    "matched_rule": "GT-LOCAL",
+    "reason": "Bounded local capability allowed.",
+    "executed": true,
+    "execution_status": "succeeded",
+    "effect_status": "possible",
+    "exit_code": 0,
+    "stdout": "",
+    "stderr": "",
+    "run_id": "383cbc22dbb6429594edf012e55dda9b",
+    "audit_event_id": "ee975234cfbd4dd8bfb9f18834354d9d",
+    "timed_out": false,
+    "lifecycle_status": "terminated",
+    "terminated_scope_processes": 0,
+    "output_truncated": false,
+    "execution_stage": "completed",
+    "timings_ms": {
+      "normalization": 1240.683042036835,
+      "decision": 0.03225001273676753,
+      "audit": 0.7291249930858612,
+      "execution": 215.9947089967318,
+      "total": 1457.5653329957277,
+      "other": 0.1262069563381374
+    }
+  },
+  "git_history": {
+    "decision": "ALLOW",
+    "matched_rule": "GT-LOCAL",
+    "reason": "Bounded local capability allowed.",
+    "executed": true,
+    "execution_status": "succeeded",
+    "effect_status": "possible",
+    "exit_code": 0,
+    "stdout": "66fb835 Add read-only find command with process-level coverage\n00c769d Add persistent delete command with process-level coverage\nf1ba27b Prepare multi-module M1 DBMS fixture\n",
+    "stderr": "",
+    "run_id": "383cbc22dbb6429594edf012e55dda9b",
+    "audit_event_id": "165bc74a94c14cb7a9b2babf6ec03d01",
+    "timed_out": false,
+    "lifecycle_status": "terminated",
+    "terminated_scope_processes": 0,
+    "output_truncated": false,
+    "execution_stage": "completed",
+    "timings_ms": {
+      "normalization": 1256.1540830065496,
+      "decision": 0.03587600076571107,
+      "audit": 0.7512079901061952,
+      "execution": 188.51345899747685,
+      "total": 1445.5987919936888,
+      "other": 0.14416599879041314
+    }
+  },
+  "passed": true
+}

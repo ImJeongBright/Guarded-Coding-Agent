@@ -1,0 +1,38 @@
+{
+  "source": "Observed focused test outputs recorded during the 2026-10-03 execution; final suite on 2026-10-04.",
+  "refinements": [
+    {
+      "test": "tests.test_write_scope.CommandWriteScopeTests.test_write_scope_swap_after_validation_cannot_expand_sandbox",
+      "red_observation": {
+        "decision": "ALLOW",
+        "executed": true,
+        "exit_code": 0,
+        "outside_fixture_created": true
+      },
+      "fix": "Check write scope before execution and keep lexical canonical-workspace regex fixed instead of realpath-expanded target permissions.",
+      "green_observation": {
+        "decision": "DENY",
+        "executed": false,
+        "outside_fixture_created": false
+      }
+    },
+    {
+      "test": "tests.test_write_scope.CommandWriteScopeTests.test_unicode_and_space_write_scope",
+      "red_observation": {
+        "exit_code": 1,
+        "error": "PermissionError: Operation not permitted for 빌드 결과.txt"
+      },
+      "fix": "Use UTF-8 Seatbelt string paths instead of JSON Unicode escapes.",
+      "green_observation": {
+        "exit_code": 0,
+        "content": "ok"
+      }
+    },
+    {
+      "test": "tests.test_sandbox_edges.SandboxEdgeTests.test_system_volume_alias_outside_read_denied",
+      "initial_observation": "Already denied; the outside fake-data alias referred to the same inode.",
+      "change": "Reduce /System runtime read root to /System/Library; preventive hardening, not a reproduced bypass."
+    }
+  ],
+  "final_regression": "../regression-002-final.json"
+}
