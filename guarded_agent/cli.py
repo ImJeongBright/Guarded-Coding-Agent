@@ -85,7 +85,8 @@ def main():
         else:
             result=g.submit(data)
         print(json.dumps(result,ensure_ascii=False))
-        return 0 if result['decision']!='DENY' and result['exit_code'] in (None,0) else 1
+        return 0 if (result['decision']!='DENY' and result['exit_code'] in (None,0)
+                     and result.get('execution_status')!='failed' and not result.get('audit_error')) else 1
     except (ValueError,OSError,KeyError) as error:
         print(redact(str(error)),file=sys.stderr)
         return 2

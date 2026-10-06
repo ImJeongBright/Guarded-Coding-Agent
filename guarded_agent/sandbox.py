@@ -27,7 +27,16 @@ def profile(workspace, temp, executable, git=False, remote_path=None, network=Fa
         return '(subpath ' + json.dumps(str(Path(path).resolve()),ensure_ascii=False) + ')'
     runtime_roots=('/usr/bin','/usr/sbin','/usr/lib','/usr/libexec','/usr/share','/bin','/sbin',
                    '/System/Library','/Library/Frameworks','/Library/Developer','/opt/homebrew/Cellar',
-                   '/opt/homebrew/opt','/opt/homebrew/bin','/opt/homebrew/lib','/dev')
+                   '/opt/homebrew/opt','/opt/homebrew/bin','/opt/homebrew/lib','/dev',
+                   str(Path(sys.base_prefix).resolve()))
+    # The trusted controller Python may live in a hosted runner tool cache.
+    # A reviewed Apple compiler/Git may use the selected Xcode application's
+    # SDK and toolchain instead of /Library/Developer/CommandLineTools.
+    for ancestor in Path(executable).parents:
+        if (ancestor.name=='Developer' and ancestor.parent.name=='Contents'
+                and ancestor.parent.parent.suffix=='.app' and str(ancestor).startswith('/Applications/')):
+            runtime_roots += (str(ancestor),)
+            break
     read = [sub(p) for p in runtime_roots if Path(p).exists()]
     # dyld requires read access to the root directory itself, not its descendants.
     read += ['(literal "/")', sub(workspace), sub(temp), '(literal '+json.dumps(executable,ensure_ascii=False)+')']

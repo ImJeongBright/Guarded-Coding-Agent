@@ -90,7 +90,7 @@ class Server:
                 return error(-32602,'Invalid approval identifier')
             outcome=self.gateway.submit({'tool':TOOLS[name],**arguments},approval_id=approval_id)
             result={'content':[{'type':'text','text':json.dumps(outcome,ensure_ascii=False)}],
-                    'structuredContent':outcome,'isError':outcome['decision']=='DENY' or outcome['exit_code'] not in (None,0) or outcome.get('execution_status')=='failed'}
+                    'structuredContent':outcome,'isError':outcome['decision']=='DENY' or outcome['exit_code'] not in (None,0) or outcome.get('execution_status')=='failed' or bool(outcome.get('audit_error'))}
         else:
             return error(-32601,'Method not found')
         return {'jsonrpc':'2.0','id':request_id,'result':result}

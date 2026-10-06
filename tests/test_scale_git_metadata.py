@@ -9,6 +9,7 @@ from unittest.mock import patch
 from guarded_agent.domain import MAX_GIT_METADATA_OUTPUT, MAX_OUTPUT
 from guarded_agent.filesystem import Blocked
 from guarded_agent.gateway import Gateway
+from guarded_agent.git import resolve_executable
 
 
 class GitMetadataScaleTests(unittest.TestCase):
@@ -19,7 +20,7 @@ class GitMetadataScaleTests(unittest.TestCase):
         self.addCleanup(self.temp.cleanup)
         self.base=Path(self.temp.name).resolve()
         self.work=self.base/'work'; self.work.mkdir()
-        self.git='/Library/Developer/CommandLineTools/usr/bin/git'
+        self.git=resolve_executable('/usr/bin/git')
         self.path='src/module_000/subsystem_000/shared_component_source_00000.c'
         (self.work/'src/module_000/subsystem_000').mkdir(parents=True)
         for index in range(self.FILE_COUNT):

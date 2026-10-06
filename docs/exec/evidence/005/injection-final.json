@@ -1,0 +1,98 @@
+{
+  "audit": {
+    "injection": "audit path replaced by directory after executor write",
+    "effect_bytes": "applied fixture",
+    "outcome": {
+      "decision": "ALLOW",
+      "matched_rule": "FS-LOCAL",
+      "reason": "Bounded local capability allowed.",
+      "executed": true,
+      "execution_status": "succeeded",
+      "effect_status": "applied",
+      "exit_code": 0,
+      "stdout": "Wrote file.",
+      "stderr": "",
+      "run_id": "a87049307f0347d0adedea123fb8f925",
+      "audit_event_id": "0b1763e91fd34c74a74deabc59481d4c",
+      "execution_stage": "write_completed",
+      "audit_error": "Execution finished but result audit could not be persisted.",
+      "timings_ms": {
+        "normalization": 0.44712499948218465,
+        "decision": 0.04395795986056328,
+        "audit": 0.3787079476751387,
+        "execution": 0.6497089634649456,
+        "total": 1.6377500141970813,
+        "other": 0.11825014371424913
+      }
+    },
+    "mcp_is_error": true,
+    "followup": {
+      "decision": "DENY",
+      "matched_rule": "AU-ERROR",
+      "reason": "A result audit was not persisted; inspect actual effects and repair audit storage before restarting the session.",
+      "executed": false,
+      "execution_status": "not_started",
+      "effect_status": "none",
+      "exit_code": null,
+      "stdout": "",
+      "stderr": "",
+      "run_id": "a87049307f0347d0adedea123fb8f925",
+      "audit_event_id": "7d6d27d4b52840f79de71882a6939c82",
+      "timings_ms": {
+        "normalization": 0.006208952981978655,
+        "decision": 0.0,
+        "audit": 0.1277500414289534,
+        "execution": 0.0,
+        "total": 0.1878330367617309,
+        "other": 0.053874042350798845
+      }
+    },
+    "followup_effect_exists": false,
+    "fresh_read": {
+      "decision": "ALLOW",
+      "matched_rule": "FS-LOCAL",
+      "reason": "Bounded local capability allowed.",
+      "executed": true,
+      "execution_status": "succeeded",
+      "effect_status": "none",
+      "exit_code": 0,
+      "stdout": "applied fixture",
+      "stderr": "",
+      "run_id": "dfe1615aadc147abbcda1542def6a8cb",
+      "audit_event_id": "bdb4124415b143dfa90f8c6819c7b755",
+      "sha256": "9ec97efb9a631539b5c4e470f7404a371a535e6bac186b86a5c2f07c09ab7a25",
+      "total_lines": 1,
+      "execution_stage": "completed",
+      "timings_ms": {
+        "normalization": 0.47854107106104493,
+        "decision": 0.04012399585917592,
+        "audit": 0.4272919613867998,
+        "execution": 0.335165997967124,
+        "total": 1.3882500352337956,
+        "other": 0.107127008959651
+      }
+    },
+    "audit_phases": [
+      "decision",
+      "decision",
+      "decision",
+      "result"
+    ]
+  },
+  "controller": {
+    "injection": "SIGKILL of controller after command ready handshake",
+    "controller_exit": -9,
+    "members_before_kill": 1,
+    "members_after_kill": 1,
+    "late_allowed_write": true,
+    "outside_write": false,
+    "outside_denial_observed": true,
+    "controller_result_bytes": 0,
+    "audit_phases": [
+      "decision"
+    ],
+    "automatic_scope_record": false,
+    "operator_terminated_processes": 1,
+    "operator_scope_empty": true
+  }
+}

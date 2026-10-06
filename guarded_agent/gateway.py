@@ -32,6 +32,7 @@ class Gateway:
         self.run_id = run_id or uuid.uuid4().hex
         self.actor = actor
         self.execution_block = None
+        self.audit_block = False
         # Protect the executing package; sibling example workspaces remain usable.
         source = Path(__file__).resolve().parent
         self.trusted = [self.state, source, source.parent/'scripts', source.parent/'pyproject.toml']
@@ -111,6 +112,8 @@ class Gateway:
         return adapter, action, verdict
 
     def _prepare(self, request):
+        if self.audit_block:
+            raise Blocked('AU-ERROR','A result audit was not persisted; inspect actual effects and repair audit storage before restarting the session.')
         if self.execution_block:
             raise Blocked('SH-LIFECYCLE','A previous command could not be contained; restart only after operator recovery. '+self.execution_block)
         if self.policy_path and digest(json.loads(self.policy_path.read_text())) != self.source_digest:
@@ -196,4 +199,5 @@ class Gateway:
             record({**event,'phase':'result','parent':event_id,'result':result,'timings_ms':dict(metrics)})
         except OSError:
             result['audit_error']='Execution finished but result audit could not be persisted.'
+            self.audit_block = True
         return redact(result)

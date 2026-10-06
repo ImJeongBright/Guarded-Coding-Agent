@@ -1,0 +1,59 @@
+name: Guard boundary regression
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  contracts:
+    name: Syntax and policy contracts
+    runs-on: macos-15
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v6
+        with:
+          persist-credentials: false
+      - uses: actions/setup-python@v6
+        with:
+          python-version: '3.12'
+      - name: Syntax / compile check
+        run: python3 -m compileall -q guarded_agent scripts tests examples
+      - name: Unit / policy regression
+        run: python3 scripts/check.py --group unit
+
+  execution:
+    name: Execution boundaries and full regression
+    runs-on: macos-15
+    timeout-minutes: 20
+    steps:
+      - uses: actions/checkout@v6
+        with:
+          persist-credentials: false
+      - uses: actions/setup-python@v6
+        with:
+          python-version: '3.12'
+      - uses: actions/setup-node@v6
+        with:
+          node-version: '22'
+      - name: Require the macOS execution backend
+        run: |
+          sw_vers
+          python3 --version
+          node --version
+          test -x /usr/bin/sandbox-exec
+          xcrun --find cc
+          xcrun --find git
+          xcrun --show-sdk-path
+      - name: Filesystem / Shell / Git adversarial regression
+        run: python3 scripts/check.py --group adversarial
+      - name: Approval / audit / lifecycle regression
+        run: python3 scripts/check.py --group lifecycle
+      - name: Scale-related regression
+        run: python3 scripts/check.py --group scale
+      - name: Full regression suite
+        run: python3 scripts/check.py --group full

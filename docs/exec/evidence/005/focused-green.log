@@ -1,0 +1,8 @@
+test_cli_returns_failure_when_effect_succeeds_but_result_audit_is_missing (test_final_failures.FinalFailureTests.test_cli_returns_failure_when_effect_succeeds_but_result_audit_is_missing) ... ok
+test_controller_sigkill_retains_scope_but_needs_operator_cleanup (test_final_failures.FinalFailureTests.test_controller_sigkill_retains_scope_but_needs_operator_cleanup) ... ok
+test_result_audit_failure_preserves_effect_and_requires_operator_restart (test_final_failures.FinalFailureTests.test_result_audit_failure_preserves_effect_and_requires_operator_restart) ... ok
+
+----------------------------------------------------------------------
+Ran 3 tests in 0.429s
+
+OK

@@ -53,6 +53,28 @@ class SandboxEdgeTests(unittest.TestCase):
         self.assertNotIn('private-value',result['stdout'])
         self.assertEqual(result['stdout'].strip(),'None\nNone')
 
+    def test_selected_python_runtime_is_read_only_and_keeps_secret_boundary(self):
+        from unittest.mock import patch
+        runtime=self.base/'controller-python'; runtime.mkdir()
+        (runtime/'library').write_text('trusted runtime fixture')
+        (runtime/'.env').write_text('private runtime fixture')
+        neighbor=self.base/'unrelated'; neighbor.write_text('outside fixture')
+        source=f'''from pathlib import Path
+print(Path({str(runtime/'library')!r}).read_text())
+for name, operation in [({str(runtime/'new-file')!r},'write'),
+                         ({str(runtime/'.env')!r},'read'), ({str(neighbor)!r},'read')]:
+ try:
+  p=Path(name)
+  p.write_text('bad') if operation=='write' else p.read_text()
+ except PermissionError: print('denied')
+ else: raise AssertionError('runtime scope expanded')
+'''
+        with patch('guarded_agent.sandbox.sys.base_prefix', str(runtime)):
+            result=self.run_source(source)
+        self.assertEqual(result['exit_code'],0,result)
+        self.assertEqual(result['stdout'],'trusted runtime fixture\ndenied\ndenied\ndenied\n')
+        self.assertFalse((runtime/'new-file').exists())
+
     def test_output_is_bounded(self):
         result=self.run_source('import sys; sys.stdout.write("x" * 100000)')
         self.assertEqual(result['exit_code'],0,result)
