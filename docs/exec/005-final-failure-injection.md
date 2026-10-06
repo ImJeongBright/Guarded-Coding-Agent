@@ -69,7 +69,9 @@ macOS 15.7.8 arm64, Python 3.12.1, 실행 코드 `0060a56`. 모든 성공 group�
 
 ## CI
 
-로컬에서 CI와 같은 group 명령이 모두 통과했다. GitHub Actions의 원격 결과는 PR의 실제 실행 상태와 별도로 확인한다. 현재 이 문서 작성 시점에는 원격 통과를 주장하지 않는다. Workflow는 `pull_request`, main push, 수동 실행을 trigger로 사용하므로 feature branch push만으로 실행되지 않는다.
+로컬에서 CI와 같은 group 명령이 모두 통과했다. 원격 PR/CI는 아직 실행하지 못했다. 복구 세션의 Git/gh 인증이 유효하지 않아 문서 commit push가 실패했고, 연결된 GitHub 도구의 tree 게시도 자동 승인 심사가 거절했다. 거절 사유는 해당 문서·audit/evidence payload를 이 저장소에 내보내는 사용자 권한이 명확하지 않다는 것이다. 로컬 커밋은 보존했고 원격 게시에는 사용자 승인이 필요하다.
+
+GitHub Actions의 원격 통과를 주장하지 않는다. Workflow는 `pull_request`, main push, 수동 실행을 trigger로 사용하므로 feature branch push만으로 실행되지 않는다.
 
 ## 자체 검토와 마감
 
