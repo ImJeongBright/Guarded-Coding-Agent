@@ -20,6 +20,18 @@ Dogfood 출력은 새 경로를 지정한다. 중첩 sandbox가 Seatbelt 적용�
 
 Workspace 준비, 프로필 발견·검토·등록, stdio MCP 연결과 승인은 [Local Usage](docs/10-local-usage.md)를 따른다. 전용 host profile은 Codex CLI **0.160.0**에서 검증했으며, 직접 실행 경로 차단과 host read-only 설정을 함께 요구한다.
 
+## Using Guard on Your Repository
+
+Guard를 설치한 뒤 대상 저장소와 별도 상태 디렉터리를 지정해 초기화한다. 기본 정책은 Shell 명령을 허용하지 않으므로, 필요한 명령의 argv·작업 디렉터리·쓰기 범위를 검토해 등록한 다음 coding agent에 stdio MCP로 연결한다.
+
+```sh
+python3 -m pip install -e /path/to/Guarded-Coding-Agent
+guard init --workspace /path/to/your-repo --state /path/to/guard-state
+guard discover --workspace /path/to/your-repo --state /path/to/guard-state
+```
+
+프로필 등록, MCP 설정, 승인 절차는 [Local Usage](docs/10-local-usage.md)에 있다. GitHub `main`의 branch protection은 `Syntax and policy contracts`와 `Execution boundaries and full regression`을 required status check로 요구한다.
+
 ## 검증 결과
 
 - 현재 실행 코드 `0060a56`: **전체 회귀 177개 통과**, 실패·오류·skip 0. [JSON](docs/exec/evidence/005/regression-full.json), [소스 해시 결합](docs/exec/evidence/005/source-binding.json).
@@ -29,6 +41,8 @@ Workspace 준비, 프로필 발견·검토·등록, stdio MCP 연결과 승인�
 - 마지막 실패 주입: 결과 audit 저장 실패 뒤 MCP/CLI가 성공으로 판정하던 결함을 수정했다. Controller SIGKILL 뒤 자식이 남는 한계는 재현해 기록했다. [005 실행 기록](docs/exec/005-final-failure-injection.md).
 
 ## Portfolio Highlights
+
+기능·검증 범위·포트폴리오 소개 문안은 [프로젝트 개요](docs/PROJECT-OVERVIEW.md)에 정리했다.
 
 - **권한과 판단 분리:** 구조화된 요청, deterministic policy, 실행 직전 재검증과 OS sandbox를 연결했다. [Gateway](guarded_agent/gateway.py), [Sandbox](guarded_agent/sandbox.py).
 - **정확한 승인:** workspace/run/actor/policy/remote/branch/HEAD/expiry에 결합한 일회용 grant와 replay·동시 consume 회귀를 구현했다. [Approval](guarded_agent/approval.py), [회귀](tests/test_hardening.py).

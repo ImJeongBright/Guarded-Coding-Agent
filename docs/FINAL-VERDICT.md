@@ -17,7 +17,7 @@
 | 7. 실제 coding-agent host 연결 | 검증한 profile에서 충족 | Codex CLI 0.160.0의 직접 도구·hook/MCP 장애를 실험했다. hook 단독 fail-open 때문에 native 도구 차단과 host read-only가 필수다. 현재 세션이나 다른 host의 routing을 소급 보호하지 않는다. [002](exec/002-live-dogfooding.md), [host 구현](../guarded_agent/host.py), [사용 안내](10-local-usage.md). |
 | 8. 정상 개발의 승인·차단 마찰 | scoped 통과 | 002 세 언어 task는 49개 호출에 승인·거부 0. 003 두 기존 프로젝트의 여섯 task는 110개 호출에 승인 0, 탐색 거부 1을 보완했다. 004 여섯 session은 153개 호출에 승인 0, 없는 파일 read 거부 1이다. [002](exec/002-live-dogfooding.md), [003](exec/003-real-project-usability.md), [004](exec/004-05-live-medium-scale.md). |
 | 9. M1/M2 규모와 Git 비용 | fixture 범위에서 통과 | 004의 M2 metadata 병목 수정 뒤 실제 모델 Git 호출은 약 1.0–1.3초였다. 005 단독 replay의 status 중앙값은 M1 960ms / M2 1,748ms, build와 22/33개 프로젝트 테스트가 통과했다. [004 측정](exec/004-05-live-medium-scale.md), [005 replay](exec/evidence/005/scale-recheck-serial.json). |
-| 10. 회귀 고정·증거·마감 | 로컬 검증 완료, CI 상태 별도 | macOS 두 job workflow를 추가하고 177개 full suite, red→green, CLI smoke, 소스 해시와 portable evidence를 보존했다. [Workflow](../.github/workflows/regression.yml), [005 및 CI 상태](exec/005-final-failure-injection.md#ci), [증거 목록](exec/evidence/005/README.md). |
+| 10. 회귀 고정·증거·마감 | 로컬·원격 CI 검증 완료 | macOS 두 job workflow를 추가하고 177개 full suite, red→green, CLI smoke, 소스 해시와 portable evidence를 보존했다. 2026-10-07 확인 시 최종 PR head `2b70c35`와 main merge `c64912a`의 두 job CI가 모두 성공했다. [Workflow](../.github/workflows/regression.yml), [005 및 CI 상태](exec/005-final-failure-injection.md#ci), [증거 목록](exec/evidence/005/README.md). |
 
 ## 실패 실험에서 남은 결론
 
