@@ -73,6 +73,8 @@ macOS 15.7.8 arm64, Python 3.12.1, 실행 코드 `0060a56`. 모든 성공 group�
 
 PR [#1](https://github.com/ImJeongBright/Guarded-Coding-Agent/pull/1)은 `8b432ef`에서 열었고, workflow run [37445603891](https://github.com/ImJeongBright/Guarded-Coding-Agent/actions/runs/37445603891)의 Syntax and policy contracts와 Execution boundaries and full regression이 모두 성공했다. Workflow는 `pull_request`, main push, 수동 실행을 trigger로 사용하므로 feature branch push만으로는 CI를 실행하지 않는다. 이 설명을 기록하는 후속 문서 commit은 PR의 새 head이므로 해당 head의 CI도 다시 확인한다.
 
+2026-10-07 확인: 최종 문서 commit `2b70c35`의 PR CI [37448267793](https://github.com/ImJeongBright/Guarded-Coding-Agent/actions/runs/37448267793)도 두 job 모두 성공했다. PR #1은 `main`에 merge commit `c64912a`로 병합됐으며, 해당 main push CI [37472368764](https://github.com/ImJeongBright/Guarded-Coding-Agent/actions/runs/37472368764)도 두 job 모두 성공했다. 현재 `main` branch protection은 두 job을 required status check로 지정한다.
+
 ## 자체 검토와 마감
 
 - 결과 audit 실패의 applied 효과·MCP 오류·CLI exit·Gateway 후속 차단이 서로 일치하는지 확인했다.
