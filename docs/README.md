@@ -8,7 +8,7 @@ Guarded Coding Agent는 코딩 에이전트에게 실제 개발 작업과 도구
 
 ## 문서 지도
 
-- [PROJECT-OVERVIEW.md](PROJECT-OVERVIEW.md): 기능, 검증 결과, 한계와 한·영 포트폴리오 소개 문안
+- [PROJECT-OVERVIEW.md](PROJECT-OVERVIEW.md): 기능, 검증 결과, 한계, 한·영 소개 문안, 포트폴리오·이력서용 bullet과 자소서 사례 초안
 - [FINAL-VERDICT.md](FINAL-VERDICT.md): 현재 열 가지 판정, 검증 범위, 실패 주입 한계와 핵심 개발 마감
 - [plans/005-finalization.md](plans/005-finalization.md): CI·실패 주입·증거·최종 문서 마감 계획
 - [exec/005-final-failure-injection.md](exec/005-final-failure-injection.md): 177개 회귀, audit 수정, controller SIGKILL, CLI·M1/M2 재측정 및 CI 상태

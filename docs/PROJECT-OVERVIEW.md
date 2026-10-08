@@ -51,6 +51,34 @@ GitHub `main`의 required checks는 이 프로젝트 저장소의 변경을 검�
 
 > Built a local macOS policy gateway for coding-agent tool calls. It validates normalized filesystem, shell, and Git requests before execution, applies repository and command-specific write boundaries, and binds remote-push approval to the exact repository state. I evaluated it with Codex CLI across C, Python, JavaScript, and medium-scale C repository tasks, and used failure injection plus 177 regression tests to verify the boundaries. I also reproduced and documented unresolved cases, including child processes that may outlive a force-killed controller.
 
+## 포트폴리오·이력서용 bullet
+
+- **실행 권한 분리:** 코딩 에이전트의 파일·명령·Git 요청을 실행 전에 검사하는 macOS 정책 gateway 설계·구현. 기본 차단 정책, 실행 직전 재검증, 명령별 쓰기 범위와 OS sandbox를 연결해 모델이 제안한 작업의 실행 범위를 제한. [Gateway](../guarded_agent/gateway.py), [Sandbox](../guarded_agent/sandbox.py)
+- **정확한 승인:** 원격 push 승인을 대상 저장소와 원격 목적지, branch·HEAD 등 실제 상태에 결합한 일회용 권한으로 구현. 만료·상태 변경·승인 재사용을 거부하고, 동시 요청에서도 한 번만 소비되는 동작을 회귀로 검증. [Approval](../guarded_agent/approval.py), [회귀](../tests/test_hardening.py)
+- **성능 개선:** Git 추적 파일 1만 개·ignored 파일 2만 5천 개의 합성 저장소에서 반복적인 경로 해석·파일 정보 조회가 병목임을 프로파일링으로 확인. 링크·민감 경로 검사를 유지하면서 004 전후 측정의 Guard `git status` 중앙값을 **3.90초에서 1.11초로 약 71.4% 단축**. [측정과 수정](exec/004-05-live-medium-scale.md#성능-문제와-수정), [회귀](../tests/test_scale_git_metadata.py)
+- **실패 대응:** 실제 파일 변경 뒤 감사 로그 저장이 실패해도 성공으로 반환되던 결함을 실패 주입으로 재현·수정. MCP 오류 응답, CLI 실패 코드, 동일 gateway의 후속 요청 차단을 적용하고 이미 발생한 변경과 기록 실패를 구분해 전달하도록 회귀로 고정. [실패 주입](exec/005-final-failure-injection.md#결과-audit-저장-실패), [회귀](../tests/test_final_failures.py)
+- **개발 흐름 검증:** Codex CLI를 연결한 중규모 C 개발 여섯 세션에서 도구 호출 **153회(허용 152·차단 1·승인 0)**를 기록하고 독립 동작 검증과 local commit까지 완료. 최종 코드의 **177개 회귀 테스트 통과** 결과를 소스 해시와 함께 보존하고 macOS CI에 연결. [개발 실험](exec/004-05-live-medium-scale.md), [최종 회귀와 CI](exec/005-final-failure-injection.md)
+
+성능 개선 수치는 004의 같은 M2 합성 fixture에서 최적화 전 실제 개발 호출 5회와 최적화 후 status 호출 6회의 중앙값을 비교한 결과다. 약 71.4%는 원본 중앙값 **3,897.409ms → 1,113.897ms**로 계산했다. Guard 내부 timing이며 모델 생성·MCP 왕복 시간은 포함하지 않는다. 별도 시점에 각 3회 실행한 005 재측정의 M2 중앙값은 **1.748초**로, 위 개선 수치와 구분한다. [004 원본 측정](exec/evidence/004/004-05/latency-M2.json), [최적화 후 측정](exec/evidence/004/004-05/post-optimization-benchmark.json), [005 재측정](exec/evidence/005/scale-recheck-serial.json)
+
+## 자소서 사례 초안
+
+### 성능 병목 해결
+
+Guarded Coding Agent를 실제 개발 흐름에 연결해 검증하던 중, Git 추적 파일 1만 개를 가진 합성 저장소에서 Git 요청마다 약 4초가 걸리는 문제를 발견했습니다. 명령 실행과 실행 전 검사에 걸리는 시간을 나누어 측정하고 프로파일링한 결과, 파일마다 경로를 반복해서 해석하고 파일 정보를 조회하는 과정이 병목이었습니다.
+
+Git metadata의 경로 형식을 엄격히 검사하도록 처리 방식을 바꾸고, 저장소의 링크 검사와 민감 경로 차단, 실행 직전 재검증은 유지했습니다. 같은 fixture에서 Guard `git status` 중앙값이 3.90초에서 1.11초로 약 71.4% 줄었고, 후속 Codex 개발 세션에서도 Git 요청이 약 1.0–1.3초에 완료되는 것을 확인했습니다. 잘못된 경로와 민감 파일, 검사 중 추가된 링크를 차단하는 회귀도 통과했습니다. 병목을 측정해 수정 범위를 정하고, 속도와 기존 차단 조건을 함께 검증했습니다.
+
+근거: [성능 분석과 수정 기록](exec/004-05-live-medium-scale.md#성능-문제와-수정), [최적화 후 실제 개발](exec/004-05-06-post-optimization.md), [안전성 회귀](../tests/test_scale_git_metadata.py)
+
+### 감사 기록 실패 대응
+
+Guarded Coding Agent의 파일 쓰기를 검증하면서 실행 결과를 감사 로그에 기록하는 단계에 실패를 주입했습니다. 파일은 이미 변경됐는데 감사 로그 저장이 실패해도 MCP와 CLI가 성공을 반환하는 결함을 재현했습니다. 감사 저장소를 복구한 뒤에는 같은 gateway가 다음 쓰기까지 허용했습니다.
+
+실제 파일 변경과 감사 기록의 저장 결과를 구분하고, 기록 실패를 MCP 오류 응답과 CLI 실패 코드로 전달하도록 수정했습니다. 같은 gateway의 후속 요청도 차단해 운영자가 실제 변경 내용과 기록 상태를 확인한 뒤 새 gateway를 시작하도록 했습니다. 이미 발생한 변경은 결과에 남겨 복구 판단에 필요한 정보를 보존했습니다. 수정 전 실패하던 회귀가 수정 후 통과했고, 최종 전체 회귀 177개도 통과했습니다. 파일 변경, 오류 응답, 후속 실행 여부를 함께 확인해 실패가 다음 작업에 미치는 영향까지 검증했습니다.
+
+근거: [실패 주입과 수정 기록](exec/005-final-failure-injection.md#결과-audit-저장-실패), [수정 전 실패](exec/evidence/005/focused-red.log), [수정 후 통과](exec/evidence/005/focused-green.log), [최종 회귀](exec/evidence/005/regression-full.json)
+
 ## 더 읽을 자료
 
 - [README](../README.md): 빠른 시작과 portfolio highlights

@@ -42,12 +42,12 @@ guard discover --workspace /path/to/your-repo --state /path/to/guard-state
 
 ## Portfolio Highlights
 
-기능·검증 범위·포트폴리오 소개 문안은 [프로젝트 개요](docs/PROJECT-OVERVIEW.md)에 정리했다.
+기능·검증 범위·소개 문안과 [포트폴리오·이력서용 bullet](docs/PROJECT-OVERVIEW.md#포트폴리오이력서용-bullet), [자소서 사례 초안](docs/PROJECT-OVERVIEW.md#자소서-사례-초안)은 프로젝트 개요에 정리했다.
 
-- **권한과 판단 분리:** 구조화된 요청, deterministic policy, 실행 직전 재검증과 OS sandbox를 연결했다. [Gateway](guarded_agent/gateway.py), [Sandbox](guarded_agent/sandbox.py).
-- **정확한 승인:** workspace/run/actor/policy/remote/branch/HEAD/expiry에 결합한 일회용 grant와 replay·동시 consume 회귀를 구현했다. [Approval](guarded_agent/approval.py), [회귀](tests/test_hardening.py).
-- **실패 실험으로 경계 보강:** hook 단독 fail-open, 쓰기 scope 경쟁, 감사 기록 손실을 재현하고 red→green 회귀를 남겼다. [002](docs/exec/002-live-dogfooding.md), [001–003 수정](docs/exec/fix-001-003.md), [005](docs/exec/005-final-failure-injection.md).
-- **성능과 안전성 함께 검증:** 10,000 tracked / 25,000 ignored fixture의 Git metadata 병목을 줄이면서 link·secret·불완전 state 차단을 유지했다. [구현과 측정](docs/exec/004-05-live-medium-scale.md), [회귀](tests/test_scale_git_metadata.py).
+- **실행 권한 분리:** Filesystem·Shell·Git 요청을 실행 전에 검사하는 macOS 정책 gateway를 구현했다. 기본 차단 정책, 실행 직전 재검증, OS sandbox로 실행 범위를 제한했다. [Gateway](guarded_agent/gateway.py), [Sandbox](guarded_agent/sandbox.py).
+- **원격 push의 일회성 승인:** 승인을 원격 대상과 실제 branch·HEAD 등 저장소 상태에 결합했다. 만료·상태 변경·재사용을 차단하고, 동시 요청에서도 승인이 한 번만 소비되도록 구현했다. [Approval](guarded_agent/approval.py), [회귀](tests/test_hardening.py).
+- **Git 지연 약 71.4% 감소:** 10,000 tracked / 25,000 ignored 합성 fixture에서 반복적인 경로 검사 병목을 찾아 개선했다. 링크·secret 검사를 유지하면서 004 전후 측정의 Guard `git status` 중앙값을 **3.90초 → 1.11초**로 줄였다. [구현과 측정](docs/exec/004-05-live-medium-scale.md), [회귀](tests/test_scale_git_metadata.py).
+- **감사 실패의 성공 오판 수정:** 파일 변경 뒤 감사 기록 저장이 실패해도 성공으로 반환하던 결함을 실패 주입으로 재현했다. MCP·CLI에 오류를 전달하고 같은 gateway의 후속 요청을 차단하도록 수정해 회귀로 고정했다. [실패 주입과 수정](docs/exec/005-final-failure-injection.md), [회귀](tests/test_final_failures.py).
 
 ## 현재 한계
 
